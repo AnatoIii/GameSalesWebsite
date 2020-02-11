@@ -16,12 +16,12 @@ export class LandingPageComponent implements OnInit {
 
   openDialogSignIn(): void {
     const dialogRef = this.dialog.open(SignInComponent, {
-      width: '400px'
+      width: '400px',
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result =>
       console.log(result));
-    console.log("opened");
   }
 
 }
