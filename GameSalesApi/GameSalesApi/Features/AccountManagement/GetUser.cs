@@ -1,4 +1,5 @@
 ﻿using Infrastructure.CommandBase;
+using Infrastructure.Result;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace GameSalesApi.Features.AccountManagement
     /// <summary>
     /// Model for get methods from <see cref="AccountController"/>
     /// </summary>
-    public class GetUser : IQuery<IEnumerable<User>>
+    public class GetUser : IQuery<Result<IEnumerable<User>>>
     {
         public int UsersMaxCount { get; set; }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Model;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,14 +36,18 @@ namespace GameSalesApi.Features.AccountManagement
             GetUser getUser = new GetUser();
 
             var handler = 
-                new ProfilerQueryDecorator<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>(
-                    new LoggerQueryDecorator<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>(
-                        new ValidationQueryDecorator<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>(
+                new ProfilerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
+                    new LoggerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
+                        new ValidationQueryDecorator<GetUser, Result<IEnumerable<User>>>(
                             new GetAllUsersByCountQueryHandler(
                                 _rDBContext.Set<User>())),
                         _rLogger));
 
-            return handler.Handle(getUser);
+            var res = handler.Handle(getUser);
+
+            if (res.Failure)
+                throw new Exception($"{nameof(getUser)} failed. Message: {res.Error}");
+            return res.Value;
         }
         
         // [DN] just an example of query pipeline
@@ -52,14 +57,18 @@ namespace GameSalesApi.Features.AccountManagement
             GetUser getUser = new GetUser() { UsersMaxCount = usersCount};
 
             var handler = 
-                new ProfilerQueryDecorator<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>(
-                    new LoggerQueryDecorator<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>(
-                        new ValidationQueryDecorator<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>(
+                new ProfilerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
+                    new LoggerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
+                        new ValidationQueryDecorator<GetUser, Result<IEnumerable<User>>>(
                             new GetAllUsersByCountQueryHandler(
                                 _rDBContext.Set<User>())),
                         _rLogger));
 
-            return handler.Handle(getUser);
+            var res = handler.Handle(getUser);
+
+            if (res.Failure)
+                throw new Exception($"{nameof(getUser)} failed. Message: {res.Error}");
+            return res.Value;
         }
 
         // [DN] just an example of command pipeline

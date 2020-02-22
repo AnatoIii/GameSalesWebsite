@@ -11,7 +11,7 @@ namespace GameSalesApi.Features.AccountManagement
     /// Query handler for get a certain amount of users from <see cref="GameSalesContext"/>
     /// </summary>
     public class GetAllUsersByCountQueryHandler
-        : QueryHandlerDecoratorBase<GetUser, IEnumerable<User>, Result<IEnumerable<User>>>
+        : QueryHandlerDecoratorBase<GetUser, Result<IEnumerable<User>>>
     {
         private readonly DbSet<User> _rUserSet;
 
@@ -29,25 +29,15 @@ namespace GameSalesApi.Features.AccountManagement
         /// Get a certain amount of users from <see cref="GameSalesContext"/>
         /// </summary>
         /// <param name="userQuery"><see cref="GetUser"/></param>
-        /// <returns><see cref="Result{IEnumerable{User}}"/></returns>
-        public override Result<IEnumerable<User>> Execute(GetUser userQuery)
-        {
-            return Result.Ok(Handle(userQuery));
-        }
-
-        /// <summary>
-        /// Get a certain amount of users from <see cref="GameSalesContext"/>
-        /// </summary>
-        /// <param name="userQuery"><see cref="GetUser"/></param>
         /// <returns><see cref="IEnumerable{User}"/></returns>
-        public override IEnumerable<User> Handle(GetUser userQuery)
+        public override Result<IEnumerable<User>> Handle(GetUser userQuery)
         {
             var usersCount = userQuery.UsersMaxCount;
             IEnumerable<User> result = _rUserSet.ToListAsync().Result;
             if (usersCount > 0)
-                return result.Take(usersCount);
+                result = result.Take(usersCount);
 
-            return result;
+            return Result.Ok(result);
         }
     }
 }

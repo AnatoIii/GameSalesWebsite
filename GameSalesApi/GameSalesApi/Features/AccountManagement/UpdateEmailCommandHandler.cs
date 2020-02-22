@@ -1,5 +1,4 @@
-﻿using Infrastructure.CommandBase;
-using Infrastructure.HandlerBase;
+﻿using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 using Microsoft.EntityFrameworkCore;
 using Model;
@@ -28,7 +27,7 @@ namespace GameSalesApi.Features.AccountManagement
         /// <summary>
         /// Update <see cref="User.Email"/> in <see cref="GameSalesContext"/>
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command"><see cref="UpdateUserEmail"/></param>
         public override void Execute(UpdateUserEmail command)
         {
             if (command.UserId != null)

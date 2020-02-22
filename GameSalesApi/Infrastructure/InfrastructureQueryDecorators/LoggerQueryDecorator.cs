@@ -9,21 +9,19 @@ namespace Infrastructure.InfrastructureQueryDecorators
     /// Query decorator for logging
     /// </summary>
     /// <typeparam name="TIn">TIn</typeparam>
-    /// <typeparam name="TOut">TOut, can be used like additional output type in <see cref="QueryHandlerDecoratorBase{TIn, TOut, TExecuteOut}.Handle(TIn)"</typeparam>
-    /// <typeparam name="TExecuteOut"><see cref="QueryHandlerDecoratorBase{TIn, TOut, TExecuteOut}.Execute(TIn)"/></typeparam>
-    public class LoggerQueryDecorator<TIn, TOut, TExecuteOut>
-        : QueryHandlerDecoratorBase<TIn, TOut, TExecuteOut>
+    /// <typeparam name="TOut">TOut, can be used like additional output type in <see cref="QueryHandlerDecoratorBase{TIn, TOut}.Handle(TIn)"</typeparam>
+    public class LoggerQueryDecorator<TIn, TOut>
+        : QueryHandlerDecoratorBase<TIn, TOut>
         where TIn : IQuery<TOut>
-        where TExecuteOut : class
     {
         private readonly ILogger _rLogger;
 
         /// <summary>
         /// Default ctor
         /// </summary>
-        /// <param name="decorated"><see cref="IQueryHandler{TIn, TOut, TExecute}"/> inner decorator</param>
+        /// <param name="decorated"><see cref="IQueryHandler{TIn, TOut}"/> inner decorator</param>
         /// <param name="logger"><see cref="ILogger"/> logger</param>
-        public LoggerQueryDecorator(IQueryHandler<TIn, TOut, TExecuteOut> decorated,
+        public LoggerQueryDecorator(IQueryHandler<TIn, TOut> decorated,
             ILogger logger)
             : base(decorated)
         {
@@ -31,28 +29,6 @@ namespace Infrastructure.InfrastructureQueryDecorators
                 throw new ArgumentNullException(nameof(decorated));
 
             _rLogger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-
-        /// <summary>
-        /// Perform logging for inner decorators
-        /// </summary>
-        /// <param name="query">TIn query</param>
-        public override TExecuteOut Execute(TIn query)
-        {
-            TExecuteOut output = default;
-
-            try
-            {
-                _rDecorated.Execute(query);
-                _rLogger.LogInformation(
-                    $"{_rDecorated.GetType()}: {query} => successfully");
-            }
-            catch (Exception e)
-            {
-                _rLogger.LogError($"Error ocurred: {query}, ex: {e.Message}");
-            }
-
-            return output;
         }
 
         /// <summary>

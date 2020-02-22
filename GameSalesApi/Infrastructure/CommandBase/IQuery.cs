@@ -14,16 +14,10 @@ namespace Infrastructure.CommandBase
     /// </summary>
     /// <typeparam name="TIn">TIn</typeparam>
     /// <typeparam name="TOut">TOut</typeparam>
-    public interface IQueryHandler<in TIn, out TOut, out TExecute>
+    public interface IQueryHandler<in TIn, out TOut>
         : IHandler<TIn, TOut>
         where TIn : IQuery<TOut>
-    {
-        /// <summary>
-        /// Query perfomer
-        /// </summary>
-        /// <param name="command">TIn command</param>
-        TExecute Execute(TIn query);
-    }
+    { }
 
     /// <summary>
     /// Base interface for query dispatcher
