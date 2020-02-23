@@ -1,8 +1,10 @@
-﻿using Infrastructure.HandlerBase;
+﻿using DataAccess;
+using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 using Microsoft.EntityFrameworkCore;
 using Model;
 using System;
+using System.Linq;
 
 namespace GameSalesApi.Features.AccountManagement
 {
@@ -13,6 +15,7 @@ namespace GameSalesApi.Features.AccountManagement
         : CommandHandlerDecoratorBase<UpdateUserEmail, Result>
     {
         private readonly DbSet<User> _rUserSet;
+        private readonly GameSalesContext _rDbContext;
 
         /// <summary>
         /// Default ctor
@@ -38,6 +41,16 @@ namespace GameSalesApi.Features.AccountManagement
 
             var user = _rUserSet.FindAsync(command.UserId).Result;
             user.Email = command.Email;
+
+            _rDbContext.ChangeTracker.Entries()
+                .Where(x => x.State == EntityState.Modified &&
+                            !typeof(User).IsAssignableFrom(x.Entity.GetType()))
+                .ToList()
+                .ForEach(entry => {
+                    entry.CurrentValues.SetValues(entry.OriginalValues);
+                });
+
+            _rDbContext.SaveChanges();
         }
 
         /// <summary>

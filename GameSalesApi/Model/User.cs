@@ -3,7 +3,7 @@ using System;
 
 namespace Model
 {
-    public class User : IHasDomainEvents<>
+    public class User //: IHasDomainEvents<>
     {
         public Guid Id { get; set; }
         public string Email { get; set; }

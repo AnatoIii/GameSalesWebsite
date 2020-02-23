@@ -38,15 +38,15 @@ namespace Infrastructure.InfrastructureCommandDecorators
         public override void Execute(TIn command)
         {
             _rDecorated.Execute(command);
-            _rDBContext.ChangeTracker
-                .Entries()
-                .Where(x => x is IHasDomainEvents<Task>)
-                .Select(x => ((IHasDomainEvents<Task>)x).GetDomainEvents())
-                .ToList()
-                .ForEach(x => _rDispatcher.Handle(x));
+            //_rDBContext.ChangeTracker
+            //    .Entries()
+            //    .Where(x => x is IHasDomainEvents<Task>)
+            //    .Select(x => ((IHasDomainEvents<Task>)x).GetDomainEvents())
+            //    .ToList()
+            //    .ForEach(x => _rDispatcher.Handle(x));
 
-            if (_rDBContext.SaveChanges() == 0)
-                throw new DbUpdateException("Save to DB");
+            //if (_rDBContext.SaveChanges() == 0)
+            //    throw new DbUpdateException("Save to DB");
         }
 
         /// <summary>
@@ -57,15 +57,15 @@ namespace Infrastructure.InfrastructureCommandDecorators
         public override TOut Handle(TIn input)
         {
             var res = _rDecorated.Handle(input);
-            _rDBContext.ChangeTracker
-                .Entries()
-                .Where(x => x is IHasDomainEvents<Task>)
-                .Select(x => ((IHasDomainEvents<Task>)x).GetDomainEvents())
-                .ToList()
-                .ForEach(x => _rDispatcher.Handle(x));
+            //_rDBContext.ChangeTracker
+            //    .Entries()
+            //    .Where(x => x is IHasDomainEvents<Task>)
+            //    .Select(x => ((IHasDomainEvents<Task>)x).GetDomainEvents())
+            //    .ToList()
+            //    .ForEach(x => _rDispatcher.Handle(x));
 
-            if (_rDBContext.SaveChanges() == 0)
-                throw new DbUpdateException("Save to DB");
+            //if (_rDBContext.SaveChanges() == 0)
+            //    throw new DbUpdateException("Save to DB");
 
             return res;
         }
