@@ -1,4 +1,5 @@
 ﻿using Infrastructure.CommandBase;
+using Model.Enums;
 using System;
 
 namespace Model
@@ -6,18 +7,15 @@ namespace Model
     public class User //: IHasDomainEvents<>
     {
         public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string NickName { get; set; }
-        public string City { get; set; }
-        public bool EmailConfirmed { get; set; }
-        public string SocialNetworksLink { get; set; }
-        public bool SocialNetworksLinkConfirmed { get; set; }
-        public Guid? PhotoId { get; set; }
-        public bool PhotoConfirmed { get; set; }
-        public bool Deleted { get; set; }
+        public string PasswordSalt { get; set; }
+        public bool NotificationViaEmail { get; set; }
+        public bool NotificationViaTelegram { get; set; }
+        public UserRole Role { get; set; }
+        public string PhotoLink { get; set; }
 
         public void GetDomainEvents()
         {
@@ -27,14 +25,15 @@ namespace Model
         public void UpdateUser(NewUser newUser)
         {
             Id = !string.IsNullOrEmpty(newUser.Id) ? Guid.Parse(newUser.Id) : Guid.Empty;
+            FirstName = newUser.FirstName;
+            LastName = newUser.LastName;
             Email = newUser.Email;
             PasswordHash = newUser.PasswordHash;
-            Name = newUser.Name;
-            Surname = newUser.Surname;
-            NickName = !string.IsNullOrEmpty(newUser.NickName) ? newUser.NickName : "id";
-            City = newUser.City;
-            SocialNetworksLink = newUser.SocialNetworksLink;
-            PhotoId = !string.IsNullOrEmpty(newUser.PhotoId) ? Guid.Parse(newUser.PhotoId) : (Guid?)null;
+            PasswordSalt = newUser.PasswordSalt;
+            NotificationViaEmail = newUser.NotificationViaEmail;
+            NotificationViaTelegram = newUser.NotificationViaTelegram;
+            Role = newUser.Role;
+            PhotoLink = !string.IsNullOrEmpty(newUser.PhotoLink) ? newUser.PhotoLink : null;
         }
     }
 }

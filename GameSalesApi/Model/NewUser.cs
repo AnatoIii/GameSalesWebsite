@@ -1,17 +1,18 @@
-﻿namespace Model
+﻿using Model.Enums;
+
+namespace Model
 {
     public class NewUser
     {
         public string Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string NickName { get; set; }
-        public string City { get; set; }
-        public string SocialNetworksLink { get; set; }
-        public string PhotoId { get; set; }
+        public string PasswordSalt { get; set; }
+        public bool NotificationViaEmail { get; set; }
+        public bool NotificationViaTelegram { get; set; }
+        public UserRole Role { get; set; }
         public string PhotoLink { get; set; }
-        public string Phone { get; set; }
     }
 }

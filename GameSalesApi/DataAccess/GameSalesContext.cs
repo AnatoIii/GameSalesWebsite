@@ -9,7 +9,10 @@ namespace DataAccess
     public class GameSalesContext : DbContext
     {
         // Common DbSets
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserTelegramData> UsersTelegramData { get; set; }
+        public DbSet<VerificationCode> VerificationCodes { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
         /// <summary>
         /// Default ctor
