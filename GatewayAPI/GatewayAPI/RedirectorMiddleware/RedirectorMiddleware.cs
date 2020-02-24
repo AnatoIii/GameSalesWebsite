@@ -21,12 +21,12 @@ namespace GatewayAPI.RedirectorMiddleware
             if (redirector.RouteExists(context.Request.Path))
             {
                 var result = await redirector.RedirectRequest(context.Request);
+                context.Response.StatusCode = (int)result.StatusCode;
+                context.Response.ContentLength = result.Content.Headers.ContentLength;
                 await context.Response.WriteAsync(await result.Content.ReadAsStringAsync());
                 return;
             }
             await next(context);
         }
-
-
     }
 }

@@ -8,6 +8,6 @@ namespace GatewayAPI.RedirectorMiddleware
     public class Route
     {
         public string TriggerRoute { get; set; }
-        public string URL{get; set;}
+        public string URL {get; set;}
     }
 }

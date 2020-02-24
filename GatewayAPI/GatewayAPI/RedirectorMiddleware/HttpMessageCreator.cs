@@ -16,6 +16,10 @@ namespace GatewayAPI.RedirectorMiddleware
             newPath += httpRequest.Path.ToString().Substring(route.Length + 1);
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(new HttpMethod(httpRequest.Method), newPath);
+            foreach(var header in httpRequest.Headers)
+            {
+                requestMessage.Headers.Add(header.Key, header.Value.ToArray());
+            }
             requestMessage.Headers.Add("GatewayHostKey", routesConfig.GatewayHostKey);
 
             return requestMessage;
