@@ -6,7 +6,7 @@ namespace Infrastructure.HandlerBase
     /// Command handler decorator base for all commands
     /// </summary>
     /// <typeparam name="TIn">TIn</typeparam>
-    /// <typeparam name="TOut">TOut, can be used like additional output type in <see cref="QueryHandlerDecoratorBase{TIn, TOut, TExecuteOut}.Handle(TIn)"</typeparam>
+    /// <typeparam name="TOut">TOut, can be used like additional output type in <see cref="QueryHandlerDecoratorBase{TIn, TOut}.Handle(TIn)"</typeparam>
     public abstract class CommandHandlerDecoratorBase<TIn, TOut>
         : ICommandHandler<TIn, TOut>
         where TIn : ICommand<TOut>

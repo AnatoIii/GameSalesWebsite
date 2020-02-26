@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Model;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace GameSalesApi.Features.AccountManagement
 {
@@ -47,6 +46,7 @@ namespace GameSalesApi.Features.AccountManagement
 
             if (res.Failure)
                 throw new Exception($"{nameof(getUser)} failed. Message: {res.Error}");
+
             return res.Value;
         }
         
@@ -68,6 +68,7 @@ namespace GameSalesApi.Features.AccountManagement
 
             if (res.Failure)
                 throw new Exception($"{nameof(getUser)} failed. Message: {res.Error}");
+
             return res.Value;
         }
 
