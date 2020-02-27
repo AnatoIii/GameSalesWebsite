@@ -11,8 +11,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GatewayAPI.RedirectorMiddleware
+namespace GameSalesApi.Middleware.RedirectorMiddleware
 {
+    /// <summary>
+    /// A service used by a RedirectorMiddleware that is used to redirect incoming requests
+    /// </summary>
     public class Redirector
     {
         static HttpClient httpClient = new HttpClient();
@@ -22,13 +25,21 @@ namespace GatewayAPI.RedirectorMiddleware
             configuration = options.Value;
             this.logger = logger;
         }
-        
+
+        /// <summary>
+        /// Helper function to check if such trigger route exists
+        /// </summary>
+        /// <param name="path">Request path</param>
         public bool RouteExists(PathString path)
         {
             var route = path.ToString().Split('/')[1];
             return configuration.Routes.Where(r => r.TriggerRoute == route).Any();
         }
 
+        /// <summary>
+        /// Creates and sends an internal request
+        /// </summary>
+        /// <param name="httpRequest">Incoming request</param>
         public async Task<HttpResponseMessage> RedirectRequest(HttpRequest httpRequest)
         {
             var newRequestMessage = HttpMessageCreator.PrepareRequestMessage(httpRequest, configuration);

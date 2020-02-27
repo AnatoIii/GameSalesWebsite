@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GatewayAPI.RedirectorMiddleware
+namespace GameSalesApi.Middleware.RedirectorMiddleware
 {
     public class RedirectorMiddleware
     {
