@@ -1,0 +1,11 @@
+{
+  "redirects": {
+    "Routes": [
+      {
+        "TriggerRoute": "steam",
+        "URL": "http://localhost:5556"
+      }
+    ],
+    "GatewayHostKey": "supermegasecretkey"
+  }
+}

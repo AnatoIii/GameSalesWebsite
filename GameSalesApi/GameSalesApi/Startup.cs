@@ -1,5 +1,6 @@
 using System.Text;
 using DependencyResolver;
+using GameSalesApi.Middleware.RedirectorMiddleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,9 @@ namespace GameSalesApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<RoutesConfig>(Configuration.GetSection("redirects"));
+            services.AddSingleton<Redirector>();
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
@@ -54,17 +58,10 @@ namespace GameSalesApi
                 };
             });
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
 
             services.AddMemoryCache();
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc();
             services.ConfigureDbConnection(Configuration.GetConnectionString("GameSalesApi"));
             services.ConfigureServices();
         }
@@ -83,9 +80,12 @@ namespace GameSalesApi
 
             app.UseCors("EnableCORS");
             app.UseAuthentication();
-            app.UseCookiePolicy();
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseRedirects();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
+
         }
     }
 }
