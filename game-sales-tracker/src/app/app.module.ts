@@ -12,13 +12,15 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SignInComponent } from './dialogs/sign-in/sign-in.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AuthModule } from './authorization-module/auth/auth.module';
+import { GameIntoComponent } from './authorization-module/game-into/game-into.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     LandingPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    GameIntoComponent
   ],
   imports: [
     AuthModule,

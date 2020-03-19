@@ -1,25 +1,31 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="onSubmit()">
+   <div class="wrapper">
+    <p class="title">Login</p>
 
-    <p>
-        <mat-form-field class="form__field">
-            <mat-label>Enter your email</mat-label>
-            <input matInput formControlName="email" placeholder="Your email" type="text" required>
-            <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
-                Email is required
-            </mat-error>
-        </mat-form-field>
-    </p>
+    <mat-form-field class="form__field">
+        <mat-label>Enter your email</mat-label>
+        <input matInput formControlName="email" placeholder="Your email" type="text" required>
+        <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
+            Email is required
+        </mat-error>
+    </mat-form-field>
 
-    <p>
-        <mat-form-field class="form__field">
-            <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="password" required>
-            <i matSuffix [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'" (click)="hidePass = !hidePass"></i>
-            <mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
-                Password is required
-            </mat-error>
-        </mat-form-field>
-    </p>
+    <mat-form-field class="form__field">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="password" required>
+        <i matSuffix [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'" (click)="hidePass = !hidePass"></i>
+        <mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+            Password is required
+        </mat-error>
+    </mat-form-field>
 
-    <button type="submit" [disabled]="loginForm.invalid">Submit</button>
+    <div class="login">
+        <a>Forgot password?</a>
+        <button type="submit" [disabled]="loginForm.invalid">Submit</button>
+    </div>
+    <div class="register">
+        <span>Still not a member?</span>
+        <button type="button">Register</button>
+    </div>
+   </div>
 </form>

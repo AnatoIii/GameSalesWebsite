@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GAMES } from '../../shared/data/games';
+import { Game } from '../../shared/data/game';
 
 @Component({
   selector: 'app-gallery',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
+
+  games: Game[] = GAMES;
 
   constructor() { }
 

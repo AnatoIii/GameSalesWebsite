@@ -1,0 +1,87 @@
+* :not(i) {
+  font-family: 'Baloo Chettan 2', cursive;
+}
+
+.wrapper {
+  width: 80%;
+  margin: auto;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+
+.title {
+  font-size: 25px;
+  align-self: flex-start;
+}
+
+mat-form-field {
+  width: 100%;
+  color: black;
+}
+
+::ng-deep input.mat-input-element {
+  background-color: #ffffff !important;
+  padding: 5px 0;
+  border-radius: 3px;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: #444A82 !important;
+}
+
+i {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-right: 5px;
+  color: #444A82;
+}
+
+mat-label {
+  font-size: 16px;
+  padding-top: -10px;
+}
+
+button {
+  background-color: #444A82;
+  width: 100px;
+  height: 40px;
+  color: white;
+  border: 0;
+  font-size: 16px;
+}
+
+button:hover:enabled {
+  transform: scale(1.05);
+  background-color: #6a70af;
+  cursor: pointer;
+}
+
+button:disabled {
+    background-color: #333336;
+}
+
+.login,
+.register {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.login {
+  border-bottom: 2px solid white;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
