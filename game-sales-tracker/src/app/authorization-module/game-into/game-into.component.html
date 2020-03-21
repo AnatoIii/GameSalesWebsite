@@ -1,1 +1,4 @@
-<p>{{ game.name }}</p>
+<div class="game" [ngStyle]="{ 'background-image': 'url(../../../assets/images/' + game.image + ')'}">
+    <p class="game__name">{{ game.name }}</p>
+    <!-- <img src="../../../assets/images/' + game.image" style="visibility: hidden;" /> -->
+</div>

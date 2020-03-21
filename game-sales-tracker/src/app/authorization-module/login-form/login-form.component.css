@@ -1,3 +1,11 @@
+.main {
+  display: flex;
+}
+
+.gallery {
+  width: 65%;
+}
+
 * :not(i) {
   font-family: 'Baloo Chettan 2', cursive;
 }
@@ -12,6 +20,8 @@ form {
   justify-content: center;
   flex-direction: column;
   color: white;
+  background: #0D0B1D;
+  width: 35%;
 }
 
 .title {

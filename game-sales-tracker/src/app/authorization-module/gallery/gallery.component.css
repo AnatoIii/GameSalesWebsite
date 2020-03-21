@@ -1,16 +1,11 @@
-.main {
-    display: flex;
-}
-
 .gallery {
-    background: #1E2230;
-    width: 65%;
-    height: 800px;
-    display: grid;
-    grid-auto-columns: 1fr;
-}
+  padding: 5px 10px;
+  background: #1E2230;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 33%);
+  grid-column-gap: 15px;
+  grid-row-gap: 10px;
+  height: 91vh;
+} 
 
-.auth {
-    background: #0D0B1D;
-    width: 35%;
-}

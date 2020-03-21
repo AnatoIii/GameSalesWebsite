@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { LoginFormComponent } from '../login-form/login-form.component';
 import { RegisterFormComponent } from '../register-form/register-form.component';
+import { GameIntoComponent } from '../game-into/game-into.component';
 
 const matModules = [
   MatButtonModule,
@@ -21,6 +22,7 @@ const matModules = [
     GalleryComponent,
     LoginFormComponent,
     RegisterFormComponent,
+    GameIntoComponent
   ],
   imports: [
     CommonModule,
