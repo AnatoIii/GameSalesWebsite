@@ -1,4 +1,6 @@
 using System.Text;
+using System.Threading.Tasks;
+using DataAccess;
 using DependencyResolver;
 using GameSalesApi.Middleware.RedirectorMiddleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,16 +30,17 @@ namespace GameSalesApi
         {
             services.AddOptions();
             services.Configure<RoutesConfig>(Configuration.GetSection("redirects"));
+            services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));
             services.AddSingleton<Redirector>();
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
                 });
             });
 
-            var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
+            var key = Encoding.UTF8.GetBytes(Configuration.GetSection("TokenConfig")["Secret"]);
 
             services.AddAuthentication(x =>
             {
@@ -49,20 +53,34 @@ namespace GameSalesApi
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = false,
+                    ValidateIssuer = true,
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
+                //options.Events = new JwtBearerEvents
+                //{
+                //    OnAuthenticationFailed = (context) =>
+                //    {
+                //        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                //        {
+                //            context.Response.Headers.Add("Expired", "true");
+                //        }
+                //        return Task.CompletedTask;
+                //    }
+                //};
             });
 
 
             services.AddMemoryCache();
 
             services.AddMvc();
-            services.ConfigureDbConnection(Configuration.GetConnectionString("GameSalesApi"));
+            services.AddEntityFrameworkNpgsql();
+            services.AddDbContext<GameSalesContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("GameSalesContext"));
+            });
             services.ConfigureServices();
         }
 
@@ -81,6 +99,8 @@ namespace GameSalesApi
             app.UseCors("EnableCORS");
             app.UseAuthentication();
             app.UseRedirects();
+            app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

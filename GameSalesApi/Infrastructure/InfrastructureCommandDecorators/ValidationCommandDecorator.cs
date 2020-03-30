@@ -42,10 +42,10 @@ namespace Infrastructure.InfrastructureCommandDecorators
         /// <returns>TOut</returns>
         public override TOut Handle(TIn input)
         {
-            if (!_CheckPermission(input))
-            {
-                throw new SecurityException();
-            }
+            //if (!_CheckPermission(input))
+            //{
+            //    throw new SecurityException();
+            //}
             return _rDecorated.Handle(input);
         }
 
