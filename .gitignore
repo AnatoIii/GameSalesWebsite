@@ -350,4 +350,3 @@ MigrationBackup/
 .ionide/
 
 package-lock.json
-Migrations

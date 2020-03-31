@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Infrastructure.CommandBase;
+using Infrastructure.Exceptions;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 using Microsoft.Extensions.Options;
@@ -13,43 +14,39 @@ namespace GameSalesApi.Features.Authorization
 {
     public class LoginCommandHandler : CommandHandlerDecoratorBase<LoginCommand, Result<TokenDTO>>
     {
-        private readonly GameSalesContext dbContext;
-        private TokenConfig tokenConfig;
-        public LoginCommandHandler(GameSalesContext dbContext, IOptions<TokenConfig> tokenConfig)
+        private readonly GameSalesContext _dbContext;
+        private readonly TokenCreator _tokenCreator;
+
+        public LoginCommandHandler(GameSalesContext dbContext, TokenCreator jwtCreator)
             : base(null)
         {
-            this.dbContext = dbContext;
-            this.tokenConfig = tokenConfig.Value;
+            _dbContext = dbContext;
+            _tokenCreator = jwtCreator;
         }
 
         public override void Execute(LoginCommand command)
         {
-            throw new NotImplementedException();
+            throw new InvalidHandlingException();
         }
 
         public override Result<TokenDTO> Handle(LoginCommand input)
         {
-            Result<TokenDTO> result;
-            var user = dbContext.Users.Where(u => u.Email == input.Email).FirstOrDefault();
+            var user = _dbContext.Users.Where(u => u.Email == input.Email).FirstOrDefault();
             if (user == null)
-            {
-                result = Result.Fail<TokenDTO>($"No such user, Email: {user.Email}");
-                return result;
-            }
+                return Result.Fail<TokenDTO>($"No such user, Email: {user.Email}");
             if (!PasswordHelpers.ValidatePassword(input.Password, user.PasswordSalt, user.PasswordHash))
-            {
-                result = Result.Fail<TokenDTO>("Invalid credentials");
-                return result;
-            }
+                return Result.Fail<TokenDTO>("Invalid credentials");
 
-            var token = TokenHelperFunctions.CreateJWT(user, tokenConfig);
-            string refreshToken = TokenHelperFunctions.GenerateRefreshToken();
-            var dbToken = new Token() { RefreshToken = refreshToken, UserId = user.Id, DueDate = DateTime.Now.AddMinutes(tokenConfig.RefreshTokenLifetime) };
+            var accessToken = _tokenCreator.CreateJWT(user);
+            var refreshToken = TokenCreator.GenerateRefreshToken();
+            var dbToken = new Token() { 
+                RefreshToken = refreshToken, 
+                UserId = user.Id, 
+                DueDate = DateTime.Now.AddMinutes(_tokenCreator.GetTokenConfig().RefreshTokenLifetime)
+            };
 
-            dbContext.Tokens.Add(dbToken);
-
-            result = Result.Ok<TokenDTO>(new TokenDTO() { AccessToken = token, RefreshToken = refreshToken });
-            return result;
+            _dbContext.Tokens.Add(dbToken);
+            return Result.Ok(new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshToken });
         }
     }
 }

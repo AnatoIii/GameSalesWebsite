@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Infrastructure.CommandBase;
+using Infrastructure.Exceptions;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 using Microsoft.Extensions.Options;
@@ -13,44 +14,42 @@ namespace GameSalesApi.Features.Authorization
 {
     public class RefreshTokenCommandHandler : CommandHandlerDecoratorBase<TokenDTO, Result<TokenDTO>>
     {
-        private readonly GameSalesContext dbContext;
-        private TokenConfig tokenConfig;
-        public RefreshTokenCommandHandler(GameSalesContext dbContext, IOptions<TokenConfig> tokenConfig) : base(null)
+        private readonly GameSalesContext _dbContext;
+        private readonly TokenCreator _tokenCreator;
+
+        public RefreshTokenCommandHandler(GameSalesContext dbContext, TokenCreator tokenCreator) : base(null)
         {
-            this.dbContext = dbContext;
-            this.tokenConfig = tokenConfig.Value;
+            _dbContext = dbContext;
+            _tokenCreator = tokenCreator;
         }
 
         public override void Execute(TokenDTO command)
         {
-            throw new NotImplementedException();
+            throw new InvalidHandlingException();
         }
 
-        public override Result<TokenDTO> Handle(TokenDTO input)
+        public override Result<TokenDTO> Handle(TokenDTO tokenDTO)
         {
-            Result<TokenDTO> result;
-            var userId = TokenHelperFunctions.GetUserId(input);
+            var userId = TokenCreator.GetUserId(tokenDTO);
             if (userId == null)
-            {
-                result = Result.Fail<TokenDTO>($"No such user, userId: {userId}");
-                return result;
-            }
+                return Result.Fail<TokenDTO>($"No such user, userId: {userId}");
 
-            var user = dbContext.Users.Where(u => u.Id == userId).FirstOrDefault();
-            var refreshToken = dbContext.Tokens.Where(t => t.UserId == userId).FirstOrDefault();
+            var user = _dbContext.Users.Where(u => u.Id == userId).FirstOrDefault();
+            var refreshToken = _dbContext.Tokens.Where(t => t.RefreshToken == tokenDTO.RefreshToken).FirstOrDefault();
             if(refreshToken == null)
-            {
-                result = Result.Fail<TokenDTO>($"No refresh token with such userId: {userId}");
-            }
+                return Result.Fail<TokenDTO>($"No refresh token with such value: {tokenDTO.RefreshToken}");
 
-            dbContext.Tokens.Remove(refreshToken);
-            var accessToken = TokenHelperFunctions.CreateJWT(user, tokenConfig);
-            string refreshTokenValue = TokenHelperFunctions.GenerateRefreshToken();
-            var dbToken = new Token() { RefreshToken = refreshTokenValue, UserId = user.Id, DueDate = DateTime.Now.AddMinutes(tokenConfig.RefreshTokenLifetime) };
-            dbContext.Tokens.Add(dbToken);
+            _dbContext.Tokens.Remove(refreshToken);
+            var accessToken = _tokenCreator.CreateJWT(user);
+            var refreshTokenValue = TokenCreator.GenerateRefreshToken();
 
-            result = Result.Ok<TokenDTO>(new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshTokenValue });
-            return result;
+            var dbToken = new Token() {
+                RefreshToken = refreshTokenValue,
+                UserId = user.Id,
+                DueDate = DateTime.Now.AddMinutes(_tokenCreator.GetTokenConfig().RefreshTokenLifetime)
+            };
+            _dbContext.Tokens.Add(dbToken);
+            return Result.Ok(new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshTokenValue });
         }
     }
 }
