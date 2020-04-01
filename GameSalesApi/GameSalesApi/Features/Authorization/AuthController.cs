@@ -38,16 +38,18 @@ namespace GameSalesApi.Features.Authorization
         {
             var builder = new CommandDecoratorBuilder<LoginCommand, Result<TokenDTO>>();
 
-            var handler = builder.Add<LoginCommandHandler>().AddParameter<GameSalesContext>(_dbContext)
-                                                            .AddParameter<TokenCreator>(_tokenCreator)
-                              .Add<ValidationCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                              .Add<LoggerCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                                                            .AddParameter<ILogger<AuthController>>(_logger)
-                              .Add<ProfilerCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                              .Add<SaveChangesCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                                                            .AddParameter<ICommandDispatcher>(null)
-                                                            .AddParameter<GameSalesContext>(_dbContext)
-                              .Build();
+            var handler = builder
+                .Add<LoginCommandHandler>()
+                    .AddParameter<GameSalesContext>(_dbContext)
+                    .AddParameter<TokenCreator>(_tokenCreator)
+                .Add<ValidationCommandDecorator<LoginCommand, Result<TokenDTO>>>()
+                .Add<LoggerCommandDecorator<LoginCommand, Result<TokenDTO>>>()
+                    .AddParameter<ILogger<AuthController>>(_logger)
+                .Add<ProfilerCommandDecorator<LoginCommand, Result<TokenDTO>>>()
+                .Add<SaveChangesCommandDecorator<LoginCommand, Result<TokenDTO>>>()
+                    .AddParameter<ICommandDispatcher>(null)
+                    .AddParameter<GameSalesContext>(_dbContext)
+                .Build();
 
             var result = handler.Handle(loginCommand);
             if (result.Failure)

@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace GameSalesApi.Features.Authorization
 {
+    /// <summary>
+    /// Command handler for refreshing user tokens
+    /// </summary>
     public class RefreshTokenCommandHandler : CommandHandlerDecoratorBase<TokenDTO, Result<TokenDTO>>
     {
         private readonly GameSalesContext _dbContext;
@@ -28,6 +31,10 @@ namespace GameSalesApi.Features.Authorization
             throw new InvalidHandlingException();
         }
 
+        /// <summary>
+        /// Handles revoking and generating tokens
+        /// </summary>
+        /// <param name="tokenDTO"><see cref="TokenDTO"/></param>
         public override Result<TokenDTO> Handle(TokenDTO tokenDTO)
         {
             var userId = TokenCreator.GetUserId(tokenDTO);

@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace GameSalesApi.Features.Authorization
 {
+    /// <summary>
+    /// Command handler for login operation
+    /// </summary>
     public class LoginCommandHandler : CommandHandlerDecoratorBase<LoginCommand, Result<TokenDTO>>
     {
         private readonly GameSalesContext _dbContext;
@@ -29,6 +32,9 @@ namespace GameSalesApi.Features.Authorization
             throw new InvalidHandlingException();
         }
 
+        /// <summary>
+        /// Handles authentication and token generation
+        /// </summary>
         public override Result<TokenDTO> Handle(LoginCommand input)
         {
             var user = _dbContext.Users.Where(u => u.Email == input.Email).FirstOrDefault();

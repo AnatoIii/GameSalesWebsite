@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace GameSalesApi.Features.Authorization
 {
+    /// <summary>
+    /// A service, responsible for managing token actions
+    /// </summary>
     public class TokenCreator
     {
         private readonly SigningCredentials _signingCredentials;
@@ -27,6 +30,9 @@ namespace GameSalesApi.Features.Authorization
             _tokenHandler = new JwtSecurityTokenHandler();
         }
 
+        /// <summary>
+        /// Creates a jwt access token for the given user
+        /// </summary>
         public string CreateJWT(User user)
         {
             var claims = new[]
@@ -46,11 +52,17 @@ namespace GameSalesApi.Features.Authorization
             return _tokenHandler.WriteToken(token);
         }
 
+        /// <summary>
+        /// Helper function for generating a refresh token
+        /// </summary>
         public static string GenerateRefreshToken()
         {
             return Guid.NewGuid().ToString();
         }
 
+        /// <summary>
+        /// Helper function for getting UserId from token
+        /// </summary>
         public static Guid GetUserId(TokenDTO tokenDTO)
         {
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
