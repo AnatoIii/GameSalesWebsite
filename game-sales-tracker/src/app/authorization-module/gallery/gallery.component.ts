@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GAMES } from '../../shared/data/games';
-import { Game } from '../../shared/data/game';
+import { Game } from '../../shared/models/game';
+import { GameService } from 'src/app/services/game.service';
+
 
 @Component({
   selector: 'app-gallery',
@@ -9,11 +10,15 @@ import { Game } from '../../shared/data/game';
 })
 export class GalleryComponent implements OnInit {
 
-  games: Game[] = GAMES;
+  games: Game[];
 
-  constructor() { }
+  constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
+    this.gameService.getGames().subscribe(
+      data => this.games = data,
+      error => console.log(error)
+    )
   }
 
 }

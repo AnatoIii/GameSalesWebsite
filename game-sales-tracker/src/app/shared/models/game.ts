@@ -4,4 +4,5 @@ export class Game {
     description: string;
     price: number;
     image: string;
+    date: string;
 }

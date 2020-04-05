@@ -1,5 +1,7 @@
 .main {
   display: flex;
+  width: 100%;
+  position: fixed; 
 }
 
 .gallery {
@@ -25,7 +27,7 @@ form {
 }
 
 .title {
-  font-size: 25px;
+  font-size: 28px;
   align-self: flex-start;
 }
 
@@ -36,7 +38,7 @@ mat-form-field {
 
 ::ng-deep input.mat-input-element {
   background-color: #ffffff !important;
-  padding: 5px 0;
+  padding: 7px 0;
   border-radius: 3px;
 }
 
@@ -52,18 +54,18 @@ i {
   position: absolute;
   bottom: 0;
   right: 0;
-  padding-right: 5px;
+  padding: 0 5px 5px 0;
   color: #444A82;
 }
 
 mat-label {
-  font-size: 16px;
-  padding-top: -10px;
+  font-size: 18px;
 }
 
 button {
   background-color: #444A82;
-  width: 100px;
+  border-radius: 3px;
+  width: 150px;
   height: 40px;
   color: white;
   border: 0;
@@ -77,7 +79,7 @@ button:hover:enabled {
 }
 
 button:disabled {
-    background-color: #333336;
+  background-color: #878aac;
 }
 
 .login,
@@ -85,6 +87,7 @@ button:disabled {
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
+  align-items: center;
 }
 
 .login {
@@ -92,6 +95,6 @@ button:disabled {
 }
 
 a:hover {
-    text-decoration: underline;
-    cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
