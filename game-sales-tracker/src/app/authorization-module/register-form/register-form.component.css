@@ -38,7 +38,7 @@ mat-form-field {
 
 ::ng-deep input.mat-input-element {
     background-color: #ffffff !important;
-    padding: 7px 0;
+    padding: 6px;
     border-radius: 3px;
 }
 
@@ -54,12 +54,13 @@ i {
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 0 5px 5px 0;
+    padding: 4px 8px;
     color: #444A82;
 }
 
 mat-label {
     font-size: 18px;
+    padding-left: 6px;
 }
 
 button {

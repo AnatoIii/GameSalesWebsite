@@ -1,6 +1,11 @@
-<div class="game" [ngStyle]="{ 'background-image': 'url(../../../assets/images/' + game.image + ')'}">
-
-<!-- <div class="game" [ngStyle]="{ 'background-image': 'url(game.image)'}"> -->
-    <p class="game__name">{{ game.name }}</p>
-    <!-- <img src="../../../assets/images/' + game.image" style="visibility: hidden;" /> -->
+<div class="game" [ngStyle]="{ 'background-image': 'url(../../../assets/images/' + game.image + ')'}"
+    (mouseenter)="blockOnHover=true" (mouseleave)="blockOnHover=false">
+    <div class="game__name" [@onHover]="blockOnHover ? 'hover' : 'initial'">{{ game.name }}
+        <div class="game__description" *ngIf="blockOnHover">
+            {{ game.description }}
+        </div>
+    </div>
+    <div class="game__price">{{ game.price }}$
+    </div>
+    <div class="triangle"></div>
 </div>
