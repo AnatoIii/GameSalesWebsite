@@ -1,0 +1,101 @@
+.main {
+    display: flex;
+    width: 100%;
+    position: fixed;
+}
+
+.gallery {
+    width: 65%;
+}
+
+* :not(i) {
+    font-family: 'Baloo Chettan 2', cursive;
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    background: #0D0B1D;
+    width: 35%;
+}
+
+.title {
+    font-size: 28px;
+    align-self: flex-start;
+}
+
+mat-form-field {
+    width: 100%;
+    color: black;
+}
+
+::ng-deep input.mat-input-element {
+    background-color: #ffffff !important;
+    padding: 7px 0;
+    border-radius: 3px;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: white !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+    background-color: #444A82 !important;
+}
+
+i {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 5px 5px 0;
+    color: #444A82;
+}
+
+mat-label {
+    font-size: 18px;
+}
+
+button {
+    background-color: #444A82;
+    border-radius: 3px;
+    width: 150px;
+    height: 40px;
+    color: white;
+    border: 0;
+    font-size: 16px;
+}
+
+button:hover:enabled {
+    transform: scale(1.05);
+    background-color: #6a70af;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #878aac;
+}
+
+.login,
+.register {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    align-items: center;
+}
+
+.register {
+    justify-content: flex-end;
+    border-bottom: 2px solid white;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

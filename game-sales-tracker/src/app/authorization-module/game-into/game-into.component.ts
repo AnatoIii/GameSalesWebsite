@@ -5,18 +5,12 @@ import { baseURL } from '../../shared/baseURL';
 @Component({
   selector: 'app-game-into',
   templateUrl: './game-into.component.html',
-  styleUrls: ['./game-into.component.css']
+  styleUrls: ['./game-into.component.css'],
 })
 export class GameIntoComponent implements OnInit {
-
   @Input() game: Game;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.game.image);
-    // this.game.image = baseURL + 'image/' + this.game.image;
-    console.log(this.game.image);
-  }
-
+  ngOnInit(): void {}
 }

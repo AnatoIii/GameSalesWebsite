@@ -8,18 +8,13 @@ import { LoginFormComponent } from '../authorization-module/login-form/login-for
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginFormComponent },
-  { path: 'register', component: RegisterFormComponent},
-  { path: '**', redirectTo: '/'}
+  { path: 'register', component: RegisterFormComponent },
+  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ],
+  imports: [CommonModule, RouterModule.forRoot(routes)],
+  exports: [RouterModule],
   declarations: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
