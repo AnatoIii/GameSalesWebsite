@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
 
+  @ViewChild('form') loginFormDirective;
   loginForm: FormGroup;
   credentials: string;
   hidePass = true;
@@ -28,10 +29,6 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     this.credentials = this.loginForm.value;
     console.log(this.credentials);
-    this.loginForm.reset({
-      email: '',
-      password: ''
-    });
-    //this.feedbackFormDirective.resetForm();
+    this.loginFormDirective.resetForm();
   }
 }

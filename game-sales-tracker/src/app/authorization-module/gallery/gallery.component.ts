@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Game } from '../../shared/models/game';
+import { GameService } from 'src/app/services/game.service';
+
 
 @Component({
   selector: 'app-gallery',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor() { }
+  games: Game[];
+
+  constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
+    this.gameService.getGames().subscribe(
+      data => this.games = data,
+      error => console.log(error)
+    )
   }
 
 }

@@ -1,0 +1,29 @@
+[
+    {
+        "id": 0,
+        "firstname": "User 1",
+        "lastname": "AAA",
+        "email": "q@q",
+        "password": "1",
+        "image": "game-fish.jpg",
+        "role": "user"
+    },
+    {
+        "id": 1,
+        "firstname": "Admin 1",
+        "lastname": "dfv",
+        "email": "dbgf@svsd",
+        "password": "11",
+        "image": "game-fish.jpg",
+        "role": "admin"
+    },
+    {
+        "id": 2,
+        "firstname": "User 2",
+        "lastname": "fbgdf",
+        "email": "dggg@q",
+        "password": "1111",
+        "image": "game-fish.jpg",
+        "role": "user"
+    }
+]

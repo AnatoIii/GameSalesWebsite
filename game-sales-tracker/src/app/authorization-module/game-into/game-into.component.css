@@ -1,0 +1,51 @@
+.game {
+  /* background-image: url(../../../assets/images/ + game); */
+  background-color: rgb(82, 82, 88);
+  border: 1px solid white;
+  background-size: cover;
+  height: calc((100vh - 120px) / 3);
+  position: relative;
+}
+
+.game__name {
+  color: white;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 30%;
+  font-size: 25px;
+  padding: 10px;
+}
+
+.game__description {
+  opacity: 0;
+  padding-top: 10px;
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.game__price {
+  position: absolute;
+  height: 30%;
+  width: 50px;
+  background-color: #9c5748;
+  right: 15px;
+  top: -4px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 15px;
+  top: calc(30% - 4px);
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 20px solid #9c5748;
+}

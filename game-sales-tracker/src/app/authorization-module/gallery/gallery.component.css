@@ -1,0 +1,11 @@
+.gallery {
+  padding: 5px 10px;
+  background: #1E2230;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 33%);
+  grid-column-gap: 15px;
+  grid-row-gap: 10px;
+  height: 92vh;
+} 
+
