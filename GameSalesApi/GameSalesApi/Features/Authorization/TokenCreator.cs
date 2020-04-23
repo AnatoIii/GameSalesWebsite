@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using DataAccess;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Model;
 using System;
@@ -20,8 +21,6 @@ namespace GameSalesApi.Features.Authorization
         private readonly TokenConfig _tokenConfig;
         private readonly JwtSecurityTokenHandler _tokenHandler;
 
-        public TokenConfig GetTokenConfig() => _tokenConfig;
-
         public TokenCreator(IOptions<TokenConfig> options)
         {
             _tokenConfig = options.Value;
@@ -33,7 +32,7 @@ namespace GameSalesApi.Features.Authorization
         /// <summary>
         /// Creates a jwt access token for the given user
         /// </summary>
-        public string CreateJWT(User user)
+        private string CreateJWT(User user)
         {
             var claims = new[]
             {
@@ -55,7 +54,7 @@ namespace GameSalesApi.Features.Authorization
         /// <summary>
         /// Helper function for generating a refresh token
         /// </summary>
-        public static string GenerateRefreshToken()
+        private static string GenerateRefreshToken()
         {
             return Guid.NewGuid().ToString();
         }
@@ -68,6 +67,20 @@ namespace GameSalesApi.Features.Authorization
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(tokenDTO.AccessToken);
             return Guid.Parse(token.Id);
+        }
+
+        public TokenDTO CreateDTOToken(User user, GameSalesContext dbContext)
+        {
+            var accessToken = CreateJWT(user);
+            var refreshTokenValue = GenerateRefreshToken();
+            var dbToken = new Token()
+            {
+                RefreshToken = refreshTokenValue,
+                UserId = user.Id,
+                DueDate = DateTime.Now.AddMinutes(_tokenConfig.RefreshTokenLifetime)
+            };
+            dbContext.Tokens.Add(dbToken);
+            return new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshTokenValue };
         }
     }
 }

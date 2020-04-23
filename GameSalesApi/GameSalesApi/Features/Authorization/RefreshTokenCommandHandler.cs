@@ -39,24 +39,19 @@ namespace GameSalesApi.Features.Authorization
         {
             var userId = TokenCreator.GetUserId(tokenDTO);
             if (userId == null)
+            {
                 return Result.Fail<TokenDTO>($"No such user, userId: {userId}");
+            }  
 
             var user = _dbContext.Users.Where(u => u.Id == userId).FirstOrDefault();
             var refreshToken = _dbContext.Tokens.Where(t => t.RefreshToken == tokenDTO.RefreshToken).FirstOrDefault();
             if(refreshToken == null)
+            {
                 return Result.Fail<TokenDTO>($"No refresh token with such value: {tokenDTO.RefreshToken}");
-
+            }
             _dbContext.Tokens.Remove(refreshToken);
-            var accessToken = _tokenCreator.CreateJWT(user);
-            var refreshTokenValue = TokenCreator.GenerateRefreshToken();
 
-            var dbToken = new Token() {
-                RefreshToken = refreshTokenValue,
-                UserId = user.Id,
-                DueDate = DateTime.Now.AddMinutes(_tokenCreator.GetTokenConfig().RefreshTokenLifetime)
-            };
-            _dbContext.Tokens.Add(dbToken);
-            return Result.Ok(new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshTokenValue });
+            return Result.Ok(_tokenCreator.CreateDTOToken(user,_dbContext));
         }
     }
 }

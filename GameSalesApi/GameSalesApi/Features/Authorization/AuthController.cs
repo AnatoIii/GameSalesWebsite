@@ -36,19 +36,11 @@ namespace GameSalesApi.Features.Authorization
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginCommand loginCommand)
         {
-            var builder = new CommandDecoratorBuilder<LoginCommand, Result<TokenDTO>>();
-
-            var handler = builder
+            var handler = new CommandDecoratorBuilder<LoginCommand, Result<TokenDTO>>()
                 .Add<LoginCommandHandler>()
                     .AddParameter<GameSalesContext>(_dbContext)
                     .AddParameter<TokenCreator>(_tokenCreator)
-                .Add<ValidationCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                .Add<LoggerCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                    .AddParameter<ILogger<AuthController>>(_logger)
-                .Add<ProfilerCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                .Add<SaveChangesCommandDecorator<LoginCommand, Result<TokenDTO>>>()
-                    .AddParameter<ICommandDispatcher>(null)
-                    .AddParameter<GameSalesContext>(_dbContext)
+                .AddBaseDecorators(_logger, _dbContext)
                 .Build();
 
             var result = handler.Handle(loginCommand);
@@ -64,13 +56,7 @@ namespace GameSalesApi.Features.Authorization
                 .Add<RefreshTokenCommandHandler>()
                     .AddParameter<GameSalesContext>(_dbContext)
                     .AddParameter<TokenCreator>(_tokenCreator)
-                .Add<ValidationCommandDecorator<TokenDTO, Result<TokenDTO>>>()
-                .Add<LoggerCommandDecorator<TokenDTO,Result<TokenDTO>>>()
-                    .AddParameter<ILogger<AuthController>>(_logger)
-                .Add<ProfilerCommandDecorator<TokenDTO,Result<TokenDTO>>>()
-                .Add<SaveChangesCommandDecorator<TokenDTO, Result<TokenDTO>>>()
-                    .AddParameter<ICommandDispatcher>(null)
-                    .AddParameter<GameSalesContext>(_dbContext)
+                .AddBaseDecorators(_logger, _dbContext)
                 .Build();
 
             var result = handler.Handle(tokenDTO);

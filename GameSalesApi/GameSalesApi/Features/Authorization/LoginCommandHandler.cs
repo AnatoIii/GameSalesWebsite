@@ -39,20 +39,15 @@ namespace GameSalesApi.Features.Authorization
         {
             var user = _dbContext.Users.Where(u => u.Email == input.Email).FirstOrDefault();
             if (user == null)
+            {
                 return Result.Fail<TokenDTO>($"No such user, Email: {user.Email}");
+            }
             if (!PasswordHelpers.ValidatePassword(input.Password, user.PasswordSalt, user.PasswordHash))
-                return Result.Fail<TokenDTO>("Invalid credentials");
+            {
+                return Result.Fail<TokenDTO>("Incorrect password");
+            }
 
-            var accessToken = _tokenCreator.CreateJWT(user);
-            var refreshToken = TokenCreator.GenerateRefreshToken();
-            var dbToken = new Token() { 
-                RefreshToken = refreshToken, 
-                UserId = user.Id, 
-                DueDate = DateTime.Now.AddMinutes(_tokenCreator.GetTokenConfig().RefreshTokenLifetime)
-            };
-
-            _dbContext.Tokens.Add(dbToken);
-            return Result.Ok(new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshToken });
+            return Result.Ok(_tokenCreator.CreateDTOToken(user,_dbContext));
         }
     }
 }
