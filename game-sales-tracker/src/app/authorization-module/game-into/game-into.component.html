@@ -1,7 +1,7 @@
 <div class="game" [ngStyle]="{ 'background-image': 'url(../../../assets/images/' + game.image + ')'}"
     (mouseenter)="blockOnHover=true" (mouseleave)="blockOnHover=false">
     <div class="game__name" [@onHover]="blockOnHover ? 'hover' : 'initial'">{{ game.name }}
-        <div class="game__description" *ngIf="blockOnHover">
+        <div class="game__description" [@gameDescription]="blockOnHover ? 'hover' : 'initial'">
             {{ game.description }}
         </div>
     </div>

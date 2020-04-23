@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Game } from 'src/app/shared/models/game';
-import { baseURL } from '../../shared/baseURL';
 import {
   trigger,
   state,
@@ -30,6 +29,21 @@ import {
         })
       ),
       transition('* => *', animate('0.5s ease-in-out')),
+    ]),
+    trigger('gameDescription', [
+      state(
+        'initial',
+        style({
+          opacity: '0',
+        })
+      ),
+      state(
+        'hover',
+        style({
+          opacity: '1',
+        })
+      ),
+      transition('initial <=> hover', animate('1s')),
     ]),
   ],
 })
