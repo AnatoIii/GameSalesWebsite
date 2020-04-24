@@ -66,7 +66,7 @@ namespace Infrastructure.InfrastructureCommandDecorators
 
             //if (_rDBContext.SaveChanges() == 0)
             //    throw new DbUpdateException("Save to DB");
-
+            _rDBContext.SaveChanges();
             return res;
         }
     }
