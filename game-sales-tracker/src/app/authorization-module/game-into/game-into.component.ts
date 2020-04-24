@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Game } from 'src/app/shared/models/game';
+import { Game } from '../../shared/models/game';
 import {
   trigger,
   state,
