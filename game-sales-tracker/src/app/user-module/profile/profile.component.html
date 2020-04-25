@@ -1,0 +1,41 @@
+<div class="wait" [hidden]="currentUser">Loading</div>
+
+<div class="photo" *ngIf="currentUser">
+    <img src="../../../assets/images/default-user-image.png" alt="">
+</div>
+<div class="info" *ngIf="currentUser">
+    <table>
+        <tr>
+            <td>
+                <span>Username:</span>
+            </td>
+            <td>
+                <input [(ngModel)]="currentUser.username" name="username">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Email:</span>
+            </td>
+            <td>
+                <input [(ngModel)]="currentUser.email" placeholder="Your email" name="email">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span></span>
+            </td>
+            <td>
+                <button>Change password</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span></span>
+            </td>
+            <td>
+                <button (click)="saveUser()">Save changes</button>
+            </td>
+        </tr>
+    </table>
+</div>
