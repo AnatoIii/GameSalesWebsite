@@ -1,0 +1,7 @@
+<p *ngIf="timetoSale"> {{timetoSale.days}}:{{timetoSale.hours}}:{{timetoSale.minutes}}:{{timetoSale.seconds}} </p>
+<div class="countdown" *ngIf="timetoSale">
+    <div>{{timetoSale.days}}</div>:
+    <div>{{timetoSale.hours}}</div>:
+    <div>{{timetoSale.minutes}}</div>:
+    <div>{{timetoSale.seconds}}</div>
+</div>
