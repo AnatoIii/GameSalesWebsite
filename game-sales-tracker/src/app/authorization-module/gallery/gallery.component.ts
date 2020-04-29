@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Game } from '../../shared/models/game';
+import { IGame } from '../../game-module/interfaces/game';
 import { GameService } from 'src/app/game-module/services/game.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { GameService } from 'src/app/game-module/services/game.service';
   styleUrls: ['./gallery.component.css'],
 })
 export class GalleryComponent implements OnInit {
-  games: Game[];
+  games: IGame[];
 
   constructor(private gameService: GameService) {}
 

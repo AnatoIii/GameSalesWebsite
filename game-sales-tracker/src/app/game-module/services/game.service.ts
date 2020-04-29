@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { baseURL } from '../../shared/baseURL';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Game } from '../../shared/models/game';
+import { IGame } from '../interfaces/game';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
+  baseURL = 'http://localhost:8082/';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -17,7 +18,7 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(baseURL + 'api/games', this.httpOptions);
+  getGames(): Observable<IGame[]> {
+    return this.http.get<IGame[]>(this.baseURL + 'api/games', this.httpOptions);
   }
 }

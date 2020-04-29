@@ -9,7 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SignInComponent } from './dialogs/sign-in/sign-in.component';
-import { HeaderComponent } from './shared/header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { AuthModule } from './authorization-module/auth/auth.module';
 import { GameModule } from './game-module/game/game.module';
 

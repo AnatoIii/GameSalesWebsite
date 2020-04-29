@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
-import { Game } from 'src/app/shared/models/game';
+import { IGame } from '../interfaces/game';
 import {
   trigger,
   state,
@@ -47,9 +47,9 @@ import {
   ],
 })
 export class CarouselComponent implements OnInit {
-  allGames: Game[];
-  gamesToDisplay: Game[];
-  blockOnHover: boolean = false;
+  allGames: IGame[];
+  gamesToDisplay: IGame[];
+  blockOnHover: boolean[] = [];
 
   constructor(private gameService: GameService) {}
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Game } from '../../shared/models/game';
+import { IGame } from '../../game-module/interfaces/game';
 import {
   trigger,
   state,
@@ -48,7 +48,7 @@ import {
   ],
 })
 export class GameIntoComponent implements OnInit {
-  @Input() game: Game;
+  @Input() game: IGame;
   blockOnHover = false;
 
   constructor() {}
