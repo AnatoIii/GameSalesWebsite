@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from '../../shared/models/game';
-import { GameService } from 'src/app/services/game.service';
+import { GameService } from 'src/app/game-module/services/game.service';
 
 @Component({
   selector: 'app-gallery',

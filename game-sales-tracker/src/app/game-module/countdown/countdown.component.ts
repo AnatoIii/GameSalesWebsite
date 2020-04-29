@@ -8,6 +8,7 @@ import { interval } from 'rxjs';
   styleUrls: ['./countdown.component.css'],
 })
 export class CountdownComponent implements OnInit {
+  siteName: string = 'www.site.com';
   timetoSale: {
     days: number;
     hours: number;
@@ -32,7 +33,7 @@ export class CountdownComponent implements OnInit {
   }
 
   dhms(t) {
-    var days, hours, minutes, seconds;
+    let days, hours, minutes, seconds;
     days = Math.floor(t / 86400);
     t -= days * 86400;
     hours = Math.floor(t / 3600) % 24;

@@ -1,0 +1,14 @@
+<div class="arrow prev" (click)="prevSlide()"></div>
+
+<div class="game" *ngFor="let game of gamesToDisplay"
+    [ngStyle]="{ 'background-image': 'url(../../../assets/images/' + game.image + ')'}" (mouseenter)="blockOnHover=true"
+    (mouseleave)="blockOnHover=false">
+    <div class="price" [@onHover]="blockOnHover ? 'hover' : 'initial'">{{ game.price }}$
+        <div class="details" [@gameDetails]="blockOnHover ? 'hover' : 'initial'">
+            <p class="name">{{ game.name }}</p>
+            <!-- <p class="description">{{ game.description }}</p> -->
+        </div>
+    </div>
+</div>
+
+<div class="arrow next" (click)="nextSlide()"></div>
