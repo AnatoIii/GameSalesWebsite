@@ -1,10 +1,10 @@
-﻿using Infrastructure.CommandBase;
+﻿using System;
+using System.Collections.Generic;
+using Infrastructure.CommandBase;
 using Infrastructure.Result;
 using Model;
-using System;
-using System.Collections.Generic;
 
-namespace GameSalesApi.Features.AccountManagement
+namespace GameSalesApi.Features.AccountManagement.Queries
 {
     /// <summary>
     /// Model for get methods from <see cref="AccountController"/>

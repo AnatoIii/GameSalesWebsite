@@ -1,16 +1,11 @@
-﻿using DataAccess;
-using Infrastructure.CommandBase;
+﻿using System.Linq;
+using DataAccess;
+using GameSalesApi.Features.Authorization.Commands;
 using Infrastructure.Exceptions;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
-using Microsoft.Extensions.Options;
-using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace GameSalesApi.Features.Authorization
+namespace GameSalesApi.Features.Authorization.CommandHandlers
 {
     /// <summary>
     /// Command handler for login operation

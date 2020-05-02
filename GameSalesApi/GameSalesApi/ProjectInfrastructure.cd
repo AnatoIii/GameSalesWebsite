@@ -47,31 +47,9 @@
     <Position X="3.25" Y="10.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="GameSalesApi.Features.AccountManagement.GetAllUsersByCountQueryHandler">
-    <Position X="9.25" Y="9.25" Width="4" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>Features\AccountManagement\GetAllUsersQueryHandler.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="GameSalesApi.Features.AccountManagement.UpdateEmailCommandHandler">
-    <Position X="14" Y="9.25" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAQAAAAAAAAAAAAAQAIAAAAAAAAAAAA=</HashCode>
-      <FileName>Features\AccountManagement\UpdateEmailCommandHandler.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="DependencyResolver.Resolver">
     <Position X="21" Y="0.5" Width="2.5" />
     <TypeIdentifier />
-  </Class>
-  <Class Name="GameSalesApi.Features.AccountManagement.GetUser">
-    <Position X="9.25" Y="12" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAABAAEAACAAAAAIAAAAEAQABAAAAAEAAAQCAJAAAAA=</HashCode>
-      <FileName>Features\AccountManagement\GetUser.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameSalesApi.Features.AccountManagement.UpdateUserEmail">
     <Position X="14" Y="12" Width="1.5" />
@@ -84,13 +62,9 @@
   <Class Name="GameSalesApi.Features.AccountManagement.AccountController">
     <Position X="12.5" Y="15.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQCAAAAAAAAAAAEBAAAAAAAAAAgAgAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAQAAAAAAAAAAAAEBAAQAAAAAAAgAgAAAAAAA=</HashCode>
       <FileName>Features\AccountManagement\AccountController.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="Model.Enums.UserRole">
-    <Position X="19.25" Y="6.75" Width="1.75" />
-    <TypeIdentifier />
   </Class>
   <Class Name="Model.NewUser">
     <Position X="21.25" Y="6.75" Width="1.5" />
@@ -114,6 +88,10 @@
   </Class>
   <Class Name="DataAccess.GameSalesContext">
     <Position X="21" Y="2.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.Enums.UserRole">
+    <Position X="19.25" Y="6.75" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Interface Name="Infrastructure.CommandBase.ICommand&lt;TOut&gt;" Collapsed="true">

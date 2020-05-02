@@ -1,10 +1,9 @@
-﻿using Infrastructure.CommandBase;
+﻿using System;
 using Model.Enums;
-using System;
 
 namespace Model
 {
-    public class User //: IHasDomainEvents<>
+    public class User 
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
@@ -24,7 +23,7 @@ namespace Model
 
         public void UpdateUser(NewUser newUser)
         {
-            Id = !string.IsNullOrEmpty(newUser.Id) ? Guid.Parse(newUser.Id) : Guid.Empty;
+            Id = newUser.Id;
             FirstName = newUser.FirstName;
             LastName = newUser.LastName;
             Email = newUser.Email;

@@ -17,10 +17,12 @@ namespace Infrastructure.InfrastructureCommandDecorators
     {
         private LinkedList<CommandHandlerNode> _decorators;
         private CommandHandlerNode _currentNode;
+
         public CommandDecoratorBuilder()
         {
             _decorators = new LinkedList<CommandHandlerNode>();
         }
+
         /// <summary>
         /// Builds the chain of decorators and returns resulting handler
         /// </summary>

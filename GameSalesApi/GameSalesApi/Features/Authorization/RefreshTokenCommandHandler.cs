@@ -1,14 +1,8 @@
-﻿using DataAccess;
-using Infrastructure.CommandBase;
+﻿using System.Linq;
+using DataAccess;
 using Infrastructure.Exceptions;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
-using Microsoft.Extensions.Options;
-using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GameSalesApi.Features.Authorization
 {

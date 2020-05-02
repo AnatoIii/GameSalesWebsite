@@ -81,7 +81,7 @@ namespace GameSalesApi
             services.AddEntityFrameworkNpgsql();
             services.AddDbContext<GameSalesContext>(options =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("GameSalesContext"));
+                options.UseNpgsql(configuration["ConnectionStrings:GameSalesContextSecret"]);
             });
             return services;
         }

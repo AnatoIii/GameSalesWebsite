@@ -1,18 +1,23 @@
-﻿using Infrastructure.CommandBase;
-using Infrastructure.InfrastructureCommandDecorators;
-using Infrastructure.InfrastructureQueryDecorators;
-using Infrastructure.Result;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using DataAccess;
+using GameSalesApi.Features.AccountManagement.CommandHandlers;
+using GameSalesApi.Features.AccountManagement.Commands;
+using GameSalesApi.Features.AccountManagement.Queries;
+using GameSalesApi.Features.AccountManagement.QueryHandlers;
+using Infrastructure.CommandBase;
+using Infrastructure.InfrastructureCommandDecorators;
+using Infrastructure.InfrastructureQueryDecorators;
+using Infrastructure.Result;
 using Model;
-using System;
-using System.Collections.Generic;
 
 namespace GameSalesApi.Features.AccountManagement
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly DbContext _rDBContext;
@@ -72,21 +77,38 @@ namespace GameSalesApi.Features.AccountManagement
             return res.Value;
         }
 
-        // [DN] just an example of command pipeline
-        [HttpPost(), DisableRequestSizeLimit, Route("updateEmail")]
-        public void UpdateEmail(UpdateUserEmail updateUserEmail)
+        [HttpPost(), Route("update")]
+        public IActionResult UpdateUser(UpdateUserCommand updateUserCommand)
         {
-            var handler =
-                new SaveChangesCommandDecorator<UpdateUserEmail, Result>(
-                    new ProfilerCommandDecorator<UpdateUserEmail, Result>(
-                        new LoggerCommandDecorator<UpdateUserEmail, Result>(
-                            new ValidationCommandDecorator<UpdateUserEmail, Result>(
-                                new UpdateEmailCommandHandler(
-                                    _rDBContext.Set<User>())),
-                            _rLogger)),
-                    _rCommandDispatcher, _rDBContext);
+            var handler = new CommandDecoratorBuilder<UpdateUserCommand, Result>()
+                .Add<UpdateUserCommandHandler>()
+                    .AddParameter<GameSalesContext>(_rDBContext)
+                .AddBaseDecorators(_rLogger, _rDBContext)
+                .Build();
 
-            handler.Execute(updateUserEmail);
+            var result = handler.Handle(updateUserCommand);
+
+            if (result.Failure)
+                return BadRequest($"{nameof(updateUserCommand)} failed. Message: {result.Error}");
+
+            return Ok();
+        }
+
+        [HttpPost(), Route("remove")]
+        public IActionResult RemoveUser(RemoveUserCommand removeUserCommand)
+        {
+            var handler = new CommandDecoratorBuilder<RemoveUserCommand, Result>()
+               .Add<RemoveUserCommandHandler>()
+                   .AddParameter<GameSalesContext>(_rDBContext)
+               .AddBaseDecorators(_rLogger, _rDBContext)
+               .Build();
+
+            var result = handler.Handle(removeUserCommand);
+
+            if (result.Failure)
+                return BadRequest($"{nameof(removeUserCommand)} failed. Message: {result.Error}");
+
+            return Ok();
         }
     }
 }

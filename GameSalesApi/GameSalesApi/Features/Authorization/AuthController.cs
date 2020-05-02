@@ -1,19 +1,11 @@
-﻿using System;
-using Infrastructure.CommandBase;
-using Infrastructure.InfrastructureCommandDecorators;
-using Infrastructure.InfrastructureQueryDecorators;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Infrastructure.Result;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using DataAccess;
 using Microsoft.AspNetCore.Authorization;
-using Infrastructure.HandlerBase;
+using GameSalesApi.Features.Authorization.Commands;
+using GameSalesApi.Features.Authorization.CommandHandlers;
+using Infrastructure.InfrastructureCommandDecorators;
+using Infrastructure.Result;
+using DataAccess;
 
 namespace GameSalesApi.Features.Authorization
 {
@@ -46,7 +38,25 @@ namespace GameSalesApi.Features.Authorization
             var result = handler.Handle(loginCommand);
             if (result.Failure)
                 return BadRequest($"{nameof(loginCommand)} failed. Message: {result.Error}");
+
             return Ok(result.Value);
+        }
+
+        [HttpPost("create")]
+        public IActionResult CreateNewUser([FromBody] NewUserCommand newUserCommand)
+        {
+            var handler = new CommandDecoratorBuilder<NewUserCommand, Result>()
+                .Add<NewUserCommandHandler>()
+                    .AddParameter<GameSalesContext>(_dbContext)
+                .AddBaseDecorators(_logger, _dbContext)
+                .Build();
+
+            var result = handler.Handle(newUserCommand);
+
+            if (result.Failure)
+                return BadRequest($"{nameof(newUserCommand)} failed. Message: {result.Error}");
+
+            return Ok();
         }
 
         [HttpPost("refresh")]
