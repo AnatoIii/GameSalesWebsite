@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace GameSalesApi.Features.Authorization
+namespace GameSalesApi.Helpers
 {
     /// <summary>
     /// Holds functionality to work with passwords

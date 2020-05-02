@@ -9,7 +9,7 @@ using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Features.AccountManagement.QueryHandlers;
 using Infrastructure.CommandBase;
-using Infrastructure.InfrastructureCommandDecorators;
+using Infrastructure.DecoratorsFactory;
 using Infrastructure.InfrastructureQueryDecorators;
 using Infrastructure.Result;
 using Model;

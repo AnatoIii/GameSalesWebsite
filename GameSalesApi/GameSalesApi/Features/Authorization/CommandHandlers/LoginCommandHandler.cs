@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using DataAccess;
 using GameSalesApi.Features.Authorization.Commands;
-using Infrastructure.Exceptions;
+using GameSalesApi.Helpers;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 
@@ -23,9 +23,7 @@ namespace GameSalesApi.Features.Authorization.CommandHandlers
         }
 
         public override void Execute(LoginCommand command)
-        {
-            throw new InvalidHandlingException();
-        }
+            => Handle(command);
 
         /// <summary>
         /// Handles authentication and token generation
@@ -33,14 +31,12 @@ namespace GameSalesApi.Features.Authorization.CommandHandlers
         public override Result<TokenDTO> Handle(LoginCommand input)
         {
             var user = _dbContext.Users.Where(u => u.Email == input.Email).FirstOrDefault();
+
             if (user == null)
-            {
-                return Result.Fail<TokenDTO>($"No such user, Email: {user.Email}");
-            }
+                return Result.Fail<TokenDTO>($"No such user, Email: {input.Email}");
+
             if (!PasswordHelpers.ValidatePassword(input.Password, user.PasswordSalt, user.PasswordHash))
-            {
                 return Result.Fail<TokenDTO>("Incorrect password");
-            }
 
             return Result.Ok(_tokenCreator.CreateDTOToken(user,_dbContext));
         }

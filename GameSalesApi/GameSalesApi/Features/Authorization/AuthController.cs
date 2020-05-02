@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Features.Authorization.CommandHandlers;
-using Infrastructure.InfrastructureCommandDecorators;
+using Infrastructure.DecoratorsFactory;
 using Infrastructure.Result;
 using DataAccess;
 
@@ -36,6 +36,7 @@ namespace GameSalesApi.Features.Authorization
                 .Build();
 
             var result = handler.Handle(loginCommand);
+
             if (result.Failure)
                 return BadRequest($"{nameof(loginCommand)} failed. Message: {result.Error}");
 
@@ -60,18 +61,19 @@ namespace GameSalesApi.Features.Authorization
         }
 
         [HttpPost("refresh")]
-        public IActionResult RefreshToken([FromBody] TokenDTO tokenDTO)
+        public IActionResult RefreshToken([FromBody] TokenCommand tokenCommand)
         {
-            var handler = new CommandDecoratorBuilder<TokenDTO, Result<TokenDTO>>()
+            var handler = new CommandDecoratorBuilder<TokenCommand, Result<TokenDTO>>()
                 .Add<RefreshTokenCommandHandler>()
                     .AddParameter<GameSalesContext>(_dbContext)
                     .AddParameter<TokenCreator>(_tokenCreator)
                 .AddBaseDecorators(_logger, _dbContext)
                 .Build();
 
-            var result = handler.Handle(tokenDTO);
+            var result = handler.Handle(tokenCommand);
+
             if (result.Failure)
-                return BadRequest($"{nameof(tokenDTO)} failed. Message: {result.Error}");
+                return BadRequest($"{nameof(tokenCommand)} failed. Message: {result.Error}");
 
             return Ok(result.Value);
         }

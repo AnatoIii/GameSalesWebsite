@@ -4,7 +4,7 @@ using Infrastructure.Result;
 namespace GameSalesApi.Features.Authorization.Commands
 {
     /// <summary>
-    /// Transfer object for login Operation <see cref="AuthController.Login(LoginCommand)"/>
+    /// Model for login operation <see cref="AuthController.Login(LoginCommand)"/>
     /// </summary>
     public class LoginCommand : ICommand<Result<TokenDTO>>
     {
