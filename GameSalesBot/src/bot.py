@@ -11,7 +11,9 @@ from telegram.ext import Updater, Filters, CallbackContext
 from exception_handler import exceptionHandle
 
 
+# Base class
 class TelegramBot:
+    # Constructor
     def __init__(self, token: str):
         with open("../config/config.yml", 'r') as ymlfile:
             self._cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
@@ -29,6 +31,7 @@ class TelegramBot:
                            filters=Filters.user(user_id=self._cfg['bot']['admin-id'])))
         self._logger.info(u"Bot initialized. TOKEN: %s" % token)
 
+    # Start bot
     @exceptionHandle
     def start(self):
         self._updater.start_polling()
@@ -41,11 +44,13 @@ class TelegramBot:
         self._logger.info(u"Bot is restarting")
         os.execl(sys.executable, sys.executable, *sys.argv)
 
+    # Restart bot
     def _restart(self, update: Update = None):
         if update:
             update.message.reply_text('Bot is restarting')
         Thread(target=self._stop_and_restart).start()
 
+    # Callback for /start
     def _start_message(self, update: Update, context: CallbackContext):
         user = update.message.from_user
         message = update.message.text
@@ -54,6 +59,7 @@ class TelegramBot:
             (message, user.first_name, user.last_name, user.username, user.id))
         context.bot.sendSticker(chat_id=update.effective_chat.id, sticker=self._cfg['bot']['start-sticker-id'])
 
+    # Stop bot
     def stop(self):
         self._updater.idle()
         self._logger.info(u"Bot stopped")

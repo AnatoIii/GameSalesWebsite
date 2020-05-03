@@ -8,6 +8,7 @@ logging.config.dictConfig(config)
 logger = logging.getLogger('bot_logger')
 
 
+# Wrapping for catch exceptions
 def exceptionHandle(func):
     def handle(*args, **kwargs):
         try:
