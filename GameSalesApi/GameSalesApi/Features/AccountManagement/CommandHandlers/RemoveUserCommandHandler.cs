@@ -1,6 +1,5 @@
 ﻿using System;
 using DataAccess;
-using GameSalesApi.Features.Authorization;
 using GameSalesApi.Features.AccountManagement.Commands;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
@@ -8,7 +7,6 @@ using Model;
 
 namespace GameSalesApi.Features.AccountManagement.CommandHandlers
 {
-
     /// <summary>
     /// Command handler for remove <see cref="User"/> from <see cref="GameSalesContext"/>
     /// </summary>

@@ -2,13 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using Infrastructure.CommandBase;
 using Infrastructure.Result;
+using Model;
 
-namespace GameSalesApi.Features.AccountManagement.Commands
+namespace GameSalesApi.Features.AccountManagement.Queries
 {
     /// <summary>
-    /// Model for <see cref="AccountController.RemoveUser(RemoveUserCommand)"/>
+    /// Model for get methods from <see cref="AccountController.GetUser(GetUserQuery)"/>
     /// </summary>
-    public class RemoveUserCommand : ICommand<Result>
+    public class GetUserQuery : IQuery<Result<User>>
     {
         /// <summary>
         /// User Id

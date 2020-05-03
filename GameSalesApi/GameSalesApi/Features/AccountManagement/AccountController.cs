@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DataAccess;
 using GameSalesApi.Features.AccountManagement.CommandHandlers;
 using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Features.AccountManagement.QueryHandlers;
-using Infrastructure.CommandBase;
 using Infrastructure.DecoratorsFactory;
-using Infrastructure.InfrastructureQueryDecorators;
 using Infrastructure.Result;
 using Model;
 
@@ -20,61 +16,50 @@ namespace GameSalesApi.Features.AccountManagement
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly DbContext _rDBContext;
-        private readonly ICommandDispatcher _rCommandDispatcher;
+        private readonly GameSalesContext _rDBContext;
         private readonly ILogger<AccountController> _rLogger;
 
-        public AccountController(DbContext dbContext,
-            ICommandDispatcher commandDispatcher,
+        public AccountController(GameSalesContext dbContext,
             ILogger<AccountController> logger)
         {
             _rDBContext = dbContext;
-            _rCommandDispatcher = commandDispatcher;
             _rLogger = logger;
         }
 
-        // [DN] just an example of query pipeline
-        [HttpGet(), Route("getAll")]
-        public IEnumerable<User> GetAll()
+        [HttpGet(), Route("{id}")]
+        public IActionResult GetUser([FromQuery] GetUserQuery getUserQuery)
         {
-            GetUser getUser = new GetUser();
+            var handler = new QueryDecoratorBuilder<GetUserQuery, Result<User>>()
+                .Add<GetUserQueryHandler>()
+                    .AddParameter<GameSalesContext>(_rDBContext)
+                .AddBaseDecorators(_rLogger)
+                .Build();
 
-            var handler = 
-                new ProfilerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
-                    new LoggerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
-                        new ValidationQueryDecorator<GetUser, Result<IEnumerable<User>>>(
-                            new GetAllUsersByCountQueryHandler(
-                                _rDBContext.Set<User>())),
-                        _rLogger));
+            var result = handler.Handle(getUserQuery);
 
-            var res = handler.Handle(getUser);
+            if (result.Failure)
+                return BadRequest($"{nameof(getUserQuery)} failed. Message: {result.Error}");
 
-            if (res.Failure)
-                throw new Exception($"{nameof(getUser)} failed. Message: {res.Error}");
-
-            return res.Value;
+            return Ok(result.Value);
         }
-        
-        // [DN] just an example of query pipeline
+
         [HttpGet(), Route("getAll")]
-        public IEnumerable<User> GetUsersByCount(int usersCount)
+        public IActionResult GetAll()
         {
-            GetUser getUser = new GetUser() { UsersMaxCount = usersCount};
+            var handler = new QueryDecoratorBuilder<GetAllUsersQuery, Result<IEnumerable<User>>>()
+                .Add<GetAllUsersQueryHandler>()
+                    .AddParameter<GameSalesContext>(_rDBContext)
+                .AddBaseDecorators(_rLogger)
+                .Build();
 
-            var handler = 
-                new ProfilerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
-                    new LoggerQueryDecorator<GetUser, Result<IEnumerable<User>>>(
-                        new ValidationQueryDecorator<GetUser, Result<IEnumerable<User>>>(
-                            new GetAllUsersByCountQueryHandler(
-                                _rDBContext.Set<User>())),
-                        _rLogger));
+            var getAllUsersQuery = new GetAllUsersQuery();
 
-            var res = handler.Handle(getUser);
+            var result = handler.Handle(getAllUsersQuery);
 
-            if (res.Failure)
-                throw new Exception($"{nameof(getUser)} failed. Message: {res.Error}");
+            if (result.Failure)
+                return BadRequest($"{nameof(getAllUsersQuery)} failed. Message: {result.Error}");
 
-            return res.Value;
+            return Ok(result.Value);
         }
 
         [HttpPost(), Route("update")]

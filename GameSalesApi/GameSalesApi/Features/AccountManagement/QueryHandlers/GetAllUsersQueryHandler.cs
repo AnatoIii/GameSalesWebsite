@@ -5,38 +5,39 @@ using GameSalesApi.Features.AccountManagement.Queries;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 using Model;
+using DataAccess;
 
 namespace GameSalesApi.Features.AccountManagement.QueryHandlers
 {
     /// <summary>
-    /// Query handler for get a certain amount of users from <see cref="GameSalesContext"/>
+    /// Query handler for get a all users from <see cref="GameSalesContext"/>
     /// </summary>
-    public class GetAllUsersByCountQueryHandler
-        : QueryHandlerDecoratorBase<GetUser, Result<IEnumerable<User>>>
+    public class GetAllUsersQueryHandler
+        : QueryHandlerDecoratorBase<GetAllUsersQuery, Result<IEnumerable<User>>>
     {
-        private readonly DbSet<User> _rUserSet;
+        private readonly GameSalesContext _rDBContext;
 
         /// <summary>
         /// Default ctor
         /// </summary>
         /// <param name="userSet">User <see cref="DbSet{User}"/></param>
-        public GetAllUsersByCountQueryHandler(DbSet<User> userSet)
+        public GetAllUsersQueryHandler(GameSalesContext gameSalesContext)
             : base(null)
         {
-            _rUserSet = userSet;
+            _rDBContext = gameSalesContext;
         }
 
         /// <summary>
         /// Get a certain amount of users from <see cref="GameSalesContext"/>
         /// </summary>
-        /// <param name="userQuery"><see cref="GetUser"/></param>
+        /// <param name="userQuery"><see cref="GetAllUsersQuery"/></param>
         /// <returns><see cref="IEnumerable{User}"/></returns>
-        public override Result<IEnumerable<User>> Handle(GetUser userQuery)
+        public override Result<IEnumerable<User>> Handle(GetAllUsersQuery userQuery)
         {
-            var usersCount = userQuery.UsersMaxCount;
-            IEnumerable<User> result = _rUserSet.ToListAsync().Result;
-            if (usersCount > 0)
-                result = result.Take(usersCount);
+            IEnumerable<User> result = _rDBContext.Users.ToList();
+
+            if (result == null)
+                return Result.Fail<IEnumerable<User>>("Problem with DB connection");
 
             return Result.Ok(result);
         }
