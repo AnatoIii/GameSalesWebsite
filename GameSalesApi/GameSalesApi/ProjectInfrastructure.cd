@@ -51,18 +51,10 @@
     <Position X="21" Y="0.5" Width="2.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="GameSalesApi.Features.AccountManagement.UpdateUserEmail">
-    <Position X="14" Y="12" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Features\AccountManagement\UpdateUserEmail.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="GameSalesApi.Features.AccountManagement.AccountController">
     <Position X="12.5" Y="15.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAQAAAAAAAAAAAAEBAAQAAAAAAAgAgAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAEBAAQAAAAAAEgAAAAAAAAA=</HashCode>
       <FileName>Features\AccountManagement\AccountController.cs</FileName>
     </TypeIdentifier>
   </Class>
