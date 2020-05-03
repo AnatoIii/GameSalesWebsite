@@ -1,14 +1,10 @@
 ﻿using Infrastructure.CommandBase;
 using Infrastructure.Result;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace GameSalesApi.Features.Authorization
+namespace GameSalesApi.Features.Authorization.Commands
 {
     /// <summary>
-    /// Transfer object for login Operation <see cref="AuthController.Login(LoginCommand)"/>
+    /// Model for login operation <see cref="AuthController.Login(LoginCommand)"/>
     /// </summary>
     public class LoginCommand : ICommand<Result<TokenDTO>>
     {

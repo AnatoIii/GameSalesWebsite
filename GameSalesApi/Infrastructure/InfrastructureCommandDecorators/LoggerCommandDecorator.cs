@@ -67,6 +67,7 @@ namespace Infrastructure.InfrastructureCommandDecorators
             catch (Exception e)
             {
                 _rLogger.LogError($"Error ocurred: {input}, ex: {e.Message}");
+                throw e;
             }
 
             return output;
