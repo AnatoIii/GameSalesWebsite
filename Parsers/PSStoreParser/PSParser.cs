@@ -21,18 +21,21 @@ namespace PSStoreParser
         public async Task<IEnumerable<GameEntry>> ParsePlatform()
         {
             List<GameEntry> gameEntries = new List<GameEntry>();
-            IEnumerable<GameEntry> currentEntries = Enumerable.Empty<GameEntry>();
+            IEnumerable<GameEntry> currentEntries;
             int offset = 0;
-
             do {
                 string data = await _dataClient.GetContent(ParserSettings.ElementsPerRequest, offset);
-                currentEntries = Deserializer.Deserialize(data, ParserSettings.PlatformId);
+                currentEntries = Deserializer.Deserialize(data)
+                    .Select(e =>
+                    {
+                        e.PlatformId = ParserSettings.PlatformId;
+                        e.CurrencyId = ParserSettings.CurrencyId;
+                        return e;
+                    });
                 gameEntries.AddRange(currentEntries);
                 offset += ParserSettings.ElementsPerRequest;
                 await Task.Delay(ParserSettings.PeriodBetweenRequests);
-                
             } while (currentEntries.Count() > 0);
-
             return gameEntries;
         }
     }
