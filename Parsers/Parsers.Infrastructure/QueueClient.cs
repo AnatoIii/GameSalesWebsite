@@ -7,15 +7,15 @@ using Parsers.Core;
 using Parsers.Core.Models;
 using RabbitMQ.Client;
 
-namespace Parsers.QueueClient
+namespace Parsers.Infrastructure
 {
-    public class Client
+    public class QueueClient
     {
         IConnection _connection;
         IModel _channel;
         ILogger _logger;
         QueueSettings _queueSettings;
-        public Client(ILogger logger, QueueSettings queueSettings)
+        public QueueClient(ILogger logger, QueueSettings queueSettings)
         {
             _logger = logger;
             _queueSettings = queueSettings;
@@ -28,13 +28,13 @@ namespace Parsers.QueueClient
             try
             {
                 factory.Uri = new Uri(_queueSettings.ConnectionString);
-
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
             }
             catch(Exception e)
             {
                 _logger.Log(e.Message);
+                throw new Exception(e.Message);
             }
         }
 

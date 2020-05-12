@@ -5,11 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parsers.Core", "Parsers.Core\Parsers.Core.csproj", "{DB0FDC5C-3B9B-4A24-9A6F-2EDB4265E3EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parsers.QueueClient", "Parsers.QueueClient\Parsers.QueueClient.csproj", "{BD218BFA-9A52-4D3B-966F-16A3C2892005}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parsers.Infrastructure", "Parsers.Infrastructure\Parsers.Infrastructure.csproj", "{4F419CD8-96BB-427E-9ADC-D315866C4CC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSStoreParser", "PSStoreParser\PSStoreParser.csproj", "{9A56E830-06C1-4964-B85D-5E17EF524B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSStoreParser", "PSStoreParser\PSStoreParser.csproj", "{9A56E830-06C1-4964-B85D-5E17EF524B12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{DB0FDC5C-3B9B-4A24-9A6F-2EDB4265E3EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB0FDC5C-3B9B-4A24-9A6F-2EDB4265E3EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB0FDC5C-3B9B-4A24-9A6F-2EDB4265E3EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD218BFA-9A52-4D3B-966F-16A3C2892005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD218BFA-9A52-4D3B-966F-16A3C2892005}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD218BFA-9A52-4D3B-966F-16A3C2892005}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD218BFA-9A52-4D3B-966F-16A3C2892005}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F419CD8-96BB-427E-9ADC-D315866C4CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F419CD8-96BB-427E-9ADC-D315866C4CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F419CD8-96BB-427E-9ADC-D315866C4CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
