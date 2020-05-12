@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Parsers.Core
+namespace Parsers.Infrastructure
 {
     public class ConsoleLogger : ILogger
     {

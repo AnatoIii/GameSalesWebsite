@@ -9,15 +9,15 @@ namespace PSStoreParser
 {
     static class Deserializer
     {
-        public static IEnumerable<GameEntry> Deserialize(string json, int platformId)
+        public static IEnumerable<GameEntry> Deserialize(string json)
         {
             JObject jObject = JObject.Parse(json);
             return jObject["included"].Children()
                 .Where(c => c["type"].Value<string>() == "game")
-                .Select(c => MapEntry(c, platformId))
+                .Select(c => MapEntry(c))
                 .ToList();
         }
-        private static GameEntry MapEntry(JToken jToken, int platformId)
+        private static GameEntry MapEntry(JToken jToken)
         {
             string name = jToken["attributes"]["name"].ToObject<string>();
             string platformSpecificId = jToken["id"].ToObject<string>();
@@ -40,7 +40,6 @@ namespace PSStoreParser
                 DiscountedPrice = discountedPrice,
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
-                PlatformId = platformId,
                 Description = description,
                 PictureURLs = pictureURLs
             };
