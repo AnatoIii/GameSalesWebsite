@@ -26,16 +26,16 @@ export class RegisterFormComponent implements OnInit {
     }
 
     @ViewChild("form") public registerFormDirective;
-    public _registerForm: FormGroup;
-    public _hidePass = true;
-    public _hideConfirmPass = true;
+    public registerForm: FormGroup;
+    public hidePass = true;
+    public hideConfirmPass = true;
 
     public ngOnInit(): void {
         this.createForm();
     }
 
     public createForm(): void {
-        this._registerForm = this.formBuilder.group(
+        this.registerForm = this.formBuilder.group(
             {
                 firstName: ["",
                     [
@@ -69,9 +69,7 @@ export class RegisterFormComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        const credentials = this._registerForm.value;
-        console.log(credentials);
-        this.authService.register(this._registerForm)
+        this.authService.register(this.registerForm)
             .subscribe(
                 () => this.router.navigate(["/login"]),
                 error => {

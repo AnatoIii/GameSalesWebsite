@@ -1,4 +1,4 @@
-export class LoginFormDto {
-    public email: string;
-    public password: string;
+export interface LoginFormDto {
+    email: string;
+    password: string;
 }

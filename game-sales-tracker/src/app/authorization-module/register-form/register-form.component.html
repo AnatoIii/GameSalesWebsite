@@ -4,7 +4,7 @@
     <form
         #form="ngForm"
         class="register-form"
-        [formGroup]="_registerForm"
+        [formGroup]="registerForm"
         (ngSubmit)="onSubmit()"
     >
         <div class="wrapper">
@@ -19,10 +19,10 @@
                     required
                     type="text"
                 >
-                <mat-error *ngIf="_registerForm.controls.email.hasError('required')">
+                <mat-error *ngIf="registerForm.controls.email.hasError('required')">
                     Email is required
                 </mat-error>
-                <mat-error *ngIf="_registerForm.controls.email.hasError('email')">
+                <mat-error *ngIf="registerForm.controls.email.hasError('email')">
                     Email is not valid
                 </mat-error>
             </mat-form-field>
@@ -36,10 +36,10 @@
                     required
                     type="text"
                 >
-                <mat-error *ngIf="_registerForm.controls.firstName.hasError('minlength')">
+                <mat-error *ngIf="registerForm.controls.firstName.hasError('minlength')">
                     First name must be at least 3 characters long
                 </mat-error>
-                <mat-error *ngIf="_registerForm.controls.firstName.hasError('maxlength')">
+                <mat-error *ngIf="registerForm.controls.firstName.hasError('maxlength')">
                     First name cannot be more than 30 characters long
                 </mat-error>
             </mat-form-field>
@@ -53,10 +53,10 @@
                     required
                     type="text"
                 >
-                <mat-error *ngIf="_registerForm.controls.lastName.hasError('minlength')">
+                <mat-error *ngIf="registerForm.controls.lastName.hasError('minlength')">
                     Last name must be at least 3 characters long
                 </mat-error>
-                <mat-error *ngIf="_registerForm.controls.lastName.hasError('maxlength')">
+                <mat-error *ngIf="registerForm.controls.lastName.hasError('maxlength')">
                     Last name cannot be more than 30 characters long
                 </mat-error>
             </mat-form-field>
@@ -64,31 +64,30 @@
             <mat-form-field>
                 <mat-label>Enter your password</mat-label>
                 <input
-                    [type]="_hidePass ? 'password' : 'text'"
+                    [type]="hidePass ? 'password' : 'text'"
                     formControlName="password"
                     matInput
                     placeholder="Your password"
                     required
                 >
                 <i
-                    [class]="_hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                    [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'"
                     matSuffix
-                    (click)="_hidePass = !_hidePass"
+                    (click)="hidePass = !hidePass"
                 ></i>
-                <mat-error *ngIf="_registerForm.controls.password.hasError('required')">
+                <mat-error *ngIf="registerForm.controls.password.hasError('required')">
                     Password is required
                 </mat-error>
-                <mat-error *ngIf="_registerForm.controls.password.hasError('minLength')">
+                <mat-error *ngIf="registerForm.controls.password.hasError('minLength')">
                     Password must be at least 8 characters long
                 </mat-error>
-                <mat-error *ngIf="_registerForm.controls.password.hasError('maxlength')">
+                <mat-error *ngIf="registerForm.controls.password.hasError('maxlength')">
                     Password cannot be more than 15 characters long
                 </mat-error>
                 <mat-error
-                    *ngIf="_registerForm.controls.password.hasError('capitalCase') ||
-                           _registerForm.controls.password.hasError('lowerCase') ||
-                           _registerForm.controls.password.hasError('numbers') ||
-                           _registerForm.controls.password.hasError('specialCharacters')"
+                    *ngIf="registerForm.controls.password.hasError('capitalCase') ||
+                           registerForm.controls.password.hasError('lowerCase') ||
+                           registerForm.controls.password.hasError('numbers')"
                 >
                     Password must contain uppercase, lowercase, digits and special character.
                 </mat-error>
@@ -97,28 +96,28 @@
             <mat-form-field>
                 <mat-label>Confirm your password</mat-label>
                 <input
-                    [type]="_hideConfirmPass ? 'password' : 'text'"
+                    [type]="hideConfirmPass ? 'password' : 'text'"
                     formControlName="confirmPass"
                     matInput
                     placeholder="Your password"
                     required
                 >
                 <i
-                    [class]="_hideConfirmPass ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                    [class]="hideConfirmPass ? 'fas fa-eye-slash' : 'fas fa-eye'"
                     matSuffix
-                    (click)="_hideConfirmPass = !_hideConfirmPass"
+                    (click)="hideConfirmPass = !hideConfirmPass"
                 ></i>
-                <mat-error *ngIf="_registerForm.controls.confirmPass.hasError('required')">
+                <mat-error *ngIf="registerForm.controls.confirmPass.hasError('required')">
                     Confirm password is required
                 </mat-error>
-                <mat-error *ngIf="_registerForm.controls.confirmPass.hasError('mustMatch')">
+                <mat-error *ngIf="registerForm.controls.confirmPass.hasError('mustMatch')">
                     Password mismatch
                 </mat-error>
             </mat-form-field>
 
             <div class="register">
                 <button
-                    [disabled]="_registerForm.invalid"
+                    [disabled]="registerForm.invalid"
                     type="submit"
                 >Register
                 </button>

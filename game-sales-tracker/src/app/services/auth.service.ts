@@ -20,9 +20,11 @@ export class AuthService {
     }
 
     public login(loginForm: FormGroup): Observable<TokenDto> {
-        const loginFormDto = new LoginFormDto();
-        loginFormDto.email = loginForm.controls.email.value;
-        loginFormDto.password = loginForm.controls.password.value;
+        const controls = loginForm.controls;
+        const loginFormDto: LoginFormDto = {
+            email: controls.email.value,
+            password: controls.password.value,
+        };
         return this.httpClient.post(LIST_URI.login, loginFormDto)
             .pipe(
                 take(1),
@@ -36,11 +38,13 @@ export class AuthService {
 
     // tslint:disable-next-line:typedef
     public register(registerForm: FormGroup) {
-        const registerFormDto = new RegisterFormDto();
-        registerFormDto.email = registerForm.controls.email.value;
-        registerFormDto.firstName = registerForm.controls.firstName.value;
-        registerFormDto.lastName = registerForm.controls.lastName.value;
-        registerFormDto.password = registerForm.controls.password.value;
+        const controls = registerForm.controls;
+        const registerFormDto: RegisterFormDto = {
+            email: controls.email.value,
+            firstName: controls.firstName.value,
+            lastName: controls.lastName.value,
+            password: controls.password.value,
+        };
         return this.httpClient.post(LIST_URI.register, registerFormDto, { observe: "response" });
     }
 

@@ -1,4 +1,4 @@
-export class TokenDto {
-    public accessToken: string;
-    public refreshToken: string;
+export interface TokenDto {
+    accessToken: string;
+    refreshToken: string;
 }

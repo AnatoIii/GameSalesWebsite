@@ -20,7 +20,4 @@ export function PasswordValidate(control: AbstractControl): { [key: string]: boo
     if (!(new RegExp(/[0-9]/).test(password))) {
         return { numbers: true };
     }
-    if (!(new RegExp(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/).test(password))) {
-        return { specialCharacters: true };
-    }
 }

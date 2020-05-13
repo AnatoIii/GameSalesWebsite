@@ -16,10 +16,10 @@ export class GalleryComponent implements OnInit {
     constructor(private gameService: GameService) {
     }
 
-    public _games$: Observable<Game[]>;
+    public games$: Observable<Game[]>;
 
     public ngOnInit(): void {
-        this._games$ = this.gameService.getAll();
+        this.games$ = this.gameService.getAll();
     }
 
 }
