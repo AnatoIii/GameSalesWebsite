@@ -1,13 +1,24 @@
 <div class="main">
     <app-gallery class="gallery"></app-gallery>
 
-    <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="onSubmit()" class="login-form">
+    <form
+        #form="ngForm"
+        class="login-form"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+    >
         <div class="wrapper">
             <p class="title">Login</p>
 
             <mat-form-field class="form__field">
                 <mat-label>Enter your email</mat-label>
-                <input matInput formControlName="email" placeholder="Your email" type="text" required>
+                <input
+                    formControlName="email"
+                    matInput
+                    placeholder="Your email"
+                    required
+                    type="text"
+                >
                 <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
                     Email is required
                 </mat-error>
@@ -15,9 +26,18 @@
 
             <mat-form-field class="form__field">
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="password"
-                    placeholder="Your password" required>
-                <i matSuffix [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'" (click)="hidePass = !hidePass"></i>
+                <input
+                    [type]="hidePass ? 'password' : 'text'"
+                    formControlName="password"
+                    matInput
+                    placeholder="Your password"
+                    required
+                >
+                <i
+                    [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                    matSuffix
+                    (click)="hidePass = !hidePass"
+                ></i>
                 <mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
                     Password is required
                 </mat-error>
@@ -25,11 +45,19 @@
 
             <div class="login">
                 <a>Forgot password?</a>
-                <button type="submit" [disabled]="loginForm.invalid">Login</button>
+                <button
+                    [disabled]="loginForm.invalid"
+                    type="submit"
+                >Login
+                </button>
             </div>
             <div class="register">
                 <span>Still not a member?</span>
-                <button type="button" routerLink="/register">Register</button>
+                <button
+                    routerLink="/register"
+                    type="button"
+                >Register
+                </button>
             </div>
         </div>
     </form>
