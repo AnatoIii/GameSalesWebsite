@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using DataAccess;
+﻿using DataAccess;
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Helpers;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
 using Model;
+using System;
+using System.Linq;
 
 namespace GameSalesApi.Features.Authorization.CommandHandlers
 {
