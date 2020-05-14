@@ -71,8 +71,7 @@ export class RegisterFormComponent implements OnInit {
     public onSubmit(): void {
         this.authService.register(this.registerForm)
             .subscribe(
-                () => this.router.navigate(["/login"]).then(
-                    this.registerFormDirective.resetForm()),
+                () => this.router.navigate(["/login"]),
                 error => {
                     const errorMessage = error.error.split(":")[1];
                     alert(errorMessage);

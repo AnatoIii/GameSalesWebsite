@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace GameSalesApi.Helpers
 {
