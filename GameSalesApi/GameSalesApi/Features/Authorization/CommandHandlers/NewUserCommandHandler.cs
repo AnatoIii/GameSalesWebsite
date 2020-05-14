@@ -53,7 +53,7 @@ namespace GameSalesApi.Features.Authorization.CommandHandlers
             {   
                 Id = Guid.NewGuid(),
                 Email = input.Email,
-                PasswordSalt = passwordSalt.ToString(),
+                PasswordSalt = Convert.ToBase64String(passwordSalt),
                 PasswordHash = passwordHash,
                 FirstName = input.FirstName,
                 LastName = input.LastName
