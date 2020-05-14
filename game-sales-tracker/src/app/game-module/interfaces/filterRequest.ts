@@ -4,7 +4,7 @@ export interface IFilterRequest {
   sortType: SortType;
 }
 
-enum SortType {
+export enum SortType {
   popularity = 'popularity',
   cheap = 'cheap',
   expensive = 'expensive',

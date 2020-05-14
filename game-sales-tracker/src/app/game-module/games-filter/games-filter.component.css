@@ -1,0 +1,103 @@
+:host {
+  display: flex;
+  background: rgb(57, 62, 77);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  color: white;
+  font-size: 20px;
+  position: relative;
+}
+
+.options {
+  margin: 45px 30px;
+  color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.filter-name,
+.sort-type {
+  color: white;
+  border-bottom: 1.2px solid #818181;
+}
+
+::ng-deep .mat-checkbox-frame {
+  border: 1.4px solid rgba(0, 0, 0, 0.54) !important;
+  border-radius: 4px !important;
+  transform: scale(1.2);
+  /* width: 15px !important;
+  height: 17px !important; */
+}
+
+::ng-deep .mat-checkbox-label {
+  font-family: 'Baloo Chettan 2', cursive !important;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: transparent !important;
+}
+
+::ng-deep .mat-checkbox-checkmark-path {
+  /* color: rgb(248, 248, 248); */
+  stroke: rgb(154, 32, 255) !important;
+  stroke-width: 4px !important;
+}
+
+mat-radio-button {
+  display: block;
+  font-family: 'Baloo Chettan 2', cursive;
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: rgb(154, 32, 255) !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: rgb(140, 0, 255) !important;
+}
+
+.mat-form-field {
+  font-family: 'Baloo Chettan 2', cursive;
+  width: 35%;
+}
+
+::ng-deep.mat-form-field-underline {
+  background-color: white !important;
+  color: white !important;
+}
+
+mat-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  min-width: 60%;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin: 10px 0;
+}
+
+.game:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+img {
+  width: 150px;
+}
+
+.name {
+  padding: 0 15px;
+}
+
+.price {
+  margin: 0 50px 0 auto;
+}
