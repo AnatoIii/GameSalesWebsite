@@ -71,12 +71,12 @@ export class RegisterFormComponent implements OnInit {
     public onSubmit(): void {
         this.authService.register(this.registerForm)
             .subscribe(
-                () => this.router.navigate(["/login"]),
+                () => this.router.navigate(["/login"]).then(
+                    this.registerFormDirective.resetForm()),
                 error => {
                     const errorMessage = error.error.split(":")[1];
                     alert(errorMessage);
                 },
             );
-        this.registerFormDirective.resetForm();
     }
 }

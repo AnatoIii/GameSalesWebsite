@@ -2,10 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
-import {
-    map,
-    take,
-} from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { LoginFormDto } from "../shared/models/login-form-dto";
 import { RegisterFormDto } from "../shared/models/register-form-dto";
 import { TokenDto } from "../shared/models/token-dto";
@@ -27,7 +24,6 @@ export class AuthService {
         };
         return this.httpClient.post(LIST_URI.login, loginFormDto)
             .pipe(
-                take(1),
                 map((tokenDto: TokenDto) => {
                     localStorage.setItem("ACCESS_TOKEN", tokenDto.accessToken);
                     localStorage.setItem("REFRESH_TOKEN", tokenDto.refreshToken);
@@ -49,6 +45,6 @@ export class AuthService {
     }
 
     public isUserAuthorized(): boolean {
-        return localStorage.getItem("ACCESS_TOKEN") === null;
+        return localStorage.getItem("ACCESS_TOKEN") !== null;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using DataAccess;
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Helpers;
@@ -50,10 +51,10 @@ namespace GameSalesApi.Features.Authorization.CommandHandlers
             string passwordHash = PasswordHelpers.HashPassword(input.Password, passwordSalt);
 
             User newUser = new User()
-            {   
+            {
                 Id = Guid.NewGuid(),
                 Email = input.Email,
-                PasswordSalt = passwordSalt.ToString(),
+                PasswordSalt = Convert.ToBase64String(passwordSalt),
                 PasswordHash = passwordHash,
                 FirstName = input.FirstName,
                 LastName = input.LastName
