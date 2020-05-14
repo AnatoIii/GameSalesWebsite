@@ -69,7 +69,7 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
                 NotificationViaEmail = input.NotificationViaEmail ?? user.NotificationViaEmail,
                 NotificationViaTelegram = input.NotificationViaTelegram ?? user.NotificationViaTelegram,
                 PhotoLink = input.PhotoLink ?? user.PhotoLink,
-                PasswordSalt = passwordSalt != null ? passwordSalt.ToString() : user.PasswordSalt,
+                PasswordSalt = passwordSalt != null ? Convert.ToBase64String(passwordSalt) : user.PasswordSalt,
                 PasswordHash = passwordHash ?? user.PasswordHash
             };
 
