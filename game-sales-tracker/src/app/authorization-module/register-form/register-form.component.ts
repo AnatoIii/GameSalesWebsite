@@ -77,6 +77,5 @@ export class RegisterFormComponent implements OnInit {
                     alert(errorMessage);
                 },
             );
-        this.registerFormDirective.resetForm();
     }
 }

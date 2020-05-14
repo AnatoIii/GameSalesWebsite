@@ -8,6 +8,8 @@ import {
     FormGroup,
     Validators,
 } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: "app-login-form",
@@ -16,12 +18,13 @@ import {
 })
 export class LoginFormComponent implements OnInit {
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,
+                private authService: AuthService,
+                private router: Router) {
     }
 
     @ViewChild("form") public loginFormDirective;
     public loginForm: FormGroup;
-    public credentials: string;
     public hidePass = true;
 
     public ngOnInit(): void {
@@ -36,7 +39,12 @@ export class LoginFormComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        this.credentials = this.loginForm.value;
-        this.loginFormDirective.resetForm();
+        this.authService.login(this.loginForm).subscribe(
+            () => this.router.navigate(["/"]),
+            error => {
+                const errorMessage = error.error.split(":")[1];
+                alert(errorMessage);
+            },
+        );
     }
 }
