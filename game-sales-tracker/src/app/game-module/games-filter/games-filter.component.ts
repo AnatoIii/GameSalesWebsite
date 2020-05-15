@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { IGame } from '../interfaces/game';
-import { IFilterRequest, SortType } from '../interfaces/filterRequest';
+import { IFilterOptions, SortType } from '../interfaces/filterOptions';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/internal/operators';
+import { debounceTime } from 'rxjs/internal/operators';
+import { IPageRequest } from '../interfaces/page';
 
 @Component({
   selector: 'app-games-filter',
@@ -13,15 +14,19 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/internal/operators';
 export class GamesFilterComponent implements OnInit {
   games: IGame[];
   gameGenres: [boolean, string][];
-  filterOptions: IFilterRequest;
-  filterChanged: Subject<IFilterRequest> = new Subject<IFilterRequest>();
+  filterOptions: IFilterOptions;
+  filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
+  pageOptions: IPageRequest;
+  gamesCount: number;
+  page: number = 1;
 
   constructor(private gameService: GameService) {
-    this.filterChanged
-      .pipe(debounceTime(500))
-      .subscribe((filter: IFilterRequest) => {
-        this.gameService.sendFilrtersParams(filter);
+    this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
+      this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
+        this.gamesCount = data.count;
+        //this.games = data.games;
       });
+    });
   }
 
   ngOnInit(): void {
@@ -29,6 +34,12 @@ export class GamesFilterComponent implements OnInit {
       gameName: '',
       genres: [],
       sortType: SortType.popularity,
+    };
+
+    this.pageOptions = {
+      from: 0,
+      countPerPage: 10,
+      filterOptions: this.filterOptions,
     };
 
     this.gameService.getGames().subscribe(
@@ -44,10 +55,16 @@ export class GamesFilterComponent implements OnInit {
     );
   }
 
-  filterReqChanged() {
+  filterChanged() {
     this.filterOptions.genres = this.gameGenres
       .filter((x) => x[0])
       .map((y) => y[1]);
-    this.filterChanged.next(this.filterOptions);
+    this.filterChangedSubject.next(this.filterOptions);
+  }
+
+  pageChanged(pageCount: number) {
+    this.page = pageCount;
+    this.pageOptions.from = (pageCount - 1) * this.pageOptions.countPerPage;
+    this.filterChangedSubject.next(this.filterOptions);
   }
 }

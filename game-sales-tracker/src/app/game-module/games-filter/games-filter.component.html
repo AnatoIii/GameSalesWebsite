@@ -1,26 +1,31 @@
 <div class="options">
     <p class="filter-name">Genre:</p>
     <section *ngFor="let genre of gameGenres">
-        <mat-checkbox [checked]="genre[0]" [(ngModel)]="genre[0]" (change)="filterReqChanged()">{{ genre[1] }}
+        <mat-checkbox [checked]="genre[0]" [(ngModel)]="genre[0]" (change)="filterChanged()">{{ genre[1] }}
         </mat-checkbox>
     </section>
 
     <p class="sort-type">Sort by:</p>
-    <mat-radio-group [(ngModel)]="filterOptions.sortType" (change)="filterReqChanged()">
+    <mat-radio-group [(ngModel)]="filterOptions.sortType" (change)="filterChanged()">
         <mat-radio-button value="popularity">Popularity</mat-radio-button>
         <mat-radio-button value="cheap">Cheap first</mat-radio-button>
         <mat-radio-button value="expensive">Expensive first</mat-radio-button>
     </mat-radio-group>
 </div>
 
-<mat-form-field appearance="legacy">
-    <mat-label>Search games</mat-label>
-    <input matInput [(ngModel)]="filterOptions.gameName" type="text" placeholder="Spore"
-        (ngModelChange)="filterReqChanged()">
-    <mat-icon matSuffix><i class="fas fa-search"></i></mat-icon>
-</mat-form-field>
-<div class="game" *ngFor="let game of games">
-    <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
-    <p class="name">{{game.name}}</p>
-    <p class="price">{{game.price}}$</p>
+<div class="game-container">
+    <mat-form-field>
+        <mat-label>Search games</mat-label>
+        <input matInput [(ngModel)]="filterOptions.gameName" type="text" placeholder="Spore"
+            (ngModelChange)="filterChanged()">
+        <mat-icon matSuffix><i class="fas fa-search"></i></mat-icon>
+    </mat-form-field>
+    <div class="game" *ngFor="let game of games">
+        <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
+        <p class="name">{{game.name}}</p>
+        <p class="price">{{game.price}}$</p>
+    </div>
+
+    <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="gamesCount || 45"
+        [countPerPage]="this.pageOptions.countPerPage" (pageChange)="pageChanged($event)"></app-paginator>
 </div>

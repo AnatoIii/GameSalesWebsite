@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IGame } from '../interfaces/game';
 import { Observable } from 'rxjs';
-import { IFilterRequest } from '../interfaces/filterRequest';
+import { IPageRequest } from '../interfaces/page';
 
 @Injectable({
   providedIn: 'root',
@@ -30,18 +30,30 @@ export class GameService {
     );
   }
 
-  sendFilrtersParams(filtersParams: IFilterRequest) {
-    console.log(filtersParams);
+  sendPageParams(
+    pageParams: IPageRequest
+  ): Observable<{ count: number; games: IGame[] }> {
+    console.log(pageParams);
     let params = new HttpParams();
-    Object.keys(filtersParams).forEach((key) => {
-      params = params.append(key, filtersParams[key]);
+    Object.keys(pageParams).forEach((key) => {
+      const paramsValue = pageParams[key];
+      if (typeof paramsValue !== 'object')
+        params = params.append(key, paramsValue);
+      if (typeof paramsValue === 'object') {
+        console.log(paramsValue);
+        Object.keys(paramsValue).forEach((keyInKey) => {
+          params = params.append(keyInKey, paramsValue[keyInKey]);
+        });
+      }
     });
+    console.log(params);
 
-    this.http
-      .get(this.baseURL + 'api/games', {
+    return this.http.get<{ count: number; games: IGame[] }>(
+      this.baseURL + 'api/games',
+      {
         headers: this.httpOptions.headers,
         params: params,
-      })
-      .subscribe();
+      }
+    );
   }
 }

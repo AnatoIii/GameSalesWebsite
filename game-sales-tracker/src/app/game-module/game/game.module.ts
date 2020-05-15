@@ -10,6 +10,7 @@ import { MainComponent } from '../main/main.component';
 import { CountdownComponent } from '../countdown/countdown.component';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { GamesFilterComponent } from '../games-filter/games-filter.component';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { GamesFilterComponent } from '../games-filter/games-filter.component';
     CountdownComponent,
     CarouselComponent,
     GamesFilterComponent,
+    PaginatorComponent,
   ],
   imports: [
     CommonModule,

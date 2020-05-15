@@ -1,9 +1,9 @@
 :host {
   display: flex;
-  background: rgb(57, 62, 77);
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
+  background: rgb(57, 62, 77);
   width: 100%;
   margin: 0 auto;
   color: white;
@@ -11,12 +11,21 @@
   position: relative;
 }
 
+.game-container {
+  flex: 2;
+  flex-direction: column;
+  padding: 0 60px 0 0;
+}
+
 .options {
-  margin: 45px 30px;
+  margin: 10px 60px;
+  width: fit-content;
   color: white;
-  position: absolute;
+  position: sticky;
+  position: -webkit-sticky;
   left: 0;
   top: 0;
+  align-self: start;
 }
 
 .filter-name,
@@ -53,9 +62,7 @@ mat-radio-button {
   font-family: 'Baloo Chettan 2', cursive;
 }
 
-::ng-deep
-  .mat-radio-button.mat-accent.mat-radio-checked
-  .mat-radio-outer-circle {
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: rgb(154, 32, 255) !important;
 }
 

@@ -1,4 +1,4 @@
-export interface IFilterRequest {
+export interface IFilterOptions {
   gameName: string;
   genres: string[];
   sortType: SortType;
