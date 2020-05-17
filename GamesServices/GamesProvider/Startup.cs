@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace GamesProvider
 {
@@ -29,6 +30,7 @@ namespace GamesProvider
             });
             services.AddTransient(typeof(IGamesPricesService), typeof(GamesPricesService));
             services.AddTransient(typeof(IGameService), typeof(GameService));
+            services.AddAutoMapper(typeof(GamePricesMapper));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

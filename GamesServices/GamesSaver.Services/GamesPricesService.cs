@@ -36,7 +36,8 @@ namespace GamesSaver.Services
                 if(gamePrices == null)
                 {
                     newGameEntries.Add(entry);
-                } else
+                } 
+                else
                 {
                     gamePrices.BasePrice = entry.BasePrice;
                     gamePrices.DiscountedPrice = entry.DiscountedPrice;

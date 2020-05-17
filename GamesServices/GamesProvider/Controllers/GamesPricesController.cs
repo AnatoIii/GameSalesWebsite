@@ -17,21 +17,25 @@ namespace GamesProvider.Controllers
         {
             _gamesPricesService = gamesPricesService;
         }
+
         [HttpGet("platform")]
         public IActionResult GetByPlatform(int platformId, int count, int offset)
         {
             return Ok(_gamesPricesService.GetGamePricesByPlatform(platformId, count, offset));
         }
+
         [HttpGet("platformcount")]
         public IActionResult GetByPlatformCount(int platformId)
         {
             return Ok(_gamesPricesService.GetGamePricesByPlatformCount(platformId));
         }
+
         [HttpGet("name")]
         public IActionResult GetByName(string name, int count, int offset)
         {
             return Ok(_gamesPricesService.GetGamePricesByName(name, count, offset));
         }
+
         [HttpGet("namecount")]
         public IActionResult GetByNameCount(string name)
         {

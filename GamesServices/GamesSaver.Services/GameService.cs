@@ -20,16 +20,11 @@ namespace GamesSaver.Services
             Game newGame = _dbContext.Games.Add(new Game()
             {
                 Name = gameEntry.Name,
-                Description = gameEntry.Description
+                Description = gameEntry.Description,
+                Images = gameEntry.PictureURLs
+                                 .Select(p => new Image() {URL = p })
+                                 .ToList()
             }).Entity;
-            _dbContext.SaveChanges();
-            var images = gameEntry.PictureURLs
-                .Select(p => new Image()
-                {
-                    GameId = newGame.GameId,
-                    URL = p
-                });
-            _dbContext.Images.AddRange(images);
             _dbContext.SaveChanges();
             return newGame;
         }

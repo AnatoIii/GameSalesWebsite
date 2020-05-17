@@ -211,7 +211,7 @@ namespace DBAccess.Migrations
             modelBuilder.Entity("Models.Image", b =>
                 {
                     b.HasOne("Models.Game", "Game")
-                        .WithMany("Images")
+                        .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

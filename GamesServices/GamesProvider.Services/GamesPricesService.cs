@@ -1,4 +1,5 @@
-﻿using DBAccess;
+﻿using AutoMapper;
+using DBAccess;
 using GamesProvider.Services.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Models;
@@ -13,10 +14,12 @@ namespace GamesProvider.Services
     public class GamesPricesService : IGamesPricesService
     {
         private readonly GameServiceDBContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public GamesPricesService(GameServiceDBContext dbContext)
+        public GamesPricesService(GameServiceDBContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public GamePriceDTO GetGamePriceById(int gamePriceId)
@@ -26,7 +29,7 @@ namespace GamesProvider.Services
                 .Include(gp => gp.Game)
                     .ThenInclude(g => g.Images)
                 .Include(g => g.Platform).FirstOrDefault();
-            return gamePrices == null ? new GamePriceDTO() : GamePricesToDTO(gamePrices);
+            return _mapper.Map<GamePrices, GamePriceDTO>(gamePrices);
         }
         public GamePriceDTO GetGamePriceByPlatformAndGame(int platformId, int gameId)
         {
@@ -35,49 +38,39 @@ namespace GamesProvider.Services
                 .Include(gp => gp.Game)
                     .ThenInclude(g => g.Images)
                 .Include(g => g.Platform).FirstOrDefault();
-            return gamePrices == null ? new GamePriceDTO() : GamePricesToDTO(gamePrices);
+            return _mapper.Map<GamePrices, GamePriceDTO>(gamePrices);
         }
 
         public IEnumerable<GamePriceDTO> GetGamePricesByName(string name, int count, int offset)
         {
-            return _dbContext.GamePrices.Where(gp => gp.Game.Name.ToLower().Contains(name.ToLower()))
+            var gamePrices = _dbContext.GamePrices.Where(gp => gp.Game.Name.ToLower().Contains(name.ToLower()))
                 .Skip(offset).Take(count)
                 .Include(gp => gp.Game)
                     .ThenInclude(g => g.Images)
-                .Include(g => g.Platform)
-                .Select(gp => GamePricesToDTO(gp));
+                .Include(g => g.Platform);
+            return _mapper.Map<IEnumerable<GamePrices>, IEnumerable<GamePriceDTO>>(gamePrices);
         }
 
         public int GetGamePricesByNameCount(string name)
         {
-            return _dbContext.GamePrices.Where(gp => gp.Game.Name.ToLower().Contains(name.ToLower())).Count();
+            return _dbContext.GamePrices
+                .Where(gp => gp.Game.Name.ToLower().Contains(name.ToLower()))
+                .Count();
         }
 
         public IEnumerable<GamePriceDTO> GetGamePricesByPlatform(int platformId, int count, int offset)
         {
-            return _dbContext.GamePrices.Where(gp => gp.PlatformId == platformId)
+            var gamePrices = _dbContext.GamePrices.Where(gp => gp.PlatformId == platformId)
                 .Skip(offset).Take(count)
                 .Include(gp => gp.Game)
                     .ThenInclude(g => g.Images)
-                .Include(gp => gp.Platform)
-                .Select(gp => GamePricesToDTO(gp));
+                .Include(gp => gp.Platform);
+            return _mapper.Map<IEnumerable<GamePrices>, IEnumerable<GamePriceDTO>>(gamePrices);
         }
 
         public int GetGamePricesByPlatformCount(int platformId)
         {
             return _dbContext.GamePrices.Where(gp => gp.PlatformId == platformId).Count();
-        }
-
-        private static GamePriceDTO GamePricesToDTO(GamePrices gamePrices)
-        {
-            return new GamePriceDTO()
-            {
-                Platform = gamePrices.Platform,
-                Game = gamePrices.Game,
-                BasePrice = gamePrices.BasePrice,
-                DiscountedPrice = gamePrices.DiscountedPrice,
-                PlatformSpecificId = gamePrices.PlatformSpecificId
-            };
         }
     }
 }
