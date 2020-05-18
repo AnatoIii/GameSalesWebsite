@@ -14,6 +14,7 @@ namespace Parsers.Core
         /// Returns a final collection of <see cref="GameEntry"/> that are ready to be sent to the DB
         /// </summary>
         Task<IEnumerable<GameEntry>> ParsePlatform();
+
         ParserSettings ParserSettings { get; }
     }
 }
