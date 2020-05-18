@@ -22,7 +22,6 @@ namespace PSStoreParser
             ParserService parserService = new ParserService(parser, logger);
             var process = parserService.StartService();
             process.Wait();
-            Console.ReadKey();
         }
     }
 }

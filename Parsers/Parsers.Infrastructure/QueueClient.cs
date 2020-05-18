@@ -42,7 +42,7 @@ namespace Parsers.Infrastructure
         {
             _channel.ExchangeDeclare(_queueSettings.ExchangeName,ExchangeType.Direct);
             _channel.QueueDeclare(_queueSettings.QueueName, false, false, false, null);
-            _channel.QueueBind(_queueSettings.QueueName,_queueSettings.ExchangeName, null, null);
+            _channel.QueueBind(_queueSettings.QueueName,_queueSettings.ExchangeName, _queueSettings.ExchangeName);
         }
 
         public void SendEntries(IEnumerable<GameEntry> entries)
@@ -50,7 +50,7 @@ namespace Parsers.Infrastructure
             _logger.Log($"Started Sending Entries - {DateTime.Now}");
             string data = JsonConvert.SerializeObject(entries);
             byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-            _channel.BasicPublish(_queueSettings.ExchangeName, null, null, dataBytes);
+            _channel.BasicPublish(_queueSettings.ExchangeName, _queueSettings.ExchangeName, null, dataBytes);
             _logger.Log($"Ended Sending Entries - {DateTime.Now}");
         }
     }
