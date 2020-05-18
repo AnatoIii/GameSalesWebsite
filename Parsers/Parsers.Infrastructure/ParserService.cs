@@ -25,7 +25,6 @@ namespace Parsers.Infrastructure
             var entities = await _parser.ParsePlatform();
             _client.SendEntries(entities);
             _logger.Log($"Process ended - {DateTime.Now}");
-            await Task.Delay(_parser.ParserSettings.PeriodBetweenParserActivations);
         }
     }
 }
