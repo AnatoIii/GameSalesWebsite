@@ -24,7 +24,7 @@ export class GamesFilterComponent implements OnInit {
     this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
         this.gamesCount = data.count;
-        //this.games = data.games;
+        this.games = data.games;
       });
     });
   }
