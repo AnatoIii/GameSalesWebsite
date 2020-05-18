@@ -5,12 +5,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from '../../app-routing/app-routing.module';
 
 import { MainComponent } from '../main/main.component';
 import { CountdownComponent } from '../countdown/countdown.component';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { GamesFilterComponent } from '../games-filter/games-filter.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
+import { GameDetailsComponent } from '../game-details/game-details.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { PaginatorComponent } from '../paginator/paginator.component';
     CarouselComponent,
     GamesFilterComponent,
     PaginatorComponent,
+    GameDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { PaginatorComponent } from '../paginator/paginator.component';
     MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
+    AppRoutingModule,
   ],
 })
 export class GameModule {}

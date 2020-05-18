@@ -18,6 +18,10 @@
     width: 20%;
 }
 
+.game:hover {
+    cursor: pointer;
+}
+
 .price {
     color: white;
     position: absolute;

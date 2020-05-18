@@ -26,6 +26,7 @@ import {
         style({
           padding: '40px 10px',
           height: '100%',
+          cursor: 'pointer',
         })
       ),
       transition('* => *', animate('0.5s ease-in-out')),
@@ -41,6 +42,7 @@ import {
         'hover',
         style({
           opacity: '1',
+          cursor: 'pointer',
         })
       ),
       transition('initial <=> hover', animate('1s')),

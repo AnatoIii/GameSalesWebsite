@@ -20,7 +20,7 @@
             (ngModelChange)="filterChanged()">
         <mat-icon matSuffix><i class="fas fa-search"></i></mat-icon>
     </mat-form-field>
-    <div class="game" *ngFor="let game of games">
+    <div class="game" *ngFor="let game of games" [routerLink]="['/game', game.id]">
         <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
         <p class="name">{{game.name}}</p>
         <p class="price">{{game.price}}$</p>

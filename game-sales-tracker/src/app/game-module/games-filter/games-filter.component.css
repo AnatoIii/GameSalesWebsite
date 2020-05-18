@@ -62,7 +62,9 @@ mat-radio-button {
   font-family: 'Baloo Chettan 2', cursive;
 }
 
-::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
   border-color: rgb(154, 32, 255) !important;
 }
 
@@ -98,7 +100,9 @@ mat-label {
 }
 
 img {
-  width: 150px;
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
 }
 
 .name {

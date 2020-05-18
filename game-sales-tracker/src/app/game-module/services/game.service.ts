@@ -30,6 +30,13 @@ export class GameService {
     );
   }
 
+  getGameDetails(id: number): Observable<IGame> {
+    return this.http.get<IGame>(
+      this.baseURL + 'api/games/' + id,
+      this.httpOptions
+    );
+  }
+
   sendPageParams(
     pageParams: IPageRequest
   ): Observable<{ count: number; games: IGame[] }> {
