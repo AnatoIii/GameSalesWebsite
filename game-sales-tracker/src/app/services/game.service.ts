@@ -1,25 +1,29 @@
-import { Injectable } from '@angular/core';
-import { baseURL } from '../shared/baseURL';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Game } from '../shared/models/game';
-import { Observable } from 'rxjs';
+import {
+    HttpClient,
+    HttpHeaders,
+} from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Game } from "../shared/models/game";
+import { LIST_URI } from "./rest-api.constants";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root",
 })
 export class GameService {
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'JWT ' + localStorage.getItem('token')
-    })
-  };
+    constructor(private httpClient: HttpClient) {
+    }
 
-  constructor(private http: HttpClient) { }
+    // TODO: add interceptor for httpHeader
+    public httpOptions = {
+        headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": "JWT " + localStorage.getItem("token"),
+        }),
+    };
 
-  getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(baseURL + 'api/games', this.httpOptions);
-  }
-
+    public getAll(): Observable<Game[]> {
+        return this.httpClient.get<Game[]>(LIST_URI.getAllUsers);
+    }
 }

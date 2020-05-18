@@ -1,57 +1,55 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Game } from '../../shared/models/game';
+import { Component, OnInit, Input } from "@angular/core";
+import { Game } from "../../shared/models/game";
 import {
-  trigger,
+  animate,
   state,
   style,
-  animate,
   transition,
-} from '@angular/animations';
+  trigger,
+} from "@angular/animations";
 
 @Component({
-  selector: 'app-game-into',
-  templateUrl: './game-into.component.html',
-  styleUrls: ['./game-into.component.css'],
+  selector: "app-game-into",
+  templateUrl: "./game-into.component.html",
+  styleUrls: ["./game-into.component.css"],
   animations: [
-    trigger('onHover', [
+    trigger("onHover", [
       state(
-        'initial',
+        "initial",
         style({
-          padding: '10px',
-          height: '30%',
+          padding: "10px",
+          height: "30%",
         })
       ),
       state(
-        'hover',
+        "hover",
         style({
-          padding: '40px 10px',
-          height: '100%',
+          padding: "40px 10px",
+          height: "100%",
         })
       ),
-      transition('* => *', animate('0.5s ease-in-out')),
+      transition("* => *", animate("0.5s ease-in-out")),
     ]),
-    trigger('gameDescription', [
+    trigger("gameDescription", [
       state(
-        'initial',
+        "initial",
         style({
-          opacity: '0',
+          opacity: "0",
         })
       ),
       state(
-        'hover',
+        "hover",
         style({
-          opacity: '1',
+          opacity: "1",
         })
       ),
-      transition('initial <=> hover', animate('1s')),
+      transition("initial <=> hover", animate("1s")),
     ]),
   ],
 })
 export class GameIntoComponent implements OnInit {
-  @Input() game: Game;
-  blockOnHover = false;
+  @Input() public game: Game;
+  public blockOnHover = false;
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
 }

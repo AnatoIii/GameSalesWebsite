@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>3facfdd7-d07d-4240-9b49-676d44d50152</UserSecretsId>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
