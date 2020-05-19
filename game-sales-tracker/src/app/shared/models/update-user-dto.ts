@@ -1,5 +1,5 @@
-export interface User {
-    id: string;
+export interface UpdateUserDto {
+    userId: string;
     firstName: string;
     lastName: string;
     email: string;

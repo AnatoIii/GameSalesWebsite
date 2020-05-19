@@ -78,7 +78,7 @@ namespace GameSalesApi.Features.Authorization
                 DueDate = DateTime.Now.AddMinutes(_tokenConfig.RefreshTokenLifetime)
             };
             dbContext.Tokens.Add(dbToken);
-            return new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshTokenValue };
+            return new TokenDTO() { AccessToken = accessToken, RefreshToken = refreshTokenValue, UserId = user.Id};
         }
     }
 }

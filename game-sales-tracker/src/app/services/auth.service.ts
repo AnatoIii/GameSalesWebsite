@@ -27,6 +27,7 @@ export class AuthService {
                 map((tokenDto: TokenDto) => {
                     localStorage.setItem("ACCESS_TOKEN", tokenDto.accessToken);
                     localStorage.setItem("REFRESH_TOKEN", tokenDto.refreshToken);
+                    localStorage.setItem("USER_ID", tokenDto.userId);
                     return tokenDto;
                 }),
             );
