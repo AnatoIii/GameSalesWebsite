@@ -48,4 +48,8 @@ export class AuthService {
     public isUserAuthorized(): boolean {
         return localStorage.getItem("ACCESS_TOKEN") !== null;
     }
+
+    public logOut(): void {
+        localStorage.clear();
+    }
 }

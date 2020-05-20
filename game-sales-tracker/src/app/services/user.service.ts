@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { UpdateUserDto } from "../shared/models/update-user-dto";
 import { User } from "../shared/models/user";
 import { LIST_URI } from "./rest-api.constants";
 
@@ -26,5 +27,9 @@ export class UserService {
                     return user;
                 }),
             );
+    }
+
+    public updateUser(updateUserDto: UpdateUserDto): Observable<any> {
+        return this.httpClient.post(LIST_URI.updateUser, updateUserDto, { observe: "response" });
     }
 }

@@ -1,10 +1,11 @@
 export interface UpdateUserDto {
     userId: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    username: string;
-    password: string;
-    image: string;
-    role: string;
+    email?: string;
+    password?: string;
+    firstName?: string;
+    lastName?: string;
+    notificationViaEmail?: boolean;
+    notificationViaTelegram?: boolean;
+    photoLink?: string;
+    username?: string;
 }

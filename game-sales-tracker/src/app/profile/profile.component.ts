@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { Observable } from "rxjs";
 import { UserService } from "../services/user.service";
+import { UpdateUserDto } from "../shared/models/update-user-dto";
 import { User } from "../shared/models/user";
 import { passwordsMatch } from "../shared/validators/password-match.validator";
 import { PasswordValidate } from "../shared/validators/password.validator";
@@ -52,7 +53,20 @@ export class ProfileComponent implements OnInit {
     }
 
     public changePasswordSubmit(): void {
-        console.log(this.changePasswordForm.value.currentPassword);
-        console.log(this.changePasswordForm.value.newPassword);
+        const updateUserDto: UpdateUserDto = {
+            userId: localStorage.getItem("USER_ID"),
+            password: this.changePasswordForm.value.newPassword,
+        };
+        this.userService.updateUser(updateUserDto)
+            .subscribe(
+                () => {
+                    this.changePasswordForm.reset();
+                    this.changePasswordVisibility();
+                },
+                error => {
+                    const errorMessage = error.error.split(":")[1];
+                    alert(errorMessage);
+                },
+            );
     }
 }
