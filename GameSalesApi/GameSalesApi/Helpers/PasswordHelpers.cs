@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace GameSalesApi.Helpers
 {
@@ -14,7 +14,6 @@ namespace GameSalesApi.Helpers
         private static readonly Regex _prHasUpperChar = new Regex(@"[A-Z]+");
         private static readonly Regex _prHasMiniMaxChars = new Regex(@".{8,15}");
         private static readonly Regex _prHasLowerChar = new Regex(@"[a-z]+");
-        private static readonly Regex _prHasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
         /// <summary>
         /// Generate Random Salt
@@ -85,11 +84,6 @@ namespace GameSalesApi.Helpers
             else if (!_prHasNumber.IsMatch(password))
             {
                 errorMessage = "Password should contain at least one numeric value.";
-                return false;
-            }
-            else if (!_prHasSymbols.IsMatch(password))
-            {
-                errorMessage = "Password should contain at least one special case character.";
                 return false;
             }
 

@@ -50,8 +50,10 @@ namespace Infrastructure.InfrastructureCommandDecorators
         {
             var res = _rDecorated.Handle(input);
 
-            if (_rDBContext.SaveChanges() == 0)
-                throw new DbUpdateException("Save to DB");
+            _rDBContext.SaveChanges();
+            //if (_rDBContext.SaveChanges() == 0)
+            //    throw new DbUpdateException("Save to DB");
+
 
             return res;
         }

@@ -1,71 +1,134 @@
 <div class="main">
     <app-gallery class="gallery"></app-gallery>
 
-    <form [formGroup]="registerForm" #form="ngForm" (ngSubmit)="onSubmit()" class="register-form">
+    <form
+        #form="ngForm"
+        class="register-form"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+    >
         <div class="wrapper">
             <p class="title">Register</p>
 
             <mat-form-field>
-                <mat-label>Enter your username</mat-label>
-                <input matInput formControlName="username" placeholder="Your username" type="text" required>
-                <mat-error *ngIf="registerForm.get('username').hasError('required')">
-                    Username is required
+                <mat-label>Enter your email</mat-label>
+                <input
+                    formControlName="email"
+                    matInput
+                    placeholder="Your email"
+                    required
+                    type="text"
+                >
+                <mat-error *ngIf="registerForm.controls.email.hasError('required')">
+                    Email is required
                 </mat-error>
-                <mat-error *ngIf="registerForm.get('username').hasError('minlength')">
-                    Username must be at least 3 characters long
-                </mat-error>
-                <mat-error *ngIf="registerForm.get('username').hasError('maxlength')">
-                    Username cannot be more than 30 characters long
+                <mat-error *ngIf="registerForm.controls.email.hasError('email')">
+                    Email is not valid
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Enter your email</mat-label>
-                <input matInput formControlName="email" placeholder="Your email" type="text" required>
-                <mat-error *ngIf="registerForm.get('email').hasError('required')">
-                    Email is required
+            <mat-form-field [hideRequiredMarker]="true">
+                <mat-label>Enter your first name</mat-label>
+                <input
+                    formControlName="firstName"
+                    matInput
+                    placeholder="First name"
+                    required
+                    type="text"
+                >
+                <mat-error *ngIf="registerForm.controls.firstName.hasError('minlength')">
+                    First name must be at least 3 characters long
                 </mat-error>
-                <mat-error *ngIf="registerForm.get('email').hasError('email')">
-                    Email is not valid
+                <mat-error *ngIf="registerForm.controls.firstName.hasError('maxlength')">
+                    First name cannot be more than 30 characters long
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field [hideRequiredMarker]="true">
+                <mat-label>Enter your last name</mat-label>
+                <input
+                    formControlName="lastName"
+                    matInput
+                    placeholder="Last name"
+                    required
+                    type="text"
+                >
+                <mat-error *ngIf="registerForm.controls.lastName.hasError('minlength')">
+                    Last name must be at least 3 characters long
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.lastName.hasError('maxlength')">
+                    Last name cannot be more than 30 characters long
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="password"
-                    placeholder="Your password" required>
-                <i matSuffix [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'" (click)="hidePass = !hidePass"></i>
-                <mat-error *ngIf="registerForm.get('password').hasError('required')">
+                <input
+                    [type]="hidePass ? 'password' : 'text'"
+                    formControlName="password"
+                    matInput
+                    placeholder="Your password"
+                    required
+                >
+                <i
+                    [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                    matSuffix
+                    (click)="hidePass = !hidePass"
+                ></i>
+                <mat-error *ngIf="registerForm.controls.password.hasError('required')">
                     Password is required
                 </mat-error>
-                <mat-error *ngIf="registerForm.get('password').hasError('minlength')">
-                    Password must be at least 5 characters long
+                <mat-error *ngIf="registerForm.controls.password.hasError('minLength')">
+                    Password must be at least 8 characters long
                 </mat-error>
-                <mat-error *ngIf="registerForm.get('password').hasError('maxlength')">
-                    Password cannot be more than 30 characters long
+                <mat-error *ngIf="registerForm.controls.password.hasError('maxlength')">
+                    Password cannot be more than 15 characters long
+                </mat-error>
+                <mat-error
+                    *ngIf="registerForm.controls.password.hasError('capitalCase') ||
+                           registerForm.controls.password.hasError('lowerCase') ||
+                           registerForm.controls.password.hasError('numbers')"
+                >
+                    Password must contain uppercase, lowercase, digits and special character.
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Confirm your password</mat-label>
-                <input matInput [type]="hideConfirmPass ? 'password' : 'text'" formControlName="confirmPass"
-                    placeholder="Your password" required>
-                <i matSuffix [class]="hideConfirmPass ? 'fas fa-eye-slash' : 'fas fa-eye'"
-                    (click)="hideConfirmPass = !hideConfirmPass"></i>
-                <mat-error *ngIf="registerForm.get('confirmPass').hasError('required')">
+                <input
+                    [type]="hideConfirmPass ? 'password' : 'text'"
+                    formControlName="confirmPass"
+                    matInput
+                    placeholder="Your password"
+                    required
+                >
+                <i
+                    [class]="hideConfirmPass ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                    matSuffix
+                    (click)="hideConfirmPass = !hideConfirmPass"
+                ></i>
+                <mat-error *ngIf="registerForm.controls.confirmPass.hasError('required')">
                     Confirm password is required
                 </mat-error>
-                <mat-error *ngIf="registerForm.get('confirmPass').hasError('mustMatch')">
+                <mat-error *ngIf="registerForm.controls.confirmPass.hasError('mustMatch')">
                     Password mismatch
                 </mat-error>
             </mat-form-field>
 
             <div class="register">
-                <button type="submit" [disabled]="registerForm.invalid">Register</button>
+                <button
+                    [disabled]="registerForm.invalid"
+                    type="submit"
+                >Register
+                </button>
             </div>
             <div class="login">
                 <span>Already have an account?</span>
-                <button type="button" routerLink="/login">Login</button>
+                <button
+                    routerLink="/login"
+                    type="button"
+                >Login
+                </button>
             </div>
         </div>
     </form>
