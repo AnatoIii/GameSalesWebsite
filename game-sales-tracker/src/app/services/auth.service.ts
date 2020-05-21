@@ -39,6 +39,7 @@ export class AuthService {
         const registerFormDto: RegisterFormDto = {
             email: controls.email.value,
             firstName: controls.firstName.value,
+            username: controls.username.value,
             lastName: controls.lastName.value,
             password: controls.password.value,
         };

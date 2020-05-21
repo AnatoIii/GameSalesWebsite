@@ -35,7 +35,10 @@ export class ProfileComponent implements OnInit {
     public ngOnInit(): void {
         this.userService.getById(localStorage.getItem("USER_ID"))
             .subscribe(
-                (user: User) => this.user = user,
+                (user: User) => {
+                    this.user = user;
+                    this.profileForm.setValue({ username: this.user.username, email: this.user.email });
+                },
             );
         this.createChangePasswordForm();
         this.createProfileForm();
@@ -63,9 +66,25 @@ export class ProfileComponent implements OnInit {
             );
     }
 
-    public save(): void {
-        console.log(this.profileForm.value);
-        console.log(this.profileForm.controls.email.errors);
+    public changeProfileSubmit(): void {
+        if (this.profileForm.invalid) {
+            return;
+        }
+        const updateUserDto: UpdateUserDto = {
+            userId: this.user.id,
+            username: this.profileForm.value.username,
+            email: this.profileForm.value.email,
+        };
+        this.userService.updateUser(updateUserDto)
+            .subscribe(
+                () => {
+                    console.log("successfully updated");
+                },
+                error => {
+                    const errorMessage = error.error.split(":")[1];
+                    alert(errorMessage);
+                },
+            );
     }
 
     private createChangePasswordForm(): void {
@@ -82,11 +101,11 @@ export class ProfileComponent implements OnInit {
     private createProfileForm(): void {
         this.profileForm = this.formBuilder.group(
             {
-                username: [this.user.username, [
+                username: ["", [
                     Validators.required,
                     Validators.minLength(3),
                     Validators.maxLength(20)]],
-                email: [this.user.email, [
+                email: ["", [
                     Validators.required,
                     Validators.email]],
             },

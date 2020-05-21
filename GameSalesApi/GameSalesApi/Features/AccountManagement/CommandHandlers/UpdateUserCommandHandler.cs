@@ -66,6 +66,7 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
                 FirstName = input.FirstName ?? user.FirstName,
                 LastName = input.LastName ?? user.LastName,
                 Email = input.Email ?? user.Email,
+                Username = input.Username ?? user.Username,
                 NotificationViaEmail = input.NotificationViaEmail ?? user.NotificationViaEmail,
                 NotificationViaTelegram = input.NotificationViaTelegram ?? user.NotificationViaTelegram,
                 PhotoLink = input.PhotoLink ?? user.PhotoLink,

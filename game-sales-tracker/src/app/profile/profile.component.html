@@ -1,5 +1,8 @@
 <div class="profile">
-    <div class="profile__card">
+    <div
+        *ngIf="user !== null"
+        class="profile__card"
+    >
         <div class="profile__image">
             <img
                 [src]="user?.image ? user?.image :
@@ -13,7 +16,7 @@
                     class="profile__username"
                     formControlName="username"
                     type="text"
-                    (keyup)="save()"
+                    (keyup.enter)="changeProfileSubmit()"
                 >
                 <div *ngIf="profileForm.controls.username.errors">
                     <label
@@ -40,7 +43,7 @@
                     class="profile__email"
                     formControlName="email"
                     type="email"
-                    (keyup)="save()"
+                    (keyup.enter)="changeProfileSubmit()"
                 >
                 <div *ngIf="profileForm.controls.email.errors">
                     <label
@@ -76,13 +79,13 @@
 
                 <mat-form-field>
                     <mat-label>Enter current password</mat-label>
-                        <input
-                            [type]="hideCurrentPassword ? 'password' : 'text'"
-                            formControlName="currentPassword"
-                            matInput
-                            placeholder="Current password"
-                            required
-                        >
+                    <input
+                        [type]="hideCurrentPassword ? 'password' : 'text'"
+                        formControlName="currentPassword"
+                        matInput
+                        placeholder="Current password"
+                        required
+                    >
                     <i
                         [class]="hideCurrentPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
                         matSuffix
@@ -168,4 +171,5 @@
             </div>
         </form>
     </ng-container>
+
 </div>

@@ -27,6 +27,26 @@
                 </mat-error>
             </mat-form-field>
 
+            <mat-form-field>
+                <mat-label>Enter your username</mat-label>
+                <input
+                    formControlName="username"
+                    matInput
+                    placeholder="Your username"
+                    required
+                    type="text"
+                >
+                <mat-error *ngIf="registerForm.controls.username.hasError('required')">
+                    Username is required
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.username.hasError('minlength')">
+                    Username must be at least 3 characters long
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.username.hasError('maxlength')">
+                    Username cannot be more than 20 characters long
+                </mat-error>
+            </mat-form-field>
+
             <mat-form-field [hideRequiredMarker]="true">
                 <mat-label>Enter your first name</mat-label>
                 <input

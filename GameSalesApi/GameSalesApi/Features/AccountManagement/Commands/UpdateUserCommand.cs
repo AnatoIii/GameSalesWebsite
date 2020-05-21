@@ -22,6 +22,11 @@ namespace GameSalesApi.Features.AccountManagement.Commands
         public string Email { get; set; }
 
         /// <summary>
+        /// New username
+        /// </summary>
+        public string Username { get; set; }
+
+        /// <summary>
         /// New password
         /// </summary>
         public string Password { get; set; }

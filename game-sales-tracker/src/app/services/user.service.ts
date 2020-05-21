@@ -25,17 +25,10 @@ export class UserService {
     }
 
     public getById(id: string): Observable<User> {
-        // return this.httpClient.get<User[]>(LIST_URI.getAllUsers)
-        //     .pipe(
-        //         map((users: User[]) => users.find(user => user.id === id)),
-        //         map((user: User) => {
-        //             user.username = user.email.split("@")[0];
-        //             return user;
-        //         }),
-        //     );
-        return of(users)
+        return this.httpClient.get<User[]>(LIST_URI.getAllUsers)
             .pipe(
-                map(u => u.find(user => user.id === id)),
+                map((users: User[]) => users.find(user => user.id === id)),
+                filter(user => user !== undefined),
             );
     }
 
@@ -43,12 +36,3 @@ export class UserService {
         return this.httpClient.post(LIST_URI.updateUser, updateUserDto, { observe: "response" });
     }
 }
-
-const users: User[] = [
-    {
-        id: "cb862a85-fff8-432c-ab6a-f40c9e148e0e",
-        email: "max@gmail.com",
-        username: "miscellian",
-        password: "Q1w2e3r4t5",
-    },
-];
