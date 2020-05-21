@@ -7,7 +7,6 @@ import {
     FormGroup,
     Validators,
 } from "@angular/forms";
-import { Observable } from "rxjs";
 import { UserService } from "../services/user.service";
 import { UpdateUserDto } from "../shared/models/update-user-dto";
 import { User } from "../shared/models/user";
@@ -25,27 +24,21 @@ export class ProfileComponent implements OnInit {
                 private formBuilder: FormBuilder) {
     }
 
-    public user$: Observable<User>;
-    public changePasswordVisible = false;
+    public user: User;
     public changePasswordForm: FormGroup;
+    public profileForm: FormGroup;
+    public changePasswordVisible = false;
     public hideCurrentPassword = true;
     public hideNewPassword = true;
     public hideConfirmNewPassword = true;
 
     public ngOnInit(): void {
-        this.user$ = this.userService.getById(localStorage.getItem("USER_ID"));
-        this.changePasswordForm = this.createChangePasswordForm();
-    }
-
-    public createChangePasswordForm(): FormGroup {
-        return this.formBuilder.group(
-            {
-                currentPassword: ["", Validators.required],
-                newPassword: ["", PasswordValidate],
-                confirmNewPassword: ["", Validators.required],
-            },
-            { validators: passwordsMatch("newPassword", "confirmNewPassword") },
-        );
+        this.userService.getById(localStorage.getItem("USER_ID"))
+            .subscribe(
+                (user: User) => this.user = user,
+            );
+        this.createChangePasswordForm();
+        this.createProfileForm();
     }
 
     public changePasswordVisibility(): void {
@@ -68,5 +61,35 @@ export class ProfileComponent implements OnInit {
                     alert(errorMessage);
                 },
             );
+    }
+
+    public save(): void {
+        console.log(this.profileForm.value);
+        console.log(this.profileForm.controls.email.errors);
+    }
+
+    private createChangePasswordForm(): void {
+        this.changePasswordForm = this.formBuilder.group(
+            {
+                currentPassword: ["", Validators.required],
+                newPassword: ["", PasswordValidate],
+                confirmNewPassword: ["", Validators.required],
+            },
+            { validators: passwordsMatch("newPassword", "confirmNewPassword") },
+        );
+    }
+
+    private createProfileForm(): void {
+        this.profileForm = this.formBuilder.group(
+            {
+                username: [this.user.username, [
+                    Validators.required,
+                    Validators.minLength(3),
+                    Validators.maxLength(20)]],
+                email: [this.user.email, [
+                    Validators.required,
+                    Validators.email]],
+            },
+        );
     }
 }

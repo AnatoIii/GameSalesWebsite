@@ -2,14 +2,61 @@
     <div class="profile__card">
         <div class="profile__image">
             <img
-                [src]="(user$ | async)?.image ? (user$ | async)?.image :
-                'https://images.unsplash.com/photo-1531804055935-76f44d7c3621?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9'"
+                [src]="user?.image ? user?.image :
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQLJgWIJplsjIchsVy2t8BMycFIge6G2cgjc7dIEtNqKwzVocpq&usqp=CAU'"
                 alt="profile photo"
             >
         </div>
         <div class="profile__info">
-            <div class="profile__username">{{(user$ | async)?.username | titlecase}}</div>
-            <div class="profile__email">{{(user$ | async)?.email}}</div>
+            <form [formGroup]="profileForm">
+                <input
+                    class="profile__username"
+                    formControlName="username"
+                    type="text"
+                    (keyup)="save()"
+                >
+                <div *ngIf="profileForm.controls.username.errors">
+                    <label
+                        *ngIf="profileForm.controls.username.errors.required"
+                        class="profile__error"
+                    >
+                        Username is required
+                    </label>
+                    <label
+                        *ngIf="profileForm.controls.username.errors.minlength"
+                        class="profile__error"
+                    >
+                        Username should be at least 3 symbols length
+                    </label>
+                    <label
+                        *ngIf="profileForm.controls.username.errors.maxlength"
+                        class="profile__error"
+                    >
+                        Username should be shorter than 20 symbols
+                    </label>
+                </div>
+
+                <input
+                    class="profile__email"
+                    formControlName="email"
+                    type="email"
+                    (keyup)="save()"
+                >
+                <div *ngIf="profileForm.controls.email.errors">
+                    <label
+                        *ngIf="profileForm.controls.email.errors.required"
+                        class="profile__error"
+                    >
+                        Email is required
+                    </label>
+                    <label
+                        *ngIf="profileForm.controls.email.errors.email"
+                        class="profile__error"
+                    >
+                        Invalid email format
+                    </label>
+                </div>
+            </form>
         </div>
         <div
             class="profile__button"
@@ -29,13 +76,13 @@
 
                 <mat-form-field>
                     <mat-label>Enter current password</mat-label>
-                    <input
-                        [type]="hideCurrentPassword ? 'password' : 'text'"
-                        formControlName="currentPassword"
-                        matInput
-                        placeholder="Current password"
-                        required
-                    >
+                        <input
+                            [type]="hideCurrentPassword ? 'password' : 'text'"
+                            formControlName="currentPassword"
+                            matInput
+                            placeholder="Current password"
+                            required
+                        >
                     <i
                         [class]="hideCurrentPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
                         matSuffix
