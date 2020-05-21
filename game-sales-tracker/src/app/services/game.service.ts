@@ -4,7 +4,7 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Game } from "../shared/models/game";
+import { IGame } from "../game-module/interfaces/game";
 import { LIST_URI } from "./rest-api.constants";
 
 @Injectable({
@@ -23,7 +23,7 @@ export class GameService {
         }),
     };
 
-    public getAll(): Observable<Game[]> {
-        return this.httpClient.get<Game[]>(LIST_URI.getAllUsers);
+    public getAll(): Observable<IGame[]> {
+        return this.httpClient.get<IGame[]>(LIST_URI.getAllUsers);
     }
 }

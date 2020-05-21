@@ -1,0 +1,15 @@
+:host {
+    display: block;
+    background: #1E2230;
+    font-family: 'Baloo Chettan 2', cursive;
+}
+
+.more-games {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}

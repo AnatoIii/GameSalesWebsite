@@ -1,6 +1,3 @@
 <div class="gallery">
-    <app-game-into
-        *ngFor="let game of games$ | async"
-        [game]="game"
-    ></app-game-into>
+    <app-game-into [game]="game" *ngFor="let game of games" [routerLink]="['/game', game.id]"></app-game-into>
 </div>

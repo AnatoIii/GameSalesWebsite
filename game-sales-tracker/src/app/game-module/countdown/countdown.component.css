@@ -1,0 +1,58 @@
+:host {
+    position: sticky;
+    display: block;
+    position: relative;
+    background: rgb(50, 54, 68);
+    padding: 120px;
+    height: 60%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(50, 54, 68, .6), rgba(50, 54, 68, .6)), url(../../../assets/images/broodmother.jpeg);
+}
+
+.label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+.siteName {
+    font-weight: bold;
+    color: rgb(141, 1, 255);
+}
+
+.siteName:hover {
+    text-decoration: none;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    font-weight: normal;
+    font-family: 'Bangers', cursive;
+    user-select: none;
+}
+
+.countdown div {
+    background-color: black;
+    color: white;
+    border-radius: 9px;
+    padding: 20px;
+    margin: 10px 15px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.726);
+}
+
+.seconds {
+    width: 100px;
+    text-align: center;
+}

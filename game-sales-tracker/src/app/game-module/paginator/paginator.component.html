@@ -1,0 +1,11 @@
+<div class="pagination">
+    <button (click)="pageChange.emit(currentPage - 1)" [class]="currentPage == 1 ? 'disabled' : ''"
+        [disabled]="currentPage == 1"><i class="fas fa-angle-left"></i>
+        Previous page</button>
+    <button *ngFor="let item of pages; let i = index" (click)="pageChange.emit(i + 1)"
+        [class]="currentPage == i + 1 ? 'active' : ''">
+        {{ i + 1 }} </button>
+    <button (click)="pageChange.emit(currentPage + 1)" [class]="currentPage == pages.length ? 'disabled' : ''"
+        [disabled]="currentPage == pages.length">Next
+        page <i class="fas fa-angle-right"></i></button>
+</div>

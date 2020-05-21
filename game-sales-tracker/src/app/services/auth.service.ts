@@ -3,9 +3,9 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { LoginFormDto } from "../shared/models/login-form-dto";
-import { RegisterFormDto } from "../shared/models/register-form-dto";
-import { TokenDto } from "../shared/models/token-dto";
+import { LoginFormDto } from "../models/login-form-dto";
+import { RegisterFormDto } from "../models/register-form-dto";
+import { TokenDto } from "../models/token-dto";
 import { LIST_URI } from "./rest-api.constants";
 
 @Injectable({
