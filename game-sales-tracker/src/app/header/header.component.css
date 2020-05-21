@@ -20,7 +20,7 @@ header {
   display: inline-block;
 }
 
-.header__list>.header__item:not(:first-child) {
+.header__list>.header__item:first-child {
   border-left: 1px solid white;
 }
 

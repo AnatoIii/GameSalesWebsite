@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { IGame } from '../interfaces/game';
-import { IFilterOptions, SortType } from '../interfaces/filterOptions';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/internal/operators';
-import { IPageRequest } from '../interfaces/page';
+import { Component, OnInit } from "@angular/core";
+import { GameService } from "../services/game.service";
+import { IGame } from "../interfaces/game";
+import { IFilterOptions, SortType } from "../interfaces/filterOptions";
+import { Subject } from "rxjs";
+import { debounceTime } from "rxjs/internal/operators";
+import { IPageRequest } from "../interfaces/page";
 
 @Component({
-  selector: 'app-games-filter',
-  templateUrl: './games-filter.component.html',
-  styleUrls: ['./games-filter.component.css'],
+  selector: "app-games-filter",
+  templateUrl: "./games-filter.component.html",
+  styleUrls: ["./games-filter.component.css"],
 })
 export class GamesFilterComponent implements OnInit {
   games: IGame[];
@@ -24,14 +24,14 @@ export class GamesFilterComponent implements OnInit {
     this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
         this.gamesCount = data.count;
-        this.games = data.games;
+        //this.games = data.games;
       });
     });
   }
 
   ngOnInit(): void {
     this.filterOptions = {
-      gameName: '',
+      gameName: "",
       genres: [],
       sortType: SortType.popularity,
     };

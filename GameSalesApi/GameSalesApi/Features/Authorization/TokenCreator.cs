@@ -1,14 +1,12 @@
-﻿using DataAccess;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using DataAccess;
+using Model;
+using GameSalesApi.Features.Authorization.Commands;
 
 namespace GameSalesApi.Features.Authorization
 {
@@ -62,7 +60,7 @@ namespace GameSalesApi.Features.Authorization
         /// <summary>
         /// Helper function for getting UserId from token
         /// </summary>
-        public static Guid GetUserId(TokenDTO tokenDTO)
+        public static Guid GetUserId(TokenCommand tokenDTO)
         {
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(tokenDTO.AccessToken);

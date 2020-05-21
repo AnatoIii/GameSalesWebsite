@@ -10,6 +10,7 @@ namespace Infrastructure.Exceptions
         {
 
         }
+
         public InvalidHandlingException(string message) : base (message)
         {
 

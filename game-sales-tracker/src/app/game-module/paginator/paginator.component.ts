@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-  selector: 'app-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css'],
+  selector: "app-paginator",
+  templateUrl: "./paginator.component.html",
+  styleUrls: ["./paginator.component.css"],
 })
 export class PaginatorComponent implements OnInit {
   @Input() currentPage: number;
@@ -18,7 +18,5 @@ export class PaginatorComponent implements OnInit {
   ngOnInit(): void {
     const pagesAmount = Math.ceil(this.gamesCount / this.countPerPage);
     this.pages = [...Array(pagesAmount).keys()].map((x) => x + 1);
-    console.log(this.currentPage);
-    console.log(this.gamesCount);
   }
 }

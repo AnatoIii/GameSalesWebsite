@@ -1,0 +1,7 @@
+<i class="fas fa-times close" (click)="closeModal.emit()"></i>
+
+<div class="gallery">
+    <div class="arrow prev" (click)="changeImage(-1)"></div>
+    <img [src]="'../../../assets/images/' + images[indexClickedImage]">
+    <div class="arrow next" (click)="changeImage(1)"></div>
+</div>

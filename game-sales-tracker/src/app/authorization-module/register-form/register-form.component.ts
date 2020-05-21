@@ -1,68 +1,51 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
+import { passwordsMatch } from "../../validators/password-match.validator";
+import { PasswordValidate } from "../../validators/password.validator";
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.css'],
+  selector: "app-register-form",
+  templateUrl: "./register-form.component.html",
+  styleUrls: ["./register-form.component.css"],
 })
 export class RegisterFormComponent implements OnInit {
-  @ViewChild('form') registerFormDirective;
-  registerForm: FormGroup;
-  credentials: string;
-  hidePass = true;
-  hideConfirmPass = true;
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  constructor(private fb: FormBuilder) {}
+  @ViewChild("form") public registerFormDirective;
+  public registerForm: FormGroup;
+  public hidePass = true;
+  public hideConfirmPass = true;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
   }
 
-  createForm() {
-    this.registerForm = this.fb.group(
+  public createForm(): void {
+    this.registerForm = this.formBuilder.group(
       {
-        username: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(30),
-          ],
-        ],
-        email: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(30),
-          ],
-        ],
-        confirmPass: ['', [Validators.required]],
+        firstName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
+        lastName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
+        email: ["", [Validators.required, Validators.email]],
+        password: ["", [PasswordValidate]],
+        confirmPass: ["", [Validators.required]],
       },
-      { validator: this.mustMatch('password', 'confirmPass') }
+      { validator: passwordsMatch("password", "confirmPass") }
     );
   }
 
-  mustMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) return;
-
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
+  public onSubmit(): void {
+    this.authService.register(this.registerForm).subscribe(
+      () => this.router.navigate(["/login"]),
+      (error) => {
+        const errorMessage = error.error.split(":")[1];
+        alert(errorMessage);
       }
-    };
-  }
-
-  onSubmit() {
-    this.credentials = this.registerForm.value;
-    console.log(this.credentials);
-    this.registerFormDirective.resetForm();
+    );
   }
 }
