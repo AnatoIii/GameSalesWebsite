@@ -51,6 +51,14 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
             byte[] passwordSalt = null;
             string passwordHash = null;
 
+            if (input.Password != null && !PasswordHelpers.ValidatePassword(input.CurrentPassword, user.PasswordSalt, user.PasswordHash))
+                return Result.Fail("Incorrect password");
+
+            if (input.Password == input.CurrentPassword && input.CurrentPassword != null)
+            {
+                return Result.Fail("Current and new passwords are same");
+            }
+
             if (!string.IsNullOrWhiteSpace(input.Password))
             {
                 if (!PasswordHelpers.IsPasswordSatisfied(input.Password, out string errorMessage))

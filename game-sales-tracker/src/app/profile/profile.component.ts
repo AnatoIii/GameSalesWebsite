@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
     public changePasswordSubmit(): void {
         const updateUserDto: UpdateUserDto = {
             userId: localStorage.getItem("USER_ID"),
+            currentPassword: this.changePasswordForm.value.currentPassword,
             password: this.changePasswordForm.value.newPassword,
         };
         this.userService.updateUser(updateUserDto)
