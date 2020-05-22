@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,30 +21,30 @@ namespace Parsers.Infrastructure
             _rBaseUrl = baseUrl;
         }
 
+        /// <summary>
+        /// <see cref="IDataClient.GetContent(int, int)"/>
+        /// </summary>
         public async Task<string> GetContent(int count, int offset)
         {
             string url = HandleURL(count, offset);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            var responce = await request.GetResponseAsync().ConfigureAwait(false);
-            HttpWebResponse httpResponse = (HttpWebResponse)responce;
+            var response = await request.GetResponseAsync().ConfigureAwait(false);
+            HttpWebResponse httpResponse = (HttpWebResponse)response;
 
             string result = string.Empty;
 
             if (httpResponse.StatusCode == HttpStatusCode.OK)
             {
-                Stream receiveStream = httpResponse.GetResponseStream();
-                StreamReader readStream;
+                using Stream receiveStream = httpResponse.GetResponseStream();
 
-                if (string.IsNullOrWhiteSpace(httpResponse.CharacterSet))
-                    readStream = new StreamReader(receiveStream);
-                else
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
+                using StreamReader readStream = string.IsNullOrWhiteSpace(httpResponse.CharacterSet)
+                    ? new StreamReader(receiveStream)
+                    : new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
 
                 result = await readStream.ReadToEndAsync();
 
                 httpResponse.Close();
-                readStream.Close();
             }
 
             return result;
