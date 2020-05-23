@@ -14,7 +14,7 @@ namespace Parsers.Infrastructure
         /// </summary>
         /// <param name="count">Target elements per page count</param>
         /// <param name="offset">Target elements offset</param>
-        /// <returns></returns>
+        /// <returns>Context</returns>
         Task<string> GetContent(int count, int offset);
     }
 }

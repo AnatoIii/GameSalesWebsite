@@ -5,28 +5,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SteamParser
+namespace UplayParser
 {
     /// <summary>
-    /// <see cref="IParser"/> implementation for Steam
+    /// <see cref="IParser"/> implementation for Uplay
     /// </summary>
-    public class SteamParser : IParser
+    public class UplayParser : IParser
     {
         public ParserSettings ParserSettings { get; private set; }
-        private readonly IDataClient _rDataClient;
-        private readonly HtmlDeserializer _rDeserializer;
+        private readonly WebClientDataClient _rDataClient;
+        private readonly UplayDeserializer _rDeserializer;
 
         /// <summary>
         /// Default ctor
         /// </summary>
         /// <param name="parserSettings"><see cref="ParserSettings"/></param>
-        public SteamParser(ParserSettings parserSettings)
+        public UplayParser(ParserSettings parserSettings)
         {
             ParserSettings = parserSettings;
 
-            _rDataClient = new WebRequestDataClient(ParserSettings.URL);
+            _rDataClient = new WebClientDataClient(ParserSettings.URL);
 
-            _rDeserializer = new HtmlDeserializer();
+            _rDeserializer = new UplayDeserializer();
         }
 
         /// <summary>
@@ -41,12 +41,11 @@ namespace SteamParser
             do
             {
                 string data = await _rDataClient.GetContent(ParserSettings.ElementsPerRequest, offset);
-                
+
                 currentEntries = _rDeserializer.Deserialize(data)
                     .Select(e =>
                     {
-                        e.Description = _rDeserializer.GetGameDescription((ParserSettings.GameBaseURL + e.GameLinkPostfix)
-                            .GetJSONForGameURL().Result);
+                        e.Description = _rDeserializer.GetGameDescription(_rDataClient.GetContextByURL(ParserSettings.GameBaseURL + e.GameLinkPostfix).Result);
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
                         return e;
@@ -55,7 +54,7 @@ namespace SteamParser
                 gameEntries.AddRange(currentEntries);
                 offset += ParserSettings.ElementsPerRequest;
                 await Task.Delay(ParserSettings.PeriodBetweenRequests);
-            } 
+            }
             while (currentEntries.Count() > 0);
 
             return gameEntries;
