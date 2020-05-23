@@ -4,11 +4,14 @@ using Parsers.Infrastructure;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace PSStoreParser
+namespace SteamParser
 {
     class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Entry point for Steam parser
+        /// </summary>
+        static void Main()
         {
             var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
@@ -17,7 +20,7 @@ namespace PSStoreParser
             IConfigurationRoot configuration = builder.Build();
             ParserSettings parserSettings = configuration.Get<ParserSettings>();
 
-            IParser parser = new PSParser(parserSettings);
+            IParser parser = new SteamParser(parserSettings);
             ILogger logger = new ConsoleLogger();
 
             GetParserResutl(parser, logger).Wait();
