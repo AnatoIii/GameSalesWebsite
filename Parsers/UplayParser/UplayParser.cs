@@ -45,7 +45,7 @@ namespace UplayParser
                 currentEntries = _rDeserializer.Deserialize(data)
                     .Select(e =>
                     {
-                        e.Description = _rDeserializer.GetGameDescription(_rDataClient.GetContextByURL(ParserSettings.GameBaseURL + e.GameLinkPostfix).Result);
+                        e.Description = _rDeserializer.GetGameDescription(_rDataClient.GetContextByURL(ParserSettings.GameBaseURL + e.GameLinkPostfix));
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
                         return e;

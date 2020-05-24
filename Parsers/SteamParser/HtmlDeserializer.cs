@@ -1,8 +1,10 @@
-﻿using HtmlAgilityPack;
+﻿using AngleSharp.Html.Dom;
+using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using Parsers.Core.Models;
 using Parsers.Infrastructure;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SteamParser
 {
@@ -42,7 +44,12 @@ namespace SteamParser
             string htmlString = html.ToString();
             document.LoadHtml(htmlString);
 
-            string descriptionFromDocument = document.GetElementbyId("game_area_description").InnerHtml;
+            string descriptionFromDocument = document.GetElementbyId("game_area_description")?.InnerHtml 
+                ?? document.DocumentNode.Descendants()
+                    .Where(x => x.NodeType == HtmlNodeType.Element)
+                    .Where(x => x.Attributes["property"]?.Value == "og:description")
+                    .Select(x => x.Attributes["content"]?.Value)
+                    .FirstOrDefault();
 
             return descriptionFromDocument.StripHTML();
         }
@@ -70,7 +77,9 @@ namespace SteamParser
 
             if (_TryGetChild(gameNode.ChildNodes[7].ChildNodes[3], 1, out HtmlNode fullPriceNode) && fullPriceNode != null)
             {
-                basePrice = int.Parse(fullPriceNode.ChildNodes[0].InnerHtml.Replace("₴", "00"));
+                basePrice = int.Parse(fullPriceNode.ChildNodes[0].InnerHtml
+                    .Replace(" ", "")
+                    .Replace("₴", "00"));
             }
             else
             {
