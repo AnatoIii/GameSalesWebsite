@@ -69,7 +69,7 @@ namespace GameSalesApi.Features.AccountManagement
         }
 
         [HttpPost(), Route("update")]
-        public IActionResult UpdateUser(UpdateUserCommand updateUserCommand, [FromForm] IFormFile image)
+        public IActionResult UpdateUser(UpdateUserCommand updateUserCommand)
         {
             var handler = new CommandDecoratorBuilder<UpdateUserCommand, Result>()
                 .Add<UpdateUserCommandHandler>()

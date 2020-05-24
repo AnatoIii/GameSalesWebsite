@@ -10,8 +10,8 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
-import { passwordsMatch } from "../../shared/validators/password-match.validator";
-import { PasswordValidate } from "../../shared/validators/password.validator";
+import { passwordsMatch } from "../../validators/password-match.validator";
+import { PasswordValidate } from "../../validators/password.validator";
 
 @Component({
     selector: "app-register-form",

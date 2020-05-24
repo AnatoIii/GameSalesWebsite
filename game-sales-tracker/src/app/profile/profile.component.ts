@@ -9,11 +9,11 @@ import {
     FormGroup,
     Validators,
 } from "@angular/forms";
+import { UpdateUserDto } from "../models/update-user-dto";
+import { User } from "../models/user";
 import { UserService } from "../services/user.service";
-import { UpdateUserDto } from "../shared/models/update-user-dto";
-import { User } from "../shared/models/user";
-import { passwordsMatch } from "../shared/validators/password-match.validator";
-import { PasswordValidate } from "../shared/validators/password.validator";
+import { passwordsMatch } from "../validators/password-match.validator";
+import { PasswordValidate } from "../validators/password.validator";
 
 @Component({
     selector: "app-profile",

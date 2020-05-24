@@ -8,8 +8,8 @@ import {
     filter,
     map,
 } from "rxjs/operators";
-import { UpdateUserDto } from "../shared/models/update-user-dto";
-import { User } from "../shared/models/user";
+import { UpdateUserDto } from "../models/update-user-dto";
+import { User } from "../models/user";
 import { LIST_URI } from "./rest-api.constants";
 
 @Injectable({

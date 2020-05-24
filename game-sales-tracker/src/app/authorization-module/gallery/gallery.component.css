@@ -6,7 +6,7 @@
   grid-template-rows: repeat(3, 33%);
   grid-column-gap: 15px;
   grid-row-gap: 10px;
-  height: 92vh;
+  height: 95vh;
 }
 
 app-game-into[game]:hover {
