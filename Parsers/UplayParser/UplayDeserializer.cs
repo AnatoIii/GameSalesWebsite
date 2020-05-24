@@ -43,7 +43,10 @@ namespace UplayParser
             string htmlString = html.ToString();
             document.LoadHtml(htmlString);
 
-            List<string> descriptionParts = document.DocumentNode.SelectSingleNode("//article[@class='description-content']").Descendants("p").Select(n => _StripDescription(Regex.Replace(n.InnerHtml, "<br>", "\r\n"))).ToList();
+            List<string> descriptionParts = document.DocumentNode.SelectSingleNode(".//article[@class='description-content']")
+                .Descendants("p")
+                .Select(n => _StripString(Regex.Replace(n.InnerHtml, "<br>", "\r\n")))
+                .ToList();
 
             return string.Join("\r\n ", descriptionParts);
         }
@@ -51,18 +54,21 @@ namespace UplayParser
         private GameEntry _MapEntry(HtmlNode htmlNode)
         {
             // Price handling
-            string basePriceValue = _HandlePriceForRubCurrency(htmlNode.SelectSingleNode("//span[@class='price-item']")?.InnerHtml);
+            string basePriceValue = _HandlePriceForRubCurrency(htmlNode.SelectSingleNode(".//span[@class='price-item']")?.InnerHtml);
             int.TryParse(basePriceValue, out int discountedPrice);
 
-            string discountedPriceValue = _HandlePriceForRubCurrency(htmlNode.SelectSingleNode("//span[@class='price-sales standard-price']")?.InnerHtml);
-            int.TryParse(basePriceValue, out int basePrice);
+            string discountedPriceValue = _HandlePriceForRubCurrency(htmlNode.SelectSingleNode(".//span[@class='price-sales standard-price']")?.InnerHtml);
+            int.TryParse(discountedPriceValue, out int basePrice);
+
+            if (discountedPrice == 0)
+                discountedPrice = basePrice;
 
             // Name
-            var gameNode = htmlNode.SelectSingleNode("//div[@class='product-image card-image-wrapper']").ChildNodes[1];
-            string name = gameNode.Attributes["title"].Value.Split(',')[0] ?? string.Empty;
+            var gameNode = htmlNode.SelectSingleNode(".//div[@class='product-image card-image-wrapper']").ChildNodes[1];
+            string name = _StripString(gameNode.Attributes["title"].Value.Split(',')[0] ?? string.Empty);
 
             // Images
-            List<string> pictureURLs = null;
+            List<string> pictureURLs = new List<string>();
             _AddImgToListByTargetAttribute(pictureURLs, gameNode, "data-retina-src");
             _AddImgToListByTargetAttribute(pictureURLs, gameNode, "data-desktop-src");
             _AddImgToListByTargetAttribute(pictureURLs, gameNode, "data-tablet-src");
@@ -70,7 +76,7 @@ namespace UplayParser
 
             // Platform id and postfix
             string platformSpecificId = htmlNode.ChildNodes[0].Attributes["data-itemid"].Value ?? string.Empty;
-            string gameLinkPostfix = XElement.Parse(htmlNode.SelectSingleNode("//div[@class='button-wrapper show-for-medium']").InnerHtml)
+            string gameLinkPostfix = XElement.Parse(htmlNode.SelectSingleNode(".//div[@class='button-wrapper show-for-medium']").InnerHtml)
                     .FirstAttribute.Value ?? string.Empty;
 
             return new GameEntry()
@@ -85,7 +91,7 @@ namespace UplayParser
         }
 
         private string _HandlePriceForRubCurrency(string targetStringPrice)
-            => targetStringPrice
+            => targetStringPrice?
             .Replace(".", "")
             .Split(',')[0]
             .Trim() 
@@ -99,7 +105,7 @@ namespace UplayParser
                 pictures.Add(imgURL);
         }
 
-        private string _StripDescription(string input)
+        private string _StripString(string input)
         {
             string res = Regex.Replace(input, "<.*?>", String.Empty);
             res = Regex.Replace(res, "\t", String.Empty);

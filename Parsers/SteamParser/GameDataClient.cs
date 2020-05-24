@@ -14,24 +14,31 @@ namespace Parsers.Infrastructure
         /// Gets JSON data from game page by target URL
         /// </summary>
         /// <param name="this">Target URL</param>
-        public static async Task<string> GetJSONForGameURL(this string @this)
+        public static async Task<string> GetJSONForGameURL(this string @this, ILogger logger)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@this);
-            var response = await request.GetResponseAsync().ConfigureAwait(false);
-            HttpWebResponse httpResponse = (HttpWebResponse)response;
-
             string result = string.Empty;
 
-            if (httpResponse.StatusCode == HttpStatusCode.OK)
+            try
             {
-                using Stream receiveStream = httpResponse.GetResponseStream();
-                using StreamReader readStream = string.IsNullOrWhiteSpace(httpResponse.CharacterSet) 
-                    ? new StreamReader(receiveStream)
-                    : new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@this);
+                var response = await request.GetResponseAsync().ConfigureAwait(false);
+                HttpWebResponse httpResponse = (HttpWebResponse)response;
 
-                result = await readStream.ReadToEndAsync();
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    using Stream receiveStream = httpResponse.GetResponseStream();
+                    using StreamReader readStream = string.IsNullOrWhiteSpace(httpResponse.CharacterSet)
+                        ? new StreamReader(receiveStream)
+                        : new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
 
-                httpResponse.Close();
+                    result = await readStream.ReadToEndAsync();
+
+                    httpResponse.Close();
+                }
+            }
+            catch
+            {
+                logger.Log($"Error while processing request to {@this}.");
             }
 
             return result;

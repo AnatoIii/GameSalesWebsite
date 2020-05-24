@@ -24,11 +24,11 @@ namespace Parsers.Infrastructure
         /// <summary>
         /// <see cref="IDataClient.GetContent(int, int)"/>
         /// </summary>
-        public async Task<string> GetContent(int count, int offset)
+        public Task<string> GetContent(int count, int offset)
         {
             string url = _rBaseUrl.HandleURL(count, offset);
 
-            string result = await GetContextByURL(url);
+            var result = Task.Run(() => GetContextByURL(url));
 
             return result;
         }
@@ -38,7 +38,7 @@ namespace Parsers.Infrastructure
         /// </summary>
         /// <param name="targetLink">Target URL</param>
         /// <returns>Page context or <see cref="string.Empty"/></returns>
-        public Task<string> GetContextByURL(string targetLink)
+        public string GetContextByURL(string targetLink)
         {
             string result = string.Empty;
 
@@ -50,7 +50,7 @@ namespace Parsers.Infrastructure
                 result = Regex.Replace(response, @"\t|\n|\r", "");
             }
 
-            return new Task<string>(() => result);
+            return result;
         }
     }
 }
