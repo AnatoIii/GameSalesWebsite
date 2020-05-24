@@ -4,11 +4,9 @@ using FluentAssertions;
 using Infrastructure.CommandBase;
 using Infrastructure.Result;
 using Infrastructure.HandlerBase;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using TestsInfrastructure;
 
 namespace Infrastructure.Tests
 {
@@ -95,26 +93,6 @@ namespace Infrastructure.Tests
                 DecoratorWorkHandler.IsProceseed = true;
 
                 return Result.Result.Fail<string>(_rTestFailQuery + input.Name);
-            }
-        }
-
-        public class TestLogger<TCategoryName> : ILogger<TCategoryName>
-        {
-            public List<string> LoggedMessages { get; set; } = new List<string>();
-
-            public IDisposable BeginScope<TState>(TState state)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsEnabled(LogLevel logLevel)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-            {
-                LoggedMessages.Add($"{logLevel.ToString()} {state.ToString()} {exception?.Message} {formatter.ToString()}");
             }
         }
 
