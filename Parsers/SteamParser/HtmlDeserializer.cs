@@ -64,7 +64,7 @@ namespace SteamParser
             int discountedPrice = 0;
             IEnumerable<string> pictureURLs = null;
 
-            platformSpecificId = htmlNode.Attributes["data-ds-appid"].Value;
+            platformSpecificId = htmlNode.Attributes["data-ds-appid"]?.Value ?? htmlNode.Attributes["data-ds-packageid"]?.Value ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
             gameLinkPostfix = $"app/{platformSpecificId}/";
 
             HtmlNode imageNode = htmlNode.ChildNodes[1].ChildNodes[0];
