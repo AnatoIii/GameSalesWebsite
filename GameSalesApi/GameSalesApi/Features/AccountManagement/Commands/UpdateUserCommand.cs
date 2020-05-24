@@ -55,10 +55,5 @@ namespace GameSalesApi.Features.AccountManagement.Commands
         /// Is enabled notifications via telegram
         /// </summary>
         public bool? NotificationViaTelegram { get; set; }
-
-        /// <summary>
-        /// New photo link
-        /// </summary>
-        public string PhotoLink { get; set; }
     }
 }

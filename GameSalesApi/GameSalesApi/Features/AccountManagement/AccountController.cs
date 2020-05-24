@@ -1,32 +1,38 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using DataAccess;
+﻿using DataAccess;
 using GameSalesApi.Features.AccountManagement.CommandHandlers;
 using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Features.AccountManagement.QueryHandlers;
+using GameSalesApi.Helpers;
 using Infrastructure.DecoratorsFactory;
 using Infrastructure.Result;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Model;
+using System.Collections.Generic;
 
 namespace GameSalesApi.Features.AccountManagement
 {
     [ApiController]
     [Route("api/[controller]")]
+ 
     public class AccountController : ControllerBase
     {
         private readonly GameSalesContext _rDBContext;
+
+        private readonly ImageService _rImageService;
         private readonly ILogger<AccountController> _rLogger;
 
         public AccountController(GameSalesContext dbContext,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger, ImageService imageService)
         {
             _rDBContext = dbContext;
             _rLogger = logger;
+            _rImageService = imageService;
         }
 
-        [HttpGet(), Route("{id}")]
+        [HttpGet()]
         public IActionResult GetUser([FromQuery] GetUserQuery getUserQuery)
         {
             var handler = new QueryDecoratorBuilder<GetUserQuery, Result<User>>()
@@ -63,7 +69,7 @@ namespace GameSalesApi.Features.AccountManagement
         }
 
         [HttpPost(), Route("update")]
-        public IActionResult UpdateUser(UpdateUserCommand updateUserCommand)
+        public IActionResult UpdateUser(UpdateUserCommand updateUserCommand, [FromForm] IFormFile image)
         {
             var handler = new CommandDecoratorBuilder<UpdateUserCommand, Result>()
                 .Add<UpdateUserCommandHandler>()
@@ -78,6 +84,25 @@ namespace GameSalesApi.Features.AccountManagement
 
             return Ok();
         }
+
+        [HttpPost(), Route("upload"), DisableRequestSizeLimit]
+        public IActionResult UploadProfilePhoto([FromForm] UploadProfilePhotoCommand uploadProfilePhotoCommand)
+        {
+            var handler = new CommandDecoratorBuilder<UploadProfilePhotoCommand, Result>()
+                .Add<UploadProfilePhotoCommandHandler>()
+                    .AddParameter<GameSalesContext>(_rDBContext)
+                    .AddParameter<ImageService>(_rImageService)
+               .AddBaseDecorators(_rLogger, _rDBContext)
+               .Build();
+
+            var result = handler.Handle(uploadProfilePhotoCommand);
+
+            if (result.Failure)
+                return BadRequest($"{nameof(uploadProfilePhotoCommand)} failed. Message: {result.Error}");
+
+            return Ok(result);
+        }
+
 
         [HttpPost(), Route("remove")]
         public IActionResult RemoveUser(RemoveUserCommand removeUserCommand)

@@ -1,19 +1,11 @@
-using System.Text;
-using System.Threading.Tasks;
-using DataAccess;
 using DependencyResolver;
-using GameSalesApi.Features.Authorization;
+using GameSalesApi.Features.AccountManagement;
 using GameSalesApi.Middleware.RedirectorMiddleware;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GameSalesApi
 {
@@ -30,6 +22,7 @@ namespace GameSalesApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureProjectOptions(Configuration);
+            services.AddTransient<ImageService>();
             services.RegisterServices(Configuration);
             services.ConfigureCors();
             services.AddMemoryCache();
