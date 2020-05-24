@@ -1,6 +1,8 @@
 import {
     Component,
+    ElementRef,
     OnInit,
+    ViewChild,
 } from "@angular/core";
 import {
     FormBuilder,
@@ -31,6 +33,8 @@ export class ProfileComponent implements OnInit {
     public hideCurrentPassword = true;
     public hideNewPassword = true;
     public hideConfirmNewPassword = true;
+    @ViewChild("profileImage") private profileImageRef: ElementRef;
+    private MAX_FILE_SIZE = 6291456;
 
     public ngOnInit(): void {
         this.userService.getById(localStorage.getItem("USER_ID"))
@@ -78,8 +82,26 @@ export class ProfileComponent implements OnInit {
         };
         this.userService.updateUser(updateUserDto)
             .subscribe(
-                () => {
-                    console.log("successfully updated");
+                () => {},
+                error => {
+                    const errorMessage = error.error.split(":")[1];
+                    alert(errorMessage);
+                },
+            );
+    }
+
+    public fileSelected(event: Event): void {
+        // @ts-ignore
+        const file: File = event.target.files[0];
+        this.profileImageRef.nativeElement.value = "";
+        if (file.size > this.MAX_FILE_SIZE) {
+            alert("Image so big! Max size is 6Mb.");
+            return;
+        }
+        this.userService.uploadPhoto(this.user.id, file)
+            .subscribe(
+                (res) => {
+                    this.user.photoLink = res.body.value;
                 },
                 error => {
                     const errorMessage = error.error.split(":")[1];

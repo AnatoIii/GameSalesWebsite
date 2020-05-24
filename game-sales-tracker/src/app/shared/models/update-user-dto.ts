@@ -7,6 +7,6 @@ export interface UpdateUserDto {
     lastName?: string;
     notificationViaEmail?: boolean;
     notificationViaTelegram?: boolean;
-    photoLink?: string;
+    image?: string;
     username?: string;
 }

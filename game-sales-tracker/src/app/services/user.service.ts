@@ -25,14 +25,17 @@ export class UserService {
     }
 
     public getById(id: string): Observable<User> {
-        return this.httpClient.get<User[]>(LIST_URI.getAllUsers)
-            .pipe(
-                map((users: User[]) => users.find(user => user.id === id)),
-                filter(user => user !== undefined),
-            );
+        return this.httpClient.get<User>(`${LIST_URI.getById}${id}`);
     }
 
     public updateUser(updateUserDto: UpdateUserDto): Observable<any> {
-        return this.httpClient.post(LIST_URI.updateUser, updateUserDto, { observe: "response" });
+        return this.httpClient.post<UpdateUserDto>(LIST_URI.updateUser, updateUserDto, { observe: "response" });
+    }
+
+    public uploadPhoto(userId: string, image: File): Observable<any> {
+        const imageDto = new FormData();
+        imageDto.append("userId", userId);
+        imageDto.append("image", image);
+        return this.httpClient.post<UpdateUserDto>(LIST_URI.uploadPhoto, imageDto, { observe: "response" });
     }
 }
