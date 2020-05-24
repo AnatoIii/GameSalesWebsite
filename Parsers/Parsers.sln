@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parsers.Infrastructure", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSStoreParser", "PSStoreParser\PSStoreParser.csproj", "{9A56E830-06C1-4964-B85D-5E17EF524B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamParser", "SteamParser\SteamParser.csproj", "{092882BB-3BD9-4A2D-B0D4-0514CD68FA02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamParser", "SteamParser\SteamParser.csproj", "{092882BB-3BD9-4A2D-B0D4-0514CD68FA02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UplayParser", "UplayParser\UplayParser.csproj", "{AB5A106B-027A-44F1-861C-620F95E54663}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{092882BB-3BD9-4A2D-B0D4-0514CD68FA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{092882BB-3BD9-4A2D-B0D4-0514CD68FA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{092882BB-3BD9-4A2D-B0D4-0514CD68FA02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB5A106B-027A-44F1-861C-620F95E54663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB5A106B-027A-44F1-861C-620F95E54663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB5A106B-027A-44F1-861C-620F95E54663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB5A106B-027A-44F1-861C-620F95E54663}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

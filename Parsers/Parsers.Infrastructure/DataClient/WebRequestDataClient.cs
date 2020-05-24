@@ -26,7 +26,7 @@ namespace Parsers.Infrastructure
         /// </summary>
         public async Task<string> GetContent(int count, int offset)
         {
-            string url = HandleURL(count, offset);
+            string url = _rBaseUrl.HandleURL(count, offset);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             var response = await request.GetResponseAsync().ConfigureAwait(false);
@@ -49,9 +49,5 @@ namespace Parsers.Infrastructure
 
             return result;
         }
-
-        protected virtual string HandleURL(int count, int offset)
-            => _rBaseUrl.Replace("@SIZE", count.ToString())
-                                 .Replace("@START", offset.ToString());
     }
 }
