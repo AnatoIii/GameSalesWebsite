@@ -1,0 +1,16 @@
+<header>
+    <div class="header__logo logo">
+        GaST
+    </div>
+    <nav class="header__nav">
+        <ul class="header__list">
+            <li class="header__item"><a class="header__link" routerLink="/">Main</a></li>
+        </ul>
+    </nav>
+    <ng-container *ngIf="authService.isUserAuthorized(); else UserNotAuthorized">
+        <a class="header__link last-link" routerLink="/user/1">Profile</a>
+    </ng-container>
+    <ng-template #UserNotAuthorized>
+        <a class="header__link last-link" routerLink="/login">Login</a>
+    </ng-template>
+</header>

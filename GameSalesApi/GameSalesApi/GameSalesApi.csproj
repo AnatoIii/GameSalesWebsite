@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>3facfdd7-d07d-4240-9b49-676d44d50152</UserSecretsId>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.0.1" />

@@ -1,0 +1,57 @@
+<div class="main" *ngIf="game">
+    <div class="images">
+        <img class="main-image" [src]="'../../../assets/images/' + game.image" [alt]="game.name"
+            (click)="openCloseModalImageGallery(0)">
+        <div class="other-images">
+            <img *ngFor="let image of additionalImages; let i = index" [src]="'../../../assets/images/' + image"
+                [alt]="game.name" (click)="openCloseModalImageGallery(i+1)">
+            <!--<img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
+            <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
+            <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
+            <img [src]="'../../../assets/images/' + game.image" [alt]="game.name"> -->
+        </div>
+        <app-modal-image-gallery [images]="getImagesForModal()" [indexClickedImage]="indexClickedImage"
+            *ngIf="indexClickedImage || indexClickedImage==0" (closeModal)="openCloseModalImageGallery()">
+        </app-modal-image-gallery>
+    </div>
+    <div class="side-info">
+        <div class="price-block">
+            <p class="name">{{ game.name }}</p>
+            <p class="price">{{ game.price }}$</p>
+        </div>
+        <div class="reviews-block">
+            some reviews
+        </div>
+        <div class="seller-block">
+            <div>
+                <p>Most valuable seller</p>
+                <p class="seller">Steam</p>
+            </div>
+            <div class="prices">
+                <p class="old-price">999$</p>
+                <p class="price">{{ game.price }}$</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="details" *ngIf="game">
+    <div class="about-game">
+        <p class="name">{{ game.name }}</p>
+        <p class="description">{{ game.description }}</p>
+        <p class="little-title">Genres</p>
+        <span class="genre" *ngFor="let genre of game.genres">{{genre}}</span>
+        <p class="little-title">Other sellers</p>
+        <div class="seller" *ngFor="let seller of sellers">
+            <div>
+                <p class="game-name"> {{ seller.gameName }} </p>
+                <p class="seller-name"> {{ seller.sellerName }} </p>
+            </div>
+            <p class="price">{{ seller.price }}$</p>
+        </div>
+    </div>
+    <div class="similar-games">
+        <p class="little-title">Similar games</p>
+        <p>No data for now</p>
+    </div>
+</div>

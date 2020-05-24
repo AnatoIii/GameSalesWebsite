@@ -17,25 +17,21 @@ namespace Parsers.Infrastructure
         public static async Task<string> GetJSONForGameURL(this string @this)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@this);
-            var responce = await request.GetResponseAsync().ConfigureAwait(false);
-            HttpWebResponse httpResponse = (HttpWebResponse)responce;
+            var response = await request.GetResponseAsync().ConfigureAwait(false);
+            HttpWebResponse httpResponse = (HttpWebResponse)response;
 
             string result = string.Empty;
 
             if (httpResponse.StatusCode == HttpStatusCode.OK)
             {
-                Stream receiveStream = httpResponse.GetResponseStream();
-                StreamReader readStream;
-
-                if (string.IsNullOrWhiteSpace(httpResponse.CharacterSet))
-                    readStream = new StreamReader(receiveStream);
-                else
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
+                using Stream receiveStream = httpResponse.GetResponseStream();
+                using StreamReader readStream = string.IsNullOrWhiteSpace(httpResponse.CharacterSet) 
+                    ? new StreamReader(receiveStream)
+                    : new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
 
                 result = await readStream.ReadToEndAsync();
 
                 httpResponse.Close();
-                readStream.Close();
             }
 
             return result;

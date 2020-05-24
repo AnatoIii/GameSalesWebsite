@@ -1,0 +1,29 @@
+.pagination {
+    text-align: center;
+    margin: 30px;
+}
+
+.pagination button {
+    color: white;
+    font-size: 18px;
+    margin: 2px 7px;
+    padding-left: 8px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    font-family: 'Baloo Chettan 2', cursive;
+}
+
+.pagination i {
+    margin: 7px;
+}
+
+.pagination .disabled {
+    color: #7a7a7a;
+    cursor: default;
+}
+
+.pagination .active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}

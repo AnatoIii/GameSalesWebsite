@@ -1,25 +1,21 @@
-import {
-    Component,
-    OnInit,
-} from "@angular/core";
-import { Observable } from "rxjs";
-import { GameService } from "src/app/services/game.service";
-import { Game } from "../../shared/models/game";
+import { Component, OnInit } from "@angular/core";
+import { IGame } from "../../game-module/interfaces/game";
+import { GameService } from "src/app/game-module/services/game.service";
 
 @Component({
-    selector: "app-gallery",
-    templateUrl: "./gallery.component.html",
-    styleUrls: ["./gallery.component.css"],
+  selector: "app-gallery",
+  templateUrl: "./gallery.component.html",
+  styleUrls: ["./gallery.component.css"],
 })
 export class GalleryComponent implements OnInit {
+  games: IGame[];
 
-    constructor(private gameService: GameService) {
-    }
+  constructor(private gameService: GameService) {}
 
-    public games$: Observable<Game[]>;
-
-    public ngOnInit(): void {
-        this.games$ = this.gameService.getAll();
-    }
-
+  ngOnInit(): void {
+    this.gameService.getGames().subscribe(
+      (data) => (this.games = data.slice(0, 9)),
+      (error) => console.log(error)
+    );
+  }
 }
