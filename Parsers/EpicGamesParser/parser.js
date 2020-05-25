@@ -49,7 +49,10 @@ function parse(data) {
         entry.CurrencyId = settings.currencyId;
         entry.BasePrice = price.totalPrice.originalPrice;
         entry.DiscountedPrice = price.totalPrice.discountPrice;
-        entry.PictureURLs = [keyImages[2].url];
+        if (!keyImages.find(x => x.type === "DieselStoreFrontWide"))
+            entry.PictureURLs = [keyImages[0].url]
+        else
+            entry.PictureURLs = [keyImages.find(x => x.type === "DieselStoreFrontWide").url];
 
         httpGetDescription(entry);
     })
@@ -68,6 +71,7 @@ function httpGetDescription(game) {
             if (!error && response.statusCode === 200) {
                 const images = JSON.parse(body).pages[0].data.gallery.galleryImages;
                 if (images) game.PictureURLs.push(...images.map(x => x.src));
+                game.PictureURLs = game.PictureURLs.map(x => x = x.replace(/\s/g, '%20'));
                 game.Description = JSON.parse(body).pages[0].data.about.description;
                 parsedData.push(game);
                 if (gameCount === parsedData.length)
