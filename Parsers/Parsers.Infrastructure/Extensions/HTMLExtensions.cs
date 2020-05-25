@@ -17,14 +17,19 @@ namespace Parsers.Infrastructure
         /// </returns>
         public static string StripHTML(this string @this)
         {
-            string res = Regex.Replace(@this, "<.*?>", String.Empty);
-            res = Regex.Replace(res, "\r", String.Empty);
-            res = Regex.Replace(res, "\n", String.Empty);
-            res = Regex.Replace(res, "\t", String.Empty);
-            res = Regex.Replace(res, "&quot;", String.Empty);
-            res = Regex.Replace(res, "&lt;", String.Empty);
-            res = Regex.Replace(res, "br&gt;", String.Empty);
-            return res;
+            if (@this != null)
+            {
+                string res = Regex.Replace(@this, "<.*?>", String.Empty);
+                res = Regex.Replace(res, "\r", String.Empty);
+                res = Regex.Replace(res, "\n", String.Empty);
+                res = Regex.Replace(res, "\t", String.Empty);
+                res = Regex.Replace(res, "&quot;", String.Empty);
+                res = Regex.Replace(res, "&lt;", String.Empty);
+                res = Regex.Replace(res, "br&gt;", String.Empty);
+                return res;
+            }
+
+            return string.Empty;
         }
     }
 }

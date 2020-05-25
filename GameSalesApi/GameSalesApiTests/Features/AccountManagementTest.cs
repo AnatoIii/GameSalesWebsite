@@ -4,9 +4,8 @@ using GameSalesApi.Features.AccountManagement;
 using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Helpers;
+using GameSalesApiTests.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,6 @@ namespace GameSalesApiTests.Features
         private readonly TestLogger<AccountController> _rTestLogger;
         private readonly GameSalesContext _rDbContext;
         private readonly List<User> _testData;
-        private readonly DbContextOptions<GameSalesContext> _rDbContextOptions;
 
         #endregion
 
@@ -31,19 +29,9 @@ namespace GameSalesApiTests.Features
         {
             _rTestLogger = new TestLogger<AccountController>();
 
-            _rDbContextOptions = new DbContextOptionsBuilder<GameSalesContext>()
-                .UseInMemoryDatabase(databaseName: "Users Test", new InMemoryDatabaseRoot())
-                .Options;
-
             _testData = _GetTestableUserData();
 
-            using (var context = new GameSalesContext(_rDbContextOptions))
-            {
-                context.Users.AddRange(_testData);
-                context.SaveChanges();
-            }
-
-            _rDbContext = new GameSalesContext(_rDbContextOptions);
+            _rDbContext = DbHelper.GetTestContextWithTargetParams("User Test", _testData);
         }
 
         #region GetAllTests
