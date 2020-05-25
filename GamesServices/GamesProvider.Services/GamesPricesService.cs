@@ -43,13 +43,9 @@ namespace GamesProvider.Services
         public IEnumerable<FullGameDTO> GetByFilter(FilterRequestDTO filterRequest)
         {
             var filter = filterRequest.FilterOptions;
-            if(filter.Platforms.Count() == 0)
-            {
-                filter.Platforms = _dbContext.Platforms.Select(p => p.PlatformId);
-            }
             var gameprices = _dbContext.GamePrices
                 .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName) &&
-                       filter.Platforms.Contains(gp.PlatformId));
+                       (filter.Platforms.Count() == 0 || filter.Platforms.Contains(gp.PlatformId)));
 
             if(filter.SortType != SortType.basePrice)
             {
