@@ -1,53 +1,51 @@
 <div class="main" *ngIf="game">
     <div class="images">
-        <img class="main-image" [src]="'../../../assets/images/' + game.image" [alt]="game.name"
-            (click)="openCloseModalImageGallery(0)">
+        <img class="main-image" [src]="game.Images[0]" [alt]="game.Name" (click)="openCloseModalImageGallery(0)">
         <div class="other-images">
-            <img *ngFor="let image of additionalImages; let i = index" [src]="'../../../assets/images/' + image"
-                [alt]="game.name" (click)="openCloseModalImageGallery(i+1)">
-            <!--<img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
-            <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
-            <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
-            <img [src]="'../../../assets/images/' + game.image" [alt]="game.name"> -->
+            <img *ngFor="let image of game.Images | slice:1 ; let i = index" [src]="image" [alt]="game.Name"
+                (click)="openCloseModalImageGallery(i+1)">
         </div>
-        <app-modal-image-gallery [images]="getImagesForModal()" [indexClickedImage]="indexClickedImage"
+        <app-modal-image-gallery [images]="game.Images" [indexClickedImage]="indexClickedImage"
             *ngIf="indexClickedImage || indexClickedImage==0" (closeModal)="openCloseModalImageGallery()">
         </app-modal-image-gallery>
     </div>
     <div class="side-info">
         <div class="price-block">
-            <p class="name">{{ game.name }}</p>
-            <p class="price">{{ game.price }}$</p>
+            <p class="name">{{ game.Name }}</p>
+            <p class="price">{{ getConvertedPrice(game.Platforms[0].DiscountedPrice) }}</p>
         </div>
         <div class="reviews-block">
             some reviews
         </div>
-        <div class="seller-block">
+        <div class="seller-block" (click)="goToExternalLink(game.Platforms[0].GameURL)">
             <div>
                 <p>Most valuable seller</p>
-                <p class="seller">Steam</p>
+                <p class="seller">{{ game.Platforms[0].Platform.Name }}</p>
             </div>
             <div class="prices">
-                <p class="old-price">999$</p>
-                <p class="price">{{ game.price }}$</p>
-
+                <p class="old-price">{{ getConvertedPrice(game.Platforms[0].BasePrice) }}</p>
+                <p class="price">{{ getConvertedPrice(game.Platforms[0].DiscountedPrice) }}</p>
             </div>
+
         </div>
     </div>
 </div>
 <div class="details" *ngIf="game">
     <div class="about-game">
-        <p class="name">{{ game.name }}</p>
-        <p class="description">{{ game.description }}</p>
+        <p class="name">{{ game.Name }}</p>
+        <p class="description">{{ game.Description }}</p>
         <p class="little-title">Genres</p>
-        <span class="genre" *ngFor="let genre of game.genres">{{genre}}</span>
+        <span class="genre">Genre 1</span>
+        <span class="genre">Genre 2</span>
+        <span class="genre">Genre 3</span>
+
         <p class="little-title">Other sellers</p>
-        <div class="seller" *ngFor="let seller of sellers">
+        <div class="seller" *ngFor="let seller of game.Platforms | slice:1" (click)="goToExternalLink(seller.GameURL)">
             <div>
-                <p class="game-name"> {{ seller.gameName }} </p>
-                <p class="seller-name"> {{ seller.sellerName }} </p>
+                <p class="game-name"> {{ game.Name }} </p>
+                <p class="seller-name"> {{ seller.Platform.Name }} </p>
             </div>
-            <p class="price">{{ seller.price }}$</p>
+            <p class="price">{{ getConvertedPrice(seller.DiscountedPrice) }}</p>
         </div>
     </div>
     <div class="similar-games">

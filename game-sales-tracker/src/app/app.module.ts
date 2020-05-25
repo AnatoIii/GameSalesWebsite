@@ -8,14 +8,13 @@ import { MatDialogModule } from "@angular/material/dialog";
 
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./authorization-module/auth/auth.module";
-import { SignInComponent } from "./dialogs/sign-in/sign-in.component";
 import { ApiInterceptor } from "./interceptors/api.interceptor";
 import { HeaderComponent } from "./header/header.component";
 
 import { GameModule } from "./game-module/game/game.module";
 
 @NgModule({
-  declarations: [AppComponent, SignInComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     AuthModule,
     GameModule,
@@ -35,7 +34,7 @@ import { GameModule } from "./game-module/game/game.module";
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [SignInComponent],
+  entryComponents: [],
   exports: [HeaderComponent],
 })
 export class AppModule {}
