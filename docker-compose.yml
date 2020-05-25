@@ -26,7 +26,7 @@ services:
         container_name: ps-parser
         network_mode: "host"
         depends_on: 
-            - rabbitmq
+            - rabbit-mq
         build: 
             context: ./Parsers/
             dockerfile: ./PSStoreParser/Dockerfile
@@ -38,7 +38,7 @@ services:
         network_mode: "host"
         container_name: steam-parser
         depends_on: 
-            - rabbitmq
+            - rabbit-mq
         build: 
             context: ./Parsers/
             dockerfile: ./SteamParser/Dockerfile
@@ -50,7 +50,7 @@ services:
         network_mode: "host"
         container_name: uplay-parser
         depends_on: 
-            - rabbitmq
+            - rabbit-mq
         build: 
             context: ./Parsers/
             dockerfile: ./UplayParser/Dockerfile
@@ -78,7 +78,7 @@ services:
         container_name: games-saver
         depends_on: 
             - db
-            - rabbitmq
+            - rabbit-mq
         build: 
             context: ./GamesServices/
             dockerfile: ./GamesSaver/Dockerfile
