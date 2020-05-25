@@ -14,19 +14,22 @@ namespace SteamParser
     {
         public ParserSettings ParserSettings { get; private set; }
         private readonly IDataClient _rDataClient;
+        private readonly ILogger _rLogger;
         private readonly HtmlDeserializer _rDeserializer;
 
         /// <summary>
         /// Default ctor
         /// </summary>
         /// <param name="parserSettings"><see cref="ParserSettings"/></param>
-        public SteamParser(ParserSettings parserSettings)
+        public SteamParser(ParserSettings parserSettings, ILogger logger)
         {
             ParserSettings = parserSettings;
 
             _rDataClient = new WebRequestDataClient(ParserSettings.URL);
 
             _rDeserializer = new HtmlDeserializer();
+
+            _rLogger = logger;
         }
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace SteamParser
                     .Select(e =>
                     {
                         e.Description = _rDeserializer.GetGameDescription((ParserSettings.GameBaseURL + e.GameLinkPostfix)
-                            .GetJSONForGameURL().Result);
+                            .GetJSONForGameURL(_rLogger).Result);
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
                         return e;
