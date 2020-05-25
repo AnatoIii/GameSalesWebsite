@@ -1,0 +1,97 @@
+version: "3.3"
+services:
+    rabbit-mq:
+        image: rabbitmq:3-management
+        container_name: rabbit-mq
+        network_mode: "host"
+
+    db:
+        image: postgres:11
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: salespassword
+            POSTGRES_USER: salesservice
+            PGDATA : /var/lib/postgresql/data
+        volumes:
+            - data:/var/lib/postgresql/data
+
+    ps-parser:
+        image: ps-parser
+        container_name: ps-parser
+        network_mode: "host"
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./PSStoreParser/Dockerfile
+        volumes: 
+            - configs:/configs
+
+    steam-parser:
+        image: steam-parser
+        network_mode: "host"
+        container_name: steam-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./SteamParser/Dockerfile
+        volumes: 
+            - configs:/configs
+
+    uplay-parser:
+        image: uplay-parser
+        network_mode: "host"
+        container_name: uplay-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./UplayParser/Dockerfile
+        volumes: 
+            - configs:/configs
+
+    gateway-api:
+        image: gateway-api
+        network_mode: "host"
+        container_name: gateway-api
+        ports: 
+            - 443:443
+            - 80:80
+        depends_on: 
+            - db
+        build: 
+            context: ./GameSalesApi/
+            dockerfile: ./GameSalesApi/Dockerfile
+        volumes: 
+            - configs:/configs
+
+    games-saver:
+        image: games-saver
+        network_mode: "host"
+        container_name: games-saver
+        depends_on: 
+            - db
+            - rabbitmq
+        build: 
+            context: ./GamesServices/
+            dockerfile: ./GamesSaver/Dockerfile
+        volumes: 
+            - configs:/configs
+
+    games-provider:
+        image: games-provider
+        network_mode: "host"
+        container_name: games-provider
+        depends_on: 
+            - db
+        build: 
+            context: ./GamesServices/
+            dockerfile: ./GamesProvider/Dockerfile
+        volumes: 
+            - configs:/configs
+
+volumes: 
+    configs: {}
+    data: {}
