@@ -19,8 +19,8 @@ namespace SteamParser
             IConfigurationRoot configuration = builder.Build();
             ParserSettings parserSettings = configuration.Get<ParserSettings>();
 
-            IParser parser = new SteamParser(parserSettings);
             ILogger logger = new ConsoleLogger();
+            IParser parser = new SteamParser(parserSettings, logger);
 
             parser.GetParserResult(logger).Wait();
 
