@@ -2,15 +2,17 @@
 using DBAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DBAccess.Migrations
 {
     [DbContext(typeof(GameServiceDBContext))]
-    partial class GameServiceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200525175508_gamePostfix")]
+    partial class gamePostfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
