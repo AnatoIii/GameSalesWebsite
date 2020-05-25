@@ -2,6 +2,6 @@
 
 <div class="gallery">
     <div class="arrow prev" (click)="changeImage(-1)"></div>
-    <img [src]="'../../../assets/images/' + images[indexClickedImage]">
+    <img [src]="images[indexClickedImage]">
     <div class="arrow next" (click)="changeImage(1)"></div>
 </div>

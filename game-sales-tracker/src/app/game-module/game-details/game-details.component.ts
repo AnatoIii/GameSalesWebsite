@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { GameService } from "../services/game.service";
-import { IGame } from "../interfaces/game";
+import { IFullGame } from "../interfaces/IFullGame";
+import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
 
 @Component({
   selector: "app-game-details",
@@ -9,9 +10,7 @@ import { IGame } from "../interfaces/game";
   styleUrls: ["./game-details.component.css"],
 })
 export class GameDetailsComponent implements OnInit {
-  game: IGame;
-  sellers;
-  additionalImages: string[];
+  game: IFullGame;
   indexClickedImage: number;
 
   constructor(
@@ -20,30 +19,12 @@ export class GameDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.sellers = [
-      {
-        gameName: "Sims 4 Ru/Key asd",
-        sellerName: "PS store",
-        price: 47,
-      },
-      {
-        gameName: "Sims 4 Ru/yyy",
-        sellerName: "Another store",
-        price: 54,
-      },
-    ];
-
     const id = +this.route.snapshot.paramMap.get("id");
 
     this.gameService.getGameDetails(id).subscribe(
-      (data: IGame) => {
+      (data: IFullGame) => {
+        data.Platforms.sort((a, b) => a.DiscountedPrice - b.DiscountedPrice);
         this.game = data;
-        this.additionalImages = [
-          "game-fish.jpg",
-          this.game.image,
-          this.game.image,
-          "game-fish.jpg",
-        ];
       },
       (error) => console.log(error)
     );
@@ -53,7 +34,15 @@ export class GameDetailsComponent implements OnInit {
     this.indexClickedImage = index;
   }
 
-  getImagesForModal(): string[] {
-    return [this.game.image, ...this.additionalImages];
+  getConvertedPrice(price: number): string {
+    return (
+      (price / 100).toFixed(2) +
+      " " +
+      CurrencySymbol[this.game.Platforms[0].CurrencyId]
+    );
+  }
+
+  goToExternalLink(link: string): void {
+    window.open(link, "_blank");
   }
 }

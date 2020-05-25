@@ -1,11 +1,10 @@
-<div class="game" [ngStyle]="{ 'background-image': 'url(../../../assets/images/' + game.image + ')'}"
-    (mouseenter)="blockOnHover=true" (mouseleave)="blockOnHover=false">
-    <div class="game__name" [@onHover]="blockOnHover ? 'hover' : 'initial'">{{ game.name }}
+<div class="game" [ngStyle]="{ 'background-image': 'url(' + game.Images[0] + ')'}" (mouseenter)="blockOnHover=true"
+    (mouseleave)="blockOnHover=false" [routerLink]="['/game', game.Id]">
+    <div class="game__name" [@onHover]="blockOnHover ? 'hover' : 'initial'">{{ game.Name }}
         <div class="game__description" [@gameDescription]="blockOnHover ? 'hover' : 'initial'">
-            {{ game.description }}
+            {{ game.Description }}
         </div>
     </div>
-    <div class="game__price">{{ game.price }}$
-    </div>
+    <div class="game__price">{{ getConvertedPrice(game) }}</div>
     <div class="triangle"></div>
 </div>
