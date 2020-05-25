@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "../../services/auth.service";
-import { passwordsMatch } from "../../validators/password-match.validator";
-import { PasswordValidate } from "../../validators/password.validator";
+import { AuthService } from "../services/auth.service";
+import { passwordsMatch } from "../services/validators/password-match.validator";
+import { passwordValidate } from "../services/validators/password.validator";
 
 @Component({
   selector: "app-register-form",
@@ -17,7 +17,6 @@ export class RegisterFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  @ViewChild("form") public registerFormDirective;
   public registerForm: FormGroup;
   public hidePass = true;
   public hideConfirmPass = true;
@@ -32,7 +31,7 @@ export class RegisterFormComponent implements OnInit {
         firstName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
         lastName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
         email: ["", [Validators.required, Validators.email]],
-        password: ["", [PasswordValidate]],
+        password: ["", [passwordValidate]],
         confirmPass: ["", [Validators.required]],
       },
       { validator: passwordsMatch("password", "confirmPass") }

@@ -1,15 +1,22 @@
 <div class="options">
     <p class="filter-name">Platforms:</p>
     <section *ngFor="let platform of platforms">
-        <mat-checkbox [checked]="platform[0]" [(ngModel)]="platform[0]" (change)="filterChanged()">{{ platform[1] }}
+        <mat-checkbox [checked]="platform[0]" [(ngModel)]="platform[0]" (change)="filterChanged()">
+            {{ platform[1].Name }}
         </mat-checkbox>
     </section>
 
     <p class="sort-type">Sort by:</p>
     <mat-radio-group [(ngModel)]="filterOptions.SortType" (change)="filterChanged()">
-        <mat-radio-button value="popularity">Popularity</mat-radio-button>
-        <mat-radio-button value="cheap">Cheap first</mat-radio-button>
-        <mat-radio-button value="expensive">Expensive first</mat-radio-button>
+        <mat-radio-button value="basePrice">Base price</mat-radio-button>
+        <mat-radio-button value="discountedPrice">Discounted price</mat-radio-button>
+        <mat-radio-button value="discount">Discount</mat-radio-button>
+    </mat-radio-group>
+
+    <p class="sort-type">Order:</p>
+    <mat-radio-group [(ngModel)]="filterOptions.AscendingOrder" (change)="filterChanged()">
+        <mat-radio-button [value]="true">Ascending</mat-radio-button>
+        <mat-radio-button [value]="false">Descending</mat-radio-button>
     </mat-radio-group>
 </div>
 

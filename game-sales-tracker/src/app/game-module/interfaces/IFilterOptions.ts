@@ -2,12 +2,13 @@ import { IPlatform } from "./IPlatform";
 
 export interface IFilterOptions {
   GameName: string;
-  Platforms: IPlatform[];
+  Platforms: number[];
   SortType: SortType;
+  AscendingOrder: boolean;
 }
 
 export enum SortType {
-  popularity = "popularity",
-  cheap = "cheap",
-  expensive = "expensive",
+  basePrice = "basePrice",
+  discountedPrice = "discountedPrice",
+  discount = "discount",
 }

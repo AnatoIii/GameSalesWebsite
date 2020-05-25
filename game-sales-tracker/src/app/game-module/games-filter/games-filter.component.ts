@@ -6,6 +6,7 @@ import { IFilterOptions, SortType } from "../interfaces/IFilterOptions";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/internal/operators";
 import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
+import { IPlatform } from "../interfaces/IPlatform";
 
 @Component({
   selector: "app-games-filter",
@@ -14,7 +15,7 @@ import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
 })
 export class GamesFilterComponent implements OnInit {
   games: IGame[];
-  platforms: [boolean, string][];
+  platforms: [boolean, IPlatform][];
   filterOptions: IFilterOptions;
   filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
   pageOptions: IFilterRequest;
@@ -23,6 +24,8 @@ export class GamesFilterComponent implements OnInit {
 
   constructor(private gameService: GameService) {
     this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
+      console.log(this.filterOptions);
+
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
         this.gamesCount = data.count;
         //this.games = data.games;
@@ -34,7 +37,8 @@ export class GamesFilterComponent implements OnInit {
     this.filterOptions = {
       GameName: "",
       Platforms: [],
-      SortType: SortType.popularity,
+      SortType: SortType.basePrice,
+      AscendingOrder: true,
     };
 
     this.pageOptions = {
@@ -50,17 +54,17 @@ export class GamesFilterComponent implements OnInit {
 
     this.gameService.getPlatforms().subscribe(
       (data) => {
-        this.platforms = data.map((x) => [false, x.Name]);
+        this.platforms = data.map((x) => [false, x]);
       },
       (error) => console.log(error)
     );
   }
 
   filterChanged() {
-    // this.filterOptions.Platforms = this.platforms
-    //   .filter((x) => x[0])
-    //   .map((y) => y[1]);
-    // this.filterChangedSubject.next(this.filterOptions);
+    this.filterOptions.Platforms = this.platforms
+      .filter((x) => x[0])
+      .map((y) => y[1].Id);
+    this.filterChangedSubject.next(this.filterOptions);
   }
 
   pageChanged(pageCount: number) {
