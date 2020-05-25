@@ -6,5 +6,5 @@ export interface IGame {
   BestPrice: {
     DiscountedPrice: number;
     CurrencyId: number;
-  }; //for main and filter page
+  };
 }

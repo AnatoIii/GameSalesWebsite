@@ -57,10 +57,8 @@ export class GameIntoComponent {
   constructor() {}
 
   getConvertedPrice(game: IGame): string {
-    return (
-      (game.BestPrice.DiscountedPrice / 100).toFixed(2) +
-      " " +
+    return `${(game.BestPrice.DiscountedPrice / 100).toFixed(2)} ${
       CurrencySymbol[game.BestPrice.CurrencyId]
-    );
+    }`;
   }
 }

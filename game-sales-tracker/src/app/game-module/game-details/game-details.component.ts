@@ -35,11 +35,9 @@ export class GameDetailsComponent implements OnInit {
   }
 
   getConvertedPrice(price: number): string {
-    return (
-      (price / 100).toFixed(2) +
-      " " +
+    return `${(price / 100).toFixed(2)} ${
       CurrencySymbol[this.game.Platforms[0].CurrencyId]
-    );
+    }`;
   }
 
   goToExternalLink(link: string): void {

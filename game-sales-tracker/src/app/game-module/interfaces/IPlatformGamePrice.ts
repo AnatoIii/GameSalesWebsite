@@ -2,11 +2,10 @@ import { IPlatform } from "./IPlatform";
 
 export interface IPlatformGamePrice {
   Platform: IPlatform;
-  GameName: string;
   BasePrice: number;
   DiscountedPrice: number;
   CurrencyId: number;
-  GameURL: string; //url platrorm + PlatformSpecificId
+  GameURL: string;
 }
 
 export enum CurrencySymbol {
