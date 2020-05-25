@@ -10,6 +10,7 @@ services:
 
     db:
         image: postgres:11
+        container_name: postgres
         network_mode: "host"
         ports:
             - 5433:5432
