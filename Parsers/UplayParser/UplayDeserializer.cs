@@ -107,9 +107,9 @@ namespace UplayParser
 
         private string _StripString(string input)
         {
-            string res = Regex.Replace(input, "<.*?>", String.Empty);
-            res = Regex.Replace(res, "\t", String.Empty);
-            res = Regex.Replace(res, "&.*?;", String.Empty);
+            string res = Regex.Replace(input, "<.*?>", string.Empty);
+            res = Regex.Replace(res, "\t", string.Empty);
+            res = Regex.Replace(res, "&.*?;", string.Empty);
             return res;
         }
     }

@@ -19,13 +19,12 @@ namespace Parsers.Infrastructure
         {
             if (@this != null)
             {
-                string res = Regex.Replace(@this, "<.*?>", String.Empty);
-                res = Regex.Replace(res, "\r", String.Empty);
-                res = Regex.Replace(res, "\n", String.Empty);
-                res = Regex.Replace(res, "\t", String.Empty);
-                res = Regex.Replace(res, "&quot;", String.Empty);
-                res = Regex.Replace(res, "&lt;", String.Empty);
-                res = Regex.Replace(res, "br&gt;", String.Empty);
+                string res = Regex.Replace(@this, "<.*?>", string.Empty);
+                res = Regex.Replace(res, "&.*?;", string.Empty);
+                res = Regex.Replace(res, "\r", string.Empty);
+                res = Regex.Replace(res, "\n", string.Empty);
+                res = Regex.Replace(res, "\t", string.Empty);
+                res = Regex.Replace(res, "<br>", "\r\n");
                 return res;
             }
 
