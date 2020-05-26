@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { LoginFormDto } from "../models/login-form-dto";
-import { RegisterFormDto } from "../models/register-form-dto";
-import { TokenDto } from "../models/token-dto";
+import { ILoginFormDto } from "../models/login-form-dto";
+import { IRegisterFormDto } from "../models/register-form-dto";
+import { ITokenDto } from "../models/token-dto";
 import { LIST_URI } from "./rest-api.constants";
 
 @Injectable({
@@ -13,21 +14,22 @@ import { LIST_URI } from "./rest-api.constants";
 })
 export class AuthService {
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                private jwtHelperService: JwtHelperService) {
     }
 
-    public login(loginForm: FormGroup): Observable<TokenDto> {
+    public login(loginForm: FormGroup): Observable<ITokenDto> {
         const controls = loginForm.controls;
-        const loginFormDto: LoginFormDto = {
+        const loginFormDto: ILoginFormDto = {
             email: controls.email.value,
             password: controls.password.value,
         };
         return this.httpClient.post(LIST_URI.login, loginFormDto)
             .pipe(
-                map((tokenDto: TokenDto) => {
+                map((tokenDto: ITokenDto) => {
                     localStorage.setItem("ACCESS_TOKEN", tokenDto.accessToken);
                     localStorage.setItem("REFRESH_TOKEN", tokenDto.refreshToken);
-                    localStorage.setItem("USER_ID", tokenDto.userId);
+                    localStorage.setItem("USER_ID", this.jwtHelperService.decodeToken(tokenDto.accessToken).jti);
                     return tokenDto;
                 }),
             );
@@ -36,7 +38,7 @@ export class AuthService {
     // tslint:disable-next-line:typedef
     public register(registerForm: FormGroup) {
         const controls = registerForm.controls;
-        const registerFormDto: RegisterFormDto = {
+        const registerFormDto: IRegisterFormDto = {
             email: controls.email.value,
             firstName: controls.firstName.value,
             username: controls.username.value,

@@ -12,12 +12,13 @@ namespace GameSalesApi.Features.AccountManagement.Commands
     public class UploadProfilePhotoCommand: ICommand<Result>
     {
         /// <summary>
-        /// User profile photo
-        /// </summary>
-        public IFormFile Image { get; set; }
-        /// <summary>
         /// User Id
         /// </summary>
         public Guid UserId { get; set; }
+
+        /// <summary>
+        /// User profile photo
+        /// </summary>
+        public IFormFile Image { get; set; }
     }
 }

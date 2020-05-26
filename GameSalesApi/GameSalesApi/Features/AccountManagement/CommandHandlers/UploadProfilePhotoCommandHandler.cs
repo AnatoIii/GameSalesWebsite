@@ -1,40 +1,45 @@
 ﻿using DataAccess;
 using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Helpers;
+using Infrastructure.DecoratorsFactory;
 using Infrastructure.HandlerBase;
 using Infrastructure.Result;
+using Microsoft.Extensions.Options;
 using Model;
 using System;
 
 namespace GameSalesApi.Features.AccountManagement.CommandHandlers
 {
+    /// <summary>
+    /// Command handler for update user's profile photo <see cref="User.PhotoLink"/> in <see cref="GameSalesContext"/>
+    /// </summary>
     public class UploadProfilePhotoCommandHandler
         : CommandHandlerDecoratorBase<UploadProfilePhotoCommand, Result>
     {
         private readonly GameSalesContext _rDBContext;
-        private readonly ImageService _imageService;
+        private readonly ImgurConfig _imgurConfig;
 
         /// <summary>
         /// Default ctor
         /// </summary>
         /// <param name="dbContext"><see cref="GameSalesApi"/></param>
-        /// <param name="imageService"><see cref="ImageService"/></param>
-        public UploadProfilePhotoCommandHandler(GameSalesContext dbContext, ImageService imageService)
+        /// <param name="options"><see cref="ImgurConfig"/></param>
+        public UploadProfilePhotoCommandHandler(GameSalesContext dbContext, ImgurConfig options)
             : base(null)
         {
             _rDBContext = dbContext;
-            _imageService = imageService;
+            _imgurConfig = options;
         }
 
         /// <summary>
-        /// Update <see cref="User"/> in <see cref="GameSalesContext"/>
+        /// Update user's profile photo <see cref="User.PhotoLink"/> in <see cref="GameSalesContext"/>
         /// </summary>
         /// <param name="command"><see cref="UploadProfilePhotoCommand"/></param>
         public override void Execute(UploadProfilePhotoCommand command)
             => Handle(command);
 
         /// <summary>
-        /// Update <see cref="User"/> in <see cref="GameSalesContext"/>
+        /// Update user's profile photo <see cref="User.PhotoLink"/> in <see cref="GameSalesContext"/>
         /// </summary>
         /// <param name="input"><see cref="UpdateUserCommand"/></param>
         /// <returns><see cref="Result"/></returns>
@@ -48,29 +53,14 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
             if (user == null)
                 return Result.Fail($"User with id {input.UserId} not found!");
 
-            string photoLink = null;
+            var uploadImageCommand = new UploadImageCommand { Image = input.Image };
 
-            if (input.Image != null)
-            {
-                var uploadedImage = _imageService.UploadImage(input.Image).Result;
-                photoLink = uploadedImage.Link;
-            }
+            var handler = new CommandDecoratorBuilder<UploadImageCommand, Result<string>>()
+                .Add<UploadImageCommandHandler>()
+                    .AddParameter<ImgurConfig>(_imgurConfig)
+                .Build();
 
-            NewUser newUser = new NewUser()
-            {
-                Id = input.UserId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Username = user.Username,
-                NotificationViaEmail = user.NotificationViaEmail,
-                NotificationViaTelegram = user.NotificationViaTelegram,
-                PhotoLink = photoLink ?? user.PhotoLink,
-                PasswordSalt = user.PasswordSalt,
-                PasswordHash = user.PasswordHash
-            };
-
-            user.UpdateUser(newUser);
+            user.PhotoLink = handler.Handle(uploadImageCommand).Value;
 
             _rDBContext.Users.Update(user);
 

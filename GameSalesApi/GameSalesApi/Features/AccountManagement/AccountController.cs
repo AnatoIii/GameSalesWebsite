@@ -8,7 +8,9 @@ using Infrastructure.DecoratorsFactory;
 using Infrastructure.Result;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Model;
 using System.Collections.Generic;
 
@@ -16,20 +18,18 @@ namespace GameSalesApi.Features.AccountManagement
 {
     [ApiController]
     [Route("api/[controller]")]
- 
     public class AccountController : ControllerBase
     {
         private readonly GameSalesContext _rDBContext;
-
-        private readonly ImageService _rImageService;
         private readonly ILogger<AccountController> _rLogger;
+        private readonly ImgurConfig _imgurConfig;
 
         public AccountController(GameSalesContext dbContext,
-            ILogger<AccountController> logger, ImageService imageService)
+            ILogger<AccountController> logger, IOptions<ImgurConfig> options)
         {
             _rDBContext = dbContext;
             _rLogger = logger;
-            _rImageService = imageService;
+            _imgurConfig = options.Value;
         }
 
         [HttpGet()]
@@ -91,7 +91,7 @@ namespace GameSalesApi.Features.AccountManagement
             var handler = new CommandDecoratorBuilder<UploadProfilePhotoCommand, Result>()
                 .Add<UploadProfilePhotoCommandHandler>()
                     .AddParameter<GameSalesContext>(_rDBContext)
-                    .AddParameter<ImageService>(_rImageService)
+                    .AddParameter<ImgurConfig>(_imgurConfig)
                .AddBaseDecorators(_rLogger, _rDBContext)
                .Build();
 

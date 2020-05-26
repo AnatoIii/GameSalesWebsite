@@ -1,4 +1,4 @@
-export interface RegisterFormDto {
+export interface IRegisterFormDto {
     email: string;
     firstName: string;
     lastName: string;

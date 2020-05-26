@@ -15,6 +15,5 @@ namespace Model
         public bool NotificationViaEmail { get; set; }
         public bool NotificationViaTelegram { get; set; }
         public UserRole Role { get; set; }
-        public string PhotoLink { get; set; }
     }
 }

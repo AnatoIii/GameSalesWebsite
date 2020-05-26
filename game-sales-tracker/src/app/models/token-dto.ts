@@ -1,5 +1,4 @@
-export interface TokenDto {
+export interface ITokenDto {
     accessToken: string;
     refreshToken: string;
-    userId: string;
 }

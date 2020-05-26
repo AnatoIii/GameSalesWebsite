@@ -9,8 +9,8 @@ import {
     FormGroup,
     Validators,
 } from "@angular/forms";
-import { UpdateUserDto } from "../models/update-user-dto";
-import { User } from "../models/user";
+import { IUpdateUserDto } from "../models/update-user-dto";
+import { IUser } from "../models/user";
 import { UserService } from "../services/user.service";
 import { passwordsMatch } from "../validators/password-match.validator";
 import { PasswordValidate } from "../validators/password.validator";
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
                 private formBuilder: FormBuilder) {
     }
 
-    public user: User;
+    public user: IUser;
     public changePasswordForm: FormGroup;
     public profileForm: FormGroup;
     public changePasswordVisible = false;
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
     public ngOnInit(): void {
         this.userService.getById(localStorage.getItem("USER_ID"))
             .subscribe(
-                (user: User) => {
+                (user: IUser) => {
                     this.user = user;
                     this.profileForm.setValue({ username: this.user.username, email: this.user.email });
                 },
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     }
 
     public changePasswordSubmit(): void {
-        const updateUserDto: UpdateUserDto = {
+        const updateUserDto: IUpdateUserDto = {
             userId: localStorage.getItem("USER_ID"),
             currentPassword: this.changePasswordForm.value.currentPassword,
             password: this.changePasswordForm.value.newPassword,
@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
         if (this.profileForm.invalid) {
             return;
         }
-        const updateUserDto: UpdateUserDto = {
+        const updateUserDto: IUpdateUserDto = {
             userId: this.user.id,
             username: this.profileForm.value.username,
             email: this.profileForm.value.email,

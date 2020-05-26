@@ -34,7 +34,6 @@ namespace Model
             NotificationViaEmail = newUser.NotificationViaEmail;
             NotificationViaTelegram = newUser.NotificationViaTelegram;
             Role = newUser.Role;
-            PhotoLink = !string.IsNullOrEmpty(newUser.PhotoLink) ? newUser.PhotoLink : null;
         }
     }
 }

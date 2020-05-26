@@ -9,6 +9,5 @@ namespace GameSalesApi.Features.Authorization
     {
         public string RefreshToken { get; set; }
         public string AccessToken { get; set; }
-        public Guid UserId { get; set; }
     }
 }

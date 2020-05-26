@@ -12,16 +12,19 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { JwtModule } from "@auth0/angular-jwt";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
-
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./authorization-module/auth/auth.module";
 import { SignInComponent } from "./dialogs/sign-in/sign-in.component";
-
 import { GameModule } from "./game-module/game/game.module";
 import { HeaderComponent } from "./header/header.component";
 import { ApiInterceptor } from "./interceptors/api.interceptor";
 import { ProfileComponent } from "./profile/profile.component";
+
+export function getToken(): string {
+    return localStorage.getItem("ACCESS_TOKEN");
+}
 
 @NgModule({
     declarations: [
@@ -42,6 +45,11 @@ import { ProfileComponent } from "./profile/profile.component";
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: getToken,
+            },
+        }),
     ],
     providers: [
         {
@@ -54,5 +62,4 @@ import { ProfileComponent } from "./profile/profile.component";
     entryComponents: [SignInComponent],
     exports: [HeaderComponent],
 })
-export class AppModule {
-}
+export class AppModule { }
