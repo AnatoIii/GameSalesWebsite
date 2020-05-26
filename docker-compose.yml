@@ -9,9 +9,9 @@ services:
         build:
             context: ./game-sales-tracker
     
-    rabbit-mq:
+    rabbitmq:
         image: rabbitmq:3-management
-        container_name: rabbit-mq
+        container_name: rabbitmq
         network_mode: "host"
         ports:
             - 5672:5672
