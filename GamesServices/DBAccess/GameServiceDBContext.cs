@@ -2,6 +2,7 @@
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DBAccess
@@ -20,7 +21,10 @@ namespace DBAccess
 
         public GameServiceDBContext(DbContextOptions options) : base(options)
         {
-            
+            if (Database.GetPendingMigrations().Count() > 0)
+            {
+                Database.Migrate();
+            }
         }
     }
 }
