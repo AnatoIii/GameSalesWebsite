@@ -3,6 +3,7 @@ services:
     frontend:
         image: frontend
         container_name: frontend
+        network_mode: "host"
         ports: 
             - 80:80
         build:
@@ -32,7 +33,6 @@ services:
     ps-parser:
         image: ps-parser
         container_name: ps-parser
-        network_mode: "host"
         depends_on: 
             - rabbit-mq
         build: 
@@ -43,7 +43,6 @@ services:
 
     steam-parser:
         image: steam-parser
-        network_mode: "host"
         container_name: steam-parser
         depends_on: 
             - rabbit-mq
@@ -55,7 +54,6 @@ services:
 
     uplay-parser:
         image: uplay-parser
-        network_mode: "host"
         container_name: uplay-parser
         depends_on: 
             - rabbit-mq
@@ -67,7 +65,6 @@ services:
 
     gateway-api:
         image: gateway-api
-        network_mode: "host"
         container_name: gateway-api
         ports: 
             - 5443:443
@@ -82,7 +79,6 @@ services:
 
     games-saver:
         image: games-saver
-        network_mode: "host"
         container_name: games-saver
         depends_on: 
             - db
@@ -95,7 +91,6 @@ services:
 
     games-provider:
         image: games-provider
-        network_mode: "host"
         container_name: games-provider
         ports: 
             - 6443:443
