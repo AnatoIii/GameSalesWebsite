@@ -21,7 +21,7 @@ namespace GameSalesApi
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("https://*:5000")
+                    webBuilder.UseUrls("https://*:80")
                         .UseStartup<Startup>();
                 });
     }
