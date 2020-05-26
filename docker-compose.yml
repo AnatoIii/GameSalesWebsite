@@ -109,8 +109,7 @@ services:
             - configs:/configs
     
 volumes: 
-    configs: 
-        driver: local
+    configs:
         external: true
     data: 
         driver: local
