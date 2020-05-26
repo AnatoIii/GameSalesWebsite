@@ -76,14 +76,11 @@ namespace UplayParser
 
             // Platform id and postfix
             string platformSpecificId = htmlNode.ChildNodes[0].Attributes["data-itemid"].Value ?? string.Empty;
-            string gameLinkPostfix = XElement.Parse(htmlNode.SelectSingleNode(".//div[@class='button-wrapper show-for-medium']").InnerHtml)
-                    .FirstAttribute.Value ?? string.Empty;
 
             return new GameEntry()
             {
                 Name = name,
                 DiscountedPrice = discountedPrice,
-                GameLinkPostfix = gameLinkPostfix,
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
                 PictureURLs = pictureURLs

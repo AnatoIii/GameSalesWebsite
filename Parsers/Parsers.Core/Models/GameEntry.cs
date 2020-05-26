@@ -17,11 +17,6 @@ namespace Parsers.Core.Models
         public string Review { get; set; }
 
         /// <summary>
-        /// Postfix for store link
-        /// </summary>
-        public string GameLinkPostfix { get; set; }
-
-        /// <summary>
         /// A native game id on the specified platform
         /// </summary>
         public string PlatformSpecificId { get; set; }

@@ -48,7 +48,7 @@ namespace SteamParser
                 currentEntries = _rDeserializer.Deserialize(data)
                     .Select(e =>
                     {
-                        e.Description = _rDeserializer.GetGameDescription((ParserSettings.GameBaseURL + e.GameLinkPostfix)
+                        e.Description = _rDeserializer.GetGameDescription((ParserSettings.GameBaseURL + e.PlatformSpecificId)
                             .GetJSONForGameURL(_rLogger).Result);
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
