@@ -1,14 +1,16 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { IGame } from "../interfaces/game";
+import { IGame } from "../interfaces/IGame";
+import { IFullGame } from "../interfaces/IFullGame";
 import { Observable } from "rxjs";
-import { IPageRequest } from "../interfaces/page";
+import { IFilterRequest } from "../interfaces/IFilterRequest";
+import { IPlatform } from "../interfaces/IPlatform";
 
 @Injectable({
   providedIn: "root",
 })
 export class GameService {
-  baseURL = "http://localhost:8082/";
+  //baseURL = "http://localhost:8082/";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -23,20 +25,20 @@ export class GameService {
     return this.http.get<IGame[]>("/games", this.httpOptions);
   }
 
-  getGameGenres(): Observable<string[]> {
-    return this.http.get<string[]>("/genres", this.httpOptions);
+  getPlatforms(): Observable<IPlatform[]> {
+    return this.http.get<IPlatform[]>("/platforms", this.httpOptions);
   }
 
-  getGameDetails(id: number): Observable<IGame> {
-    return this.http.get<IGame>("/games/" + id, this.httpOptions);
+  getGameDetails(id: number): Observable<IFullGame> {
+    return this.http.get<IFullGame>("/games/" + id, this.httpOptions);
   }
 
   sendPageParams(
-    pageParams: IPageRequest
+    filterParams: IFilterRequest
   ): Observable<{ count: number; games: IGame[] }> {
     let params = new HttpParams();
-    Object.keys(pageParams).forEach((key) => {
-      const paramsValue = pageParams[key];
+    Object.keys(filterParams).forEach((key) => {
+      const paramsValue = filterParams[key];
       if (typeof paramsValue !== "object")
         params = params.append(key, paramsValue);
       if (typeof paramsValue === "object") {

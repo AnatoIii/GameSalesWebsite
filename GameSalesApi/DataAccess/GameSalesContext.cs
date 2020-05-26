@@ -18,6 +18,8 @@ namespace DataAccess
         /// Default ctor
         /// </summary>
         /// <param name="options"><see cref="DbContextOptions{TContext}"/></param>
-        public GameSalesContext(DbContextOptions<GameSalesContext> options) : base(options) { }
+        public GameSalesContext(DbContextOptions<GameSalesContext> options) 
+            : base(options) 
+        { }
     }
 }

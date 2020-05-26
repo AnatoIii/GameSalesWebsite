@@ -1,5 +1,3 @@
-using DependencyResolver;
-using GameSalesApi.Features.AccountManagement;
 using GameSalesApi.Middleware.RedirectorMiddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +20,6 @@ namespace GameSalesApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureProjectOptions(Configuration);
-            services.AddTransient<ImageService>();
             services.RegisterServices(Configuration);
             services.ConfigureCors();
             services.AddMemoryCache();

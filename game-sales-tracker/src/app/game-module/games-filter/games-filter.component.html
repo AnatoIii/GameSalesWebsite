@@ -1,31 +1,38 @@
 <div class="options">
-    <p class="filter-name">Genre:</p>
-    <section *ngFor="let genre of gameGenres">
-        <mat-checkbox [checked]="genre[0]" [(ngModel)]="genre[0]" (change)="filterChanged()">{{ genre[1] }}
+    <p class="filter-name">Platforms:</p>
+    <section *ngFor="let platform of platforms">
+        <mat-checkbox [checked]="platform[0]" [(ngModel)]="platform[0]" (change)="filterChanged()">
+            {{ platform[1].Name }}
         </mat-checkbox>
     </section>
 
     <p class="sort-type">Sort by:</p>
-    <mat-radio-group [(ngModel)]="filterOptions.sortType" (change)="filterChanged()">
-        <mat-radio-button value="popularity">Popularity</mat-radio-button>
-        <mat-radio-button value="cheap">Cheap first</mat-radio-button>
-        <mat-radio-button value="expensive">Expensive first</mat-radio-button>
+    <mat-radio-group [(ngModel)]="filterOptions.SortType" (change)="filterChanged()">
+        <mat-radio-button value="basePrice">Base price</mat-radio-button>
+        <mat-radio-button value="discountedPrice">Discounted price</mat-radio-button>
+        <mat-radio-button value="discount">Discount</mat-radio-button>
+    </mat-radio-group>
+
+    <p class="sort-type">Order:</p>
+    <mat-radio-group [(ngModel)]="filterOptions.AscendingOrder" (change)="filterChanged()">
+        <mat-radio-button [value]="true">Ascending</mat-radio-button>
+        <mat-radio-button [value]="false">Descending</mat-radio-button>
     </mat-radio-group>
 </div>
 
 <div class="game-container">
     <mat-form-field>
         <mat-label>Search games</mat-label>
-        <input matInput [(ngModel)]="filterOptions.gameName" type="text" placeholder="Spore"
+        <input matInput [(ngModel)]="filterOptions.GameName" type="text" placeholder="Spore"
             (ngModelChange)="filterChanged()">
         <mat-icon matSuffix><i class="fas fa-search"></i></mat-icon>
     </mat-form-field>
-    <div class="game" *ngFor="let game of games" [routerLink]="['/game', game.id]">
-        <img [src]="'../../../assets/images/' + game.image" [alt]="game.name">
-        <p class="name">{{game.name}}</p>
-        <p class="price">{{game.price}}$</p>
+    <div class="game" *ngFor="let game of games" [routerLink]="['/game', game.Id]">
+        <img [src]="game.Images[0]" [alt]="game.Name">
+        <p class="name">{{ game.Name }}</p>
+        <p class="price">{{ getConvertedPrice(game) }}</p>
     </div>
 
     <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="gamesCount || 45"
-        [countPerPage]="this.pageOptions.countPerPage" (pageChange)="pageChanged($event)"></app-paginator>
+        [countPerPage]="this.pageOptions.CountPerPage" (pageChange)="pageChanged($event)"></app-paginator>
 </div>

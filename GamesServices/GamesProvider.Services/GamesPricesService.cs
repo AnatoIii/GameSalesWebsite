@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
@@ -22,55 +23,78 @@ namespace GamesProvider.Services
             _mapper = mapper;
         }
 
-        public GamePriceDTO GetGamePriceById(int gamePriceId)
+        public IEnumerable<FullGameDTO> GetBestGames(int count)
         {
-            GamePrices gamePrices = _dbContext.GamePrices
-                .Where(gp => gp.GamePriceId == gamePriceId)
-                .Include(gp => gp.Game)
-                    .ThenInclude(g => g.Images)
-                .Include(g => g.Platform).FirstOrDefault();
-            return _mapper.Map<GamePrices, GamePriceDTO>(gamePrices);
-        }
-        public GamePriceDTO GetGamePriceByPlatformAndGame(int platformId, int gameId)
-        {
-            GamePrices gamePrices = _dbContext.GamePrices
-                .Where(gp => gp.PlatformId == platformId & gp.GameId == gameId)
-                .Include(gp => gp.Game)
-                    .ThenInclude(g => g.Images)
-                .Include(g => g.Platform).FirstOrDefault();
-            return _mapper.Map<GamePrices, GamePriceDTO>(gamePrices);
+            var filter = new FilterRequestDTO()
+            {
+                CountPerPage = count,
+                From = 0,
+                FilterOptions = new FilterOptionsDTO()
+                {
+                    AscendingOrder = true,
+                    GameName = "",
+                    Platforms = _dbContext.Platforms.Select(p => p.PlatformId),
+                    SortType = SortType.discount
+                }
+            };
+            return GetByFilter(filter);
         }
 
-        public IEnumerable<GamePriceDTO> GetGamePricesByName(string name, int count, int offset)
+        public IEnumerable<FullGameDTO> GetByFilter(FilterRequestDTO filterRequest)
         {
-            var gamePrices = _dbContext.GamePrices.Where(gp => gp.Game.Name.ToLower().Contains(name.ToLower()))
-                .Skip(offset).Take(count)
-                .Include(gp => gp.Game)
-                    .ThenInclude(g => g.Images)
-                .Include(g => g.Platform);
-            return _mapper.Map<IEnumerable<GamePrices>, IEnumerable<GamePriceDTO>>(gamePrices);
+            var filter = filterRequest.FilterOptions;
+            var gameprices = _dbContext.GamePrices
+                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName) &&
+                       (filter.Platforms.Count() == 0 || filter.Platforms.Contains(gp.PlatformId)));
+
+            if(filter.SortType != SortType.basePrice)
+            {
+                gameprices = gameprices.Where(gp => gp.BasePrice > gp.DiscountedPrice);
+            };
+
+            return  gameprices
+                         .Include(gp => gp.Game)
+                            .ThenInclude(gp => gp.Images)
+                         .Include(gp => gp.Platform)
+                         .OrderBy(GetKeySelector(filter.SortType), CreateComparer(filter.AscendingOrder))
+                         .Skip(filterRequest.From)
+                         .Take(filterRequest.CountPerPage)
+                         .GroupBy(gp => gp.Game)
+                         .Select(group => GamesPricesGroupMapper.GamePricesToFullGameDTO(group));
         }
 
-        public int GetGamePricesByNameCount(string name)
+        public int GetByFilterCount(FilterRequestDTO filterRequest)
         {
-            return _dbContext.GamePrices
-                .Where(gp => gp.Game.Name.ToLower().Contains(name.ToLower()))
-                .Count();
+            var filter = filterRequest.FilterOptions;
+            var gameprices = _dbContext.GamePrices
+                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName) &&
+                             filter.Platforms.Contains(gp.PlatformId));
+            if (filter.SortType != SortType.basePrice)
+            {
+                gameprices = gameprices.Where(gp => gp.BasePrice > gp.DiscountedPrice);
+            };
+
+            return gameprices.Count();
         }
 
-        public IEnumerable<GamePriceDTO> GetGamePricesByPlatform(int platformId, int count, int offset)
+        private IComparer<int> CreateComparer(bool ascendingOrder)
         {
-            var gamePrices = _dbContext.GamePrices.Where(gp => gp.PlatformId == platformId)
-                .Skip(offset).Take(count)
-                .Include(gp => gp.Game)
-                    .ThenInclude(g => g.Images)
-                .Include(gp => gp.Platform);
-            return _mapper.Map<IEnumerable<GamePrices>, IEnumerable<GamePriceDTO>>(gamePrices);
+            return ascendingOrder ?
+                Comparer<int>.Create((x, y) => x.CompareTo(y) > 0 ? x : y):
+                Comparer<int>.Create((x, y) => x.CompareTo(y) > 0 ? y : x);
         }
 
-        public int GetGamePricesByPlatformCount(int platformId)
+        
+
+        private Func<GamePrices,int> GetKeySelector(SortType sortType)
         {
-            return _dbContext.GamePrices.Where(gp => gp.PlatformId == platformId).Count();
+            return sortType switch
+            {
+                SortType.basePrice => (GamePrices gp) => gp.BasePrice,
+                SortType.discountedPrice => (GamePrices gp) => gp.DiscountedPrice,
+                SortType.discount => (GamePrices gp) => (int)Math.Truncate((double)((gp.BasePrice - gp.DiscountedPrice) / gp.BasePrice) * 100),
+                _ => throw new InvalidEnumArgumentException()
+            };
         }
     }
 }
