@@ -16,7 +16,6 @@ namespace Models
         public int DiscountedPrice { get; set; }
         public int CurrencyId { get; set; }
         public string Review { get; set; }
-        public string GameLinkPostfix { get; set; }
 
         public Game Game { get; set; }
         public Currency Currency { get; set; }

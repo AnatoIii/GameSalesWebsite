@@ -70,7 +70,6 @@ namespace GamesSaver.Services
                     GameId = game.GameId,
                     PlatformId = entry.PlatformId,
                     PlatformSpecificId = entry.PlatformSpecificId,
-                    GameLinkPostfix = entry.GameLinkPostfix,
                     Review = entry.Review
                 });
             }
