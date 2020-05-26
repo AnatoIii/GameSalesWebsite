@@ -6,7 +6,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatRadioModule } from "@angular/material/radio";
 import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from "../../app-routing/app-routing.module";
-//import { Title } from "@angular/platform-browser";
+import { HttpClientModule } from "@angular/common/http";
 
 import { MainComponent } from "../main/main.component";
 import { CountdownComponent } from "../countdown/countdown.component";
@@ -34,7 +34,7 @@ import { ModalImageGalleryComponent } from "../modal-image-gallery/modal-image-g
     MatCheckboxModule,
     MatRadioModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
-  //providers: [Title],
 })
 export class GameModule {}
