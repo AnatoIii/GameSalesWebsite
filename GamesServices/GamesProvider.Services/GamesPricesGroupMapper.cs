@@ -23,7 +23,7 @@ namespace GamesProvider.Services
                     CurrencyId = gp.CurrencyId,
                     DiscountedPrice = gp.DiscountedPrice,
                     Platform = gp.Platform,
-                    GameURL = gp.Platform.BaseUrl + gp.GameLinkPostfix
+                    GameURL = gp.Platform.BaseUrl + gp.PlatformSpecificId
                 })
             };
         }
