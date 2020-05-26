@@ -40,6 +40,8 @@ services:
             dockerfile: ./PSStoreParser/Dockerfile
         volumes: 
             - configs:/configs
+        env_file: 
+            - ./env/PSStoreParser.env
 
     steam-parser:
         image: steam-parser
@@ -51,6 +53,8 @@ services:
             dockerfile: ./SteamParser/Dockerfile
         volumes: 
             - configs:/configs
+        env_file: 
+            - ./env/SteamParser.env
 
     uplay-parser:
         image: uplay-parser
@@ -62,6 +66,8 @@ services:
             dockerfile: ./UplayParser/Dockerfile
         volumes: 
             - configs:/configs
+        env_file: 
+            - ./env/UplayParser.env
 
     gateway-api:
         image: gateway-api
@@ -76,6 +82,8 @@ services:
             dockerfile: ./GameSalesApi/Dockerfile
         volumes: 
             - configs:/configs
+        env_file: 
+            - ./env/GatewayApi.env
 
     games-saver:
         image: games-saver
@@ -92,6 +100,7 @@ services:
             - queueSettings__queueName=gameEntries
         volumes: 
             - configs:/configs
+        restart: on-failure
 
     games-provider:
         image: games-provider
@@ -106,6 +115,8 @@ services:
             dockerfile: ./GamesProvider/Dockerfile
         volumes: 
             - configs:/configs
+        env_file: 
+            - ./env/GamesProvider.env
     
 volumes: 
     configs:
