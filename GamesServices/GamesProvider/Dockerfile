@@ -22,5 +22,4 @@ RUN dotnet publish "GamesProvider.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ["/configs/GamesProviderSettings.json", "appsettings.json"]
 ENTRYPOINT ["dotnet", "GamesProvider.dll"]
