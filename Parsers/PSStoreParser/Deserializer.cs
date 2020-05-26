@@ -27,8 +27,7 @@ namespace PSStoreParser
             JToken rating = jToken["attributes"]["star-rating"];
             if (rating["score"].Type != JTokenType.Null)
             {
-                review = "Score: " + rating["score"].ToObject<string>() + "/5. " +
-                                "Total votes: " + rating["total"];
+                review = $"Score: {rating["score"].ToObject<string>()}/5.Total votes: {rating["total"]}";
             }
             List<string> pictureURLs = new List<string>();
             var pictures = jToken["attributes"]["media-list"]["screenshots"].Children();
