@@ -92,10 +92,8 @@ services:
         build: 
             context: ./GamesServices/
             dockerfile: ./GamesSaver/Dockerfile
-        environment:
-            - queueSettings__connectionString=amqp://gamesservice:testpwd@rabbitmq:5672/
-            - queueSettings__exchangeName=gameEntries
-            - queueSettings__queueName=gameEntries
+        env_file: 
+            - ./env/GamesSaver.env
         volumes: 
             - configs:/configs
         restart: on-failure
