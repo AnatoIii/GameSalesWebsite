@@ -1,4 +1,5 @@
-﻿using DBAccess;
+﻿using Castle.DynamicProxy.Generators;
+using DBAccess;
 using GamesSaver.Services.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
@@ -53,23 +54,9 @@ namespace GamesServicesTests
         [Fact]
         public void GetByIdReturnsActualEntryWithImagesOnValidInput()
         {
-            Game game = new Game()
-            {
-                Name = "Test",
-                Description = "Test",
-                GameId = 1,
-                Images = new List<Image>()
-                {
-                    new Image(){URL = "URL1"}
-                }
-            };
-
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("GetByIdReturnsActualEntryWithImagesOnValidInput")))
             {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-                context.Games.Add(game);
-                context.SaveChanges();
+                TestHelpers.FillTestData(context);
                 GamesProvider.Services.IGameService gameService = new GamesProvider.Services.GameService(context);
                 var newGame = gameService.GetById(1);
 

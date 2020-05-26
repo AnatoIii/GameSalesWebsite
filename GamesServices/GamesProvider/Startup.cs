@@ -30,7 +30,6 @@ namespace GamesProvider
             });
             services.AddTransient(typeof(IGamesPricesService), typeof(GamesPricesService));
             services.AddTransient(typeof(IGameService), typeof(GameService));
-            services.AddAutoMapper(typeof(GamePricesMapper));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

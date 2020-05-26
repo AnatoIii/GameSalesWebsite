@@ -15,12 +15,10 @@ namespace GamesProvider.Services
     public class GamesPricesService : IGamesPricesService
     {
         private readonly GameServiceDBContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public GamesPricesService(GameServiceDBContext dbContext, IMapper mapper)
+        public GamesPricesService(GameServiceDBContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
 
         public IEnumerable<FullGameDTO> GetBestGames(int count)
@@ -44,7 +42,7 @@ namespace GamesProvider.Services
         {
             var filter = filterRequest.FilterOptions;
             var gameprices = _dbContext.GamePrices
-                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName) &&
+                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName.ToLower()) &&
                        (filter.Platforms.Count() == 0 || filter.Platforms.Contains(gp.PlatformId)));
 
             if(filter.SortType != SortType.basePrice)
@@ -67,8 +65,8 @@ namespace GamesProvider.Services
         {
             var filter = filterRequest.FilterOptions;
             var gameprices = _dbContext.GamePrices
-                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName) &&
-                             filter.Platforms.Contains(gp.PlatformId));
+                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName.ToLower()) &&
+                       (filter.Platforms.Count() == 0 || filter.Platforms.Contains(gp.PlatformId)));
             if (filter.SortType != SortType.basePrice)
             {
                 gameprices = gameprices.Where(gp => gp.BasePrice > gp.DiscountedPrice);
