@@ -1,5 +1,13 @@
 version: "3.3"
 services:
+    frontend:
+        image: frontend
+        container_name: frontend
+        ports: 
+            - 80:80
+        build:
+            context: ./game-sales-tracker
+    
     rabbit-mq:
         image: rabbitmq:3-management
         container_name: rabbit-mq
@@ -99,9 +107,10 @@ services:
             dockerfile: ./GamesProvider/Dockerfile
         volumes: 
             - configs:/configs
-
+    
 volumes: 
     configs: 
         driver: local
+        external: true
     data: 
         driver: local
