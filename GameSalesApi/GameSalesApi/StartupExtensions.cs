@@ -18,6 +18,7 @@ namespace GameSalesApi
             services.AddOptions();
             services.Configure<RoutesConfig>(configuration.GetSection("redirects"));
             services.Configure<TokenConfig>(configuration.GetSection("TokenConfig"));
+            services.Configure<ImgurConfig>(configuration.GetSection("ImgurApi"));
             return services;
         }
 

@@ -22,6 +22,16 @@ namespace GameSalesApi.Features.AccountManagement.Commands
         public string Email { get; set; }
 
         /// <summary>
+        /// New username
+        /// </summary>
+        public string Username { get; set; }
+
+        /// <summary>
+        /// Current password
+        /// </summary>
+        public string CurrentPassword { get; set; }
+
+        /// <summary>
         /// New password
         /// </summary>
         public string Password { get; set; }
@@ -45,10 +55,5 @@ namespace GameSalesApi.Features.AccountManagement.Commands
         /// Is enabled notifications via telegram
         /// </summary>
         public bool? NotificationViaTelegram { get; set; }
-
-        /// <summary>
-        /// New photo link
-        /// </summary>
-        public string PhotoLink { get; set; }
     }
 }
