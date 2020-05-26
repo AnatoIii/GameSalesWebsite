@@ -20,12 +20,13 @@ namespace GamesProvider.Services
 
         public FullGameDTO GetById(int id)
         {
-            return _dbContext.GamePrices.Where(gp => gp.GameId == id)
+            return _dbContext.GamePrices
+                    .Where(gp => gp.GameId == id)
                     .Include(gp => gp.Game)
                         .ThenInclude(g => g.Images)
                     .Include(gp => gp.Platform)
-                    .GroupBy(gp => gp.Game)
                     .ToList()
+                    .GroupBy(gp => gp.Game)
                     .Select(group => GamesPricesGroupMapper.GamePricesToFullGameDTO(group))
                     .FirstOrDefault();
         }
