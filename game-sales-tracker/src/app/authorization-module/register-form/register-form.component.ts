@@ -9,9 +9,9 @@ import {
     Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "../../services/auth.service";
-import { passwordsMatch } from "../../validators/password-match.validator";
-import { PasswordValidate } from "../../validators/password.validator";
+import { AuthService } from "../services/auth.service";
+import { passwordsMatch } from "../services/validators/password-match.validator";
+import { passwordValidate } from "../services/validators/password.validator";
 
 @Component({
     selector: "app-register-form",
@@ -64,7 +64,7 @@ export class RegisterFormComponent implements OnInit {
                 ],
                 password: ["",
                     [
-                        PasswordValidate,
+                        passwordValidate,
                     ],
                 ],
                 confirmPass: ["",

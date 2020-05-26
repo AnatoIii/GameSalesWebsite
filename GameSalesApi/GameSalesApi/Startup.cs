@@ -26,7 +26,6 @@ namespace GameSalesApi
             services.ConfigureAuthentication(Configuration);
             services.AddMvc();
             services.ConfigureDatabase(Configuration);
-            services.ConfigureServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

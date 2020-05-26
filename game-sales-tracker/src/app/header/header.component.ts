@@ -12,7 +12,6 @@ import {
     filter,
     map,
 } from "rxjs/operators";
-import { AuthService } from "../services/auth.service";
 import { AuthService } from "../authorization-module/services/auth.service";
 
 @Component({

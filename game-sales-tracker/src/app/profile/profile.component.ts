@@ -9,11 +9,11 @@ import {
     FormGroup,
     Validators,
 } from "@angular/forms";
+import { UserService } from "../authorization-module/services/user.service";
+import { passwordsMatch } from "../authorization-module/services/validators/password-match.validator";
+import { passwordValidate } from "../authorization-module/services/validators/password.validator";
 import { IUpdateUserDto } from "../models/update-user-dto";
 import { IUser } from "../models/user";
-import { UserService } from "../services/user.service";
-import { passwordsMatch } from "../validators/password-match.validator";
-import { PasswordValidate } from "../validators/password.validator";
 
 @Component({
     selector: "app-profile",
@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit {
         this.changePasswordForm = this.formBuilder.group(
             {
                 currentPassword: ["", Validators.required],
-                newPassword: ["", PasswordValidate],
+                newPassword: ["", passwordValidate],
                 confirmNewPassword: ["", Validators.required],
             },
             { validators: passwordsMatch("newPassword", "confirmNewPassword") },
