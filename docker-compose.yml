@@ -86,6 +86,10 @@ services:
         build: 
             context: ./GamesServices/
             dockerfile: ./GamesSaver/Dockerfile
+        environment:
+            - queueSettings__connectionString=amqp://gamesservice:testpwd@rabbitmq:5672/
+            - queueSettings__exchangeName=gameEntries
+            - queueSettings__queueName=gameEntries
         volumes: 
             - configs:/configs
 
