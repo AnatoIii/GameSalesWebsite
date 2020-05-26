@@ -24,6 +24,8 @@ function httpPost() {
             }
         },
         (error, response, body) => {
+            if (error)
+                console.log(error)
             if (!error && response.statusCode === 200) {
                 parse(body.data.Storefront.collectionLayout.collectionOffers);
             }
@@ -33,9 +35,9 @@ function httpPost() {
 
 function parse(data) {
     gameCount = data.length;
-    data.forEach((x, i) => {
+    data.forEach((game, i) => {
         const entry = {};
-        let { title, productSlug, keyImages, price } = x;
+        let { title, productSlug, keyImages, price } = game;
         entry.Name = title;
         if (!productSlug) {
             --gameCount;
@@ -67,6 +69,8 @@ function httpGetDescription(game) {
             }
         },
         (error, response, body) => {
+            if (error)
+                console.log(error)
             if (response.statusCode !== 200) --gameCount;
             if (!error && response.statusCode === 200) {
                 const images = JSON.parse(body).pages[0].data.gallery.galleryImages;
