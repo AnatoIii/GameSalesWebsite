@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { passwordsMatch } from "../services/validators/password-match.validator";
 import { passwordValidate } from "../services/validators/password.validator";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-register-form",
@@ -14,7 +15,8 @@ export class RegisterFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   public registerForm: FormGroup;
@@ -23,6 +25,7 @@ export class RegisterFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createForm();
+    this.titleService.setTitle("GaST — Register");
   }
 
   public createForm(): void {
