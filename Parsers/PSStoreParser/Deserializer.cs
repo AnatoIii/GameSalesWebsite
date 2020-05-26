@@ -23,7 +23,13 @@ namespace PSStoreParser
             string name = jToken["attributes"]["name"].ToObject<string>();
             string platformSpecificId = jToken["id"].ToObject<string>();
             string description = jToken["attributes"]["long-description"].ToObject<string>();
-
+            string review = "";
+            JToken rating = jToken["attributes"]["star-rating"];
+            if (rating["score"].Type != JTokenType.Null)
+            {
+                review = "Score: " + rating["score"].ToObject<string>() + "/5. " +
+                                "Total votes: " + rating["total"];
+            }
             List<string> pictureURLs = new List<string>();
             var pictures = jToken["attributes"]["media-list"]["screenshots"].Children();
             foreach (var entry in pictures)
@@ -48,7 +54,8 @@ namespace PSStoreParser
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
                 Description = description,
-                PictureURLs = pictureURLs
+                PictureURLs = pictureURLs,
+                Review = review
             };
         }
     }
