@@ -16,17 +16,12 @@ namespace GamesServicesTests
 {
     public class GamesPricesTests
     {
-        public GamesPricesTests()
-        {
-        }
-
         private DbContextOptions DBContextOptionsCreator(string name)
         {
             return new DbContextOptionsBuilder<GameServiceDBContext>()
                             .UseInMemoryDatabase(name)
                             .Options;
         }
-
 
         private FilterRequestDTO CreateRequestPrototype(string name, IEnumerable<int> platformIds)
         {
@@ -45,14 +40,14 @@ namespace GamesServicesTests
         }
 
         [Theory]
-        [InlineData(1,1)]
-        [InlineData(1,2)]
-        public void ReturnsGamePricesForValidPlatform(int platformId, int gameId)
+        [InlineData(1)]
+        [InlineData(2)]
+        public void ReturnsGamePricesForValidPlatform(int platformId)
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("ReturnsGamePricesForValidPlatformAndGameIds")))
             {
                 TestHelpers.FillTestData(context);
-                var filter = CreateRequestPrototype("", new int[] { 1 });
+                var filter = CreateRequestPrototype("", new int[] { platformId });
                 GamesProvider.Services.IGamesPricesService service = new GamesProvider.Services.GamesPricesService(context);
                 var gamePrice = service.GetByFilter(filter);
                 Assert.NotNull(gamePrice);
