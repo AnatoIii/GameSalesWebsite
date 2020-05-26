@@ -19,5 +19,4 @@ RUN dotnet publish "PSStoreParser.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ["/configs/PSParserSettings.json", "appsettings.json"]
 ENTRYPOINT ["dotnet", "PSStoreParser.dll"]

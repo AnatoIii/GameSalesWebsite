@@ -19,5 +19,4 @@ RUN dotnet publish "UplayParser.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ["/configs/UplayParserSettings.json", "appsettings.json"]
 ENTRYPOINT ["dotnet", "UplayParser.dll"]
