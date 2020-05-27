@@ -3,10 +3,12 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { GameDetailsComponent } from "./game-details.component";
 import { RouterTestingModule } from "@angular/router/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { GameService } from "../services/game.service";
 
 describe("GameDetailsComponent", () => {
   let component: GameDetailsComponent;
   let fixture: ComponentFixture<GameDetailsComponent>;
+  let gameService;
 
   const expectedGame = {
     Id: 0,
@@ -31,12 +33,16 @@ describe("GameDetailsComponent", () => {
     TestBed.configureTestingModule({
       declarations: [GameDetailsComponent],
       imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [GameService],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GameDetailsComponent);
     component = fixture.componentInstance;
+    gameService = jasmine.createSpyObj("GameService", {
+      getGameDetails: expectedGame,
+    });
     fixture.detectChanges();
   });
 
@@ -47,6 +53,11 @@ describe("GameDetailsComponent", () => {
   it("should be null if game is undefibed", () => {
     component.game = undefined;
     expect(fixture.nativeElement.querySelector(".main")).toBe(null);
+  });
+
+  it("should get data from GameService getGameDetails()", () => {
+    component.game = gameService.getGameDetails();
+    expect(component.game).toBe(expectedGame);
   });
 
   it("should have game name in p.name", () => {

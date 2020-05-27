@@ -2,22 +2,47 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { GamesFilterComponent } from "./games-filter.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { SortType } from "../interfaces/IFilterOptions";
-import { By } from "@angular/platform-browser";
+import { GameService } from "../services/game.service";
+import { IGame } from "../interfaces/IGame";
+import { IPlatform } from "../interfaces/IPlatform";
 
 describe("GamesFilterComponent", () => {
   let component: GamesFilterComponent;
   let fixture: ComponentFixture<GamesFilterComponent>;
-
+  let gameService;
+  const expectedGames: IGame[] = [
+    {
+      Id: 0,
+      Name: "Test",
+      Description: "test",
+      Images: ["image1"],
+      BestPrice: {
+        DiscountedPrice: 0,
+        CurrencyId: 1,
+      },
+    },
+  ];
+  const expectedPlatforms: IPlatform[] = [
+    {
+      Id: 0,
+      Name: "Test",
+    },
+  ];
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [GamesFilterComponent],
       imports: [HttpClientTestingModule],
+      providers: [GameService],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GamesFilterComponent);
     component = fixture.componentInstance;
+    gameService = jasmine.createSpyObj("GameService", {
+      getGames: expectedGames,
+      getPlatforms: expectedPlatforms,
+    });
     fixture.detectChanges();
   });
 
@@ -42,6 +67,16 @@ describe("GamesFilterComponent", () => {
     });
   });
 
+  it("should get games from GameService getGameDetails()", () => {
+    component.games = gameService.getGames();
+    expect(component.games).toBe(expectedGames);
+  });
+
+  it("should get platforms from GameService getPlatforms()", () => {
+    component.platforms = gameService.getGames().map((x) => [false, x]);
+    expect(component.platforms).toEqual(expectedGames.map((x) => [false, x]));
+  });
+
   it("should changed filter after filterChanged()", () => {
     component.platforms = [[true, { Id: 0, Name: "Test" }]];
     component.filterChanged();
@@ -56,14 +91,4 @@ describe("GamesFilterComponent", () => {
     fixture.detectChanges();
     expect(component.pageOptions.From).toBe(10);
   });
-
-  // it("should set input property 'currentPage' equal to page in <app-paginator/>", () => {
-  //   component.games = [];
-  //   component.page = 2;
-  //   fixture.detectChanges();
-  //   let element = fixture.debugElement.query(By.css("app-paginator"));
-  //   expect(
-  //     element.nativeElement.getAttribute("ng-reflect-current-page")
-  //   ).toEqual("null");
-  // });
 });
