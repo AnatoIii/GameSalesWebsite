@@ -45,10 +45,7 @@ export class GamesFilterComponent implements OnInit {
       FilterOptions: this.filterOptions,
     };
 
-    this.gameService.getGames().subscribe(
-      (data) => (this.games = data),
-      (error) => console.log(error)
-    );
+    this.filterChangedSubject.next();
 
     this.gameService.getPlatforms().subscribe(
       (data) => {

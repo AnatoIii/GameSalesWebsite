@@ -55,9 +55,9 @@ export class CarouselComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.gameService.getGames().subscribe(
+    this.gameService.getBestGames(10).subscribe(
       (data) => {
-        this.allGames = data.slice(0, 10);
+        this.allGames = data;
         this.gamesToDisplay = this.allGames.slice(0, 4);
       },
       (error) => console.log(error)
