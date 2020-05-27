@@ -34,5 +34,5 @@
     </div>
 
     <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="gamesCount || 45"
-        [countPerPage]="this.pageOptions.CountPerPage" (pageChange)="pageChanged($event)"></app-paginator>
+        [countPerPage]="this.pageOptions.CountPerPage || 10" (pageChange)="pageChanged($event)"></app-paginator>
 </div>

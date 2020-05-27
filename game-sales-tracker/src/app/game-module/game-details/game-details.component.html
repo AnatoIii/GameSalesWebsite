@@ -2,7 +2,7 @@
     <div class="images">
         <img class="main-image" [src]="game.Images[0]" [alt]="game.Name" (click)="openCloseModalImageGallery(0)">
         <div class="other-images">
-            <img *ngFor="let image of game.Images | slice:1 ; let i = index" [src]="image" [alt]="game.Name"
+            <img *ngFor="let image of game.Images | slice:1; let i = index" [src]="image" [alt]="game.Name"
                 (click)="openCloseModalImageGallery(i+1)">
         </div>
         <app-modal-image-gallery [images]="game.Images" [indexClickedImage]="indexClickedImage"

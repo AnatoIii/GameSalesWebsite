@@ -19,7 +19,7 @@ export class GamesFilterComponent implements OnInit {
   filterOptions: IFilterOptions;
   pageOptions: IFilterRequest;
   gamesCount: number;
-  page: number = 1;
+  page: number;
   filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
 
   constructor(private gameService: GameService) {
@@ -56,6 +56,8 @@ export class GamesFilterComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+
+    this.page = 1;
   }
 
   filterChanged() {

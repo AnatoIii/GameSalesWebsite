@@ -19,7 +19,7 @@ describe("ModalImageGalleryComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create TestGameDetailsComponent", () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
