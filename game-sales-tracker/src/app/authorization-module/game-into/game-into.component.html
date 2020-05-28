@@ -1,4 +1,4 @@
-<div class="game" [ngStyle]="{ 'background-image': 'url(' + game.Images[0] + ')'}" (mouseenter)="blockOnHover=true"
+<div class="game" [ngStyle]="{ 'background-image': 'url(' + game.Image + ')'}" (mouseenter)="blockOnHover=true"
     (mouseleave)="blockOnHover=false" [routerLink]="['/game', game.Id]">
     <div class="game__name" [@onHover]="blockOnHover ? 'hover' : 'initial'">{{ game.Name }}
         <div class="game__description" [@gameDescription]="blockOnHover ? 'hover' : 'initial'">
