@@ -1,4 +1,5 @@
 ﻿using DBAccess;
+using GamesProvider.Services.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
@@ -17,9 +18,17 @@ namespace GamesProvider.Services
             _dbContext = dbContext;
         }
 
-        public Game GetById(int id)
+        public FullGameDTO GetById(int id)
         {
-            return _dbContext.Games.Where(g => g.GameId == id).Include(g=> g.Images).FirstOrDefault();
+            return _dbContext.GamePrices
+                    .Where(gp => gp.GameId == id)
+                    .Include(gp => gp.Game)
+                        .ThenInclude(g => g.Images)
+                    .Include(gp => gp.Platform)
+                    .ToList()
+                    .GroupBy(gp => gp.Game)
+                    .Select(group => GamesPricesGroupMapper.GamePricesToFullGameDTO(group))
+                    .FirstOrDefault();
         }
     }
 }

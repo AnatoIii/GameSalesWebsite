@@ -32,7 +32,7 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
         /// <param name="command"><see cref="UpdateUserCommand"/></param>
         public override void Execute(UpdateUserCommand command)
             => Handle(command);
-        
+
         /// <summary>
         /// Update <see cref="User"/> in <see cref="GameSalesContext"/>
         /// </summary>
@@ -51,6 +51,13 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
             byte[] passwordSalt = null;
             string passwordHash = null;
 
+            if (input.Password != null &&
+                !PasswordHelpers.ValidatePassword(input.CurrentPassword, user.PasswordSalt, user.PasswordHash))
+                return Result.Fail("Incorrect password");
+
+            if (input.Password == input.CurrentPassword && input.CurrentPassword != null)
+                return Result.Fail("Current and new passwords are same");
+
             if (!string.IsNullOrWhiteSpace(input.Password))
             {
                 if (!PasswordHelpers.IsPasswordSatisfied(input.Password, out string errorMessage))
@@ -66,9 +73,9 @@ namespace GameSalesApi.Features.AccountManagement.CommandHandlers
                 FirstName = input.FirstName ?? user.FirstName,
                 LastName = input.LastName ?? user.LastName,
                 Email = input.Email ?? user.Email,
+                Username = input.Username ?? user.Username,
                 NotificationViaEmail = input.NotificationViaEmail ?? user.NotificationViaEmail,
                 NotificationViaTelegram = input.NotificationViaTelegram ?? user.NotificationViaTelegram,
-                PhotoLink = input.PhotoLink ?? user.PhotoLink,
                 PasswordSalt = passwordSalt != null ? Convert.ToBase64String(passwordSalt) : user.PasswordSalt,
                 PasswordHash = passwordHash ?? user.PasswordHash
             };

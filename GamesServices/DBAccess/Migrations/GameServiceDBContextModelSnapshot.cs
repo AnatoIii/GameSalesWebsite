@@ -76,6 +76,9 @@ namespace DBAccess.Migrations
                     b.Property<string>("PlatformSpecificId")
                         .HasColumnType("text");
 
+                    b.Property<string>("Review")
+                        .HasColumnType("text");
+
                     b.HasKey("GamePriceId");
 
                     b.HasIndex("CurrencyId");
@@ -113,6 +116,9 @@ namespace DBAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("BaseUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("PlatformName")
                         .HasColumnType("text");
@@ -210,8 +216,8 @@ namespace DBAccess.Migrations
 
             modelBuilder.Entity("Models.Image", b =>
                 {
-                    b.HasOne("Models.Game", "Game")
-                        .WithMany()
+                    b.HasOne("Models.Game", null)
+                        .WithMany("Images")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

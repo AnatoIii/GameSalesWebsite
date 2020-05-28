@@ -9,6 +9,7 @@ namespace Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
         public bool NotificationViaEmail { get; set; }
@@ -27,12 +28,12 @@ namespace Model
             FirstName = newUser.FirstName;
             LastName = newUser.LastName;
             Email = newUser.Email;
+            Username = newUser.Username;
             PasswordHash = newUser.PasswordHash;
             PasswordSalt = newUser.PasswordSalt;
             NotificationViaEmail = newUser.NotificationViaEmail;
             NotificationViaTelegram = newUser.NotificationViaTelegram;
             Role = newUser.Role;
-            PhotoLink = !string.IsNullOrEmpty(newUser.PhotoLink) ? newUser.PhotoLink : null;
         }
     }
 }

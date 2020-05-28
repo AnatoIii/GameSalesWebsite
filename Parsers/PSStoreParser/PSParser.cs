@@ -1,19 +1,24 @@
 ﻿using Parsers.Core;
 using Parsers.Core.Models;
+using Parsers.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PSStoreParser
 {
-    class PSParser : IParser
+    public class PSParser : IParser
     {
         public ParserSettings ParserSettings { get; private set; }
-        private readonly RawDataClient _dataClient;
+        private readonly IDataClient _rDataClient;
+        private readonly IDeserializer _rDeserializer;
+
         public PSParser(ParserSettings parserSettings)
         {
             ParserSettings = parserSettings;
-            _dataClient = new RawDataClient(ParserSettings.URL);
+
+            _rDataClient = new RawDataClient(ParserSettings.URL);
+            _rDeserializer = new Deserializer();
         }
 
         public async Task<IEnumerable<GameEntry>> ParsePlatform()
@@ -22,8 +27,8 @@ namespace PSStoreParser
             IEnumerable<GameEntry> currentEntries;
             int offset = 0;
             do {
-                string data = await _dataClient.GetContent(ParserSettings.ElementsPerRequest, offset);
-                currentEntries = Deserializer.Deserialize(data)
+                string data = await _rDataClient.GetContent(ParserSettings.ElementsPerRequest, offset);
+                currentEntries = _rDeserializer.Deserialize(data)
                     .Select(e =>
                     {
                         e.PlatformId = ParserSettings.PlatformId;

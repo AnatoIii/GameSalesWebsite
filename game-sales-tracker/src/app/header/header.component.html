@@ -6,9 +6,24 @@
         </ul>
     </nav>
     <ng-container *ngIf="authService.isUserAuthorized(); else UserNotAuthorized">
-        <a class="header__link last-link" routerLink="/user/1">Profile</a>
+        <ng-container *ngIf="(currentUrl$ | async) !== '/profile'; else ProfilePage">
+            <a
+                class="header__link last-link"
+                routerLink="/profile"
+            >Profile</a>
+        </ng-container>
+        <ng-template #ProfilePage>
+            <div
+                class="header__link last-link"
+                (click)="logOut()"
+            >Log out
+            </div>
+        </ng-template>
     </ng-container>
     <ng-template #UserNotAuthorized>
-        <a class="header__link last-link" routerLink="/login">Login</a>
+        <a
+            class="header__link last-link"
+            routerLink="/login"
+        >Login</a>
     </ng-template>
 </header>

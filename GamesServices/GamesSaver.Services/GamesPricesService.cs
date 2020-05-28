@@ -28,18 +28,24 @@ namespace GamesSaver.Services
 
         public void SaveGamePrices(IEnumerable<GameEntryDTO> gameEntries)
         {
-            List<GameEntryDTO> newGameEntries = new List<GameEntryDTO>();
+            var oldPrices = _dbContext.GamePrices.Where(gp => gp.PlatformId == gameEntries.First().PlatformId); //Reset old sales for incoming platform
+            foreach(var gp in oldPrices)
+            {
+                gp.DiscountedPrice = gp.BasePrice;
+            }
+
+            var newGameEntries = new List<GameEntryDTO>();
             foreach(var entry in gameEntries)
             {
                 GamePrices gamePrices = _dbContext.GamePrices
-                    .Where(gp => gp.PlatformId == entry.PlatformId & gp.PlatformSpecificId == entry.PlatformSpecificId).FirstOrDefault();
+                    .Where(gp => gp.PlatformId == entry.PlatformId & gp.PlatformSpecificId == entry.PlatformSpecificId).FirstOrDefault(); //Check if entry exists
                 if(gamePrices == null)
                 {
-                    newGameEntries.Add(entry);
+                    newGameEntries.Add(entry); //Create new entry
                 } 
                 else
                 {
-                    gamePrices.BasePrice = entry.BasePrice;
+                    gamePrices.BasePrice = entry.BasePrice; //Update existing prices
                     gamePrices.DiscountedPrice = entry.DiscountedPrice;
                 }
             };
@@ -63,7 +69,8 @@ namespace GamesSaver.Services
                     CurrencyId = entry.CurrencyId,
                     GameId = game.GameId,
                     PlatformId = entry.PlatformId,
-                    PlatformSpecificId = entry.PlatformSpecificId
+                    PlatformSpecificId = entry.PlatformSpecificId,
+                    Review = entry.Review
                 });
             }
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Infrastructure.Result
+﻿namespace Infrastructure.Result
 {
     /// <summary>
     /// Interface for Result of command/query
@@ -23,6 +19,5 @@ namespace Infrastructure.Result
         /// Result failure flag
         /// </summary>
         public bool Failure { get; }
-
     }
 }

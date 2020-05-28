@@ -22,6 +22,12 @@ namespace GameSalesApi.Features.Authorization.Commands
         public string Password { get; set; }
 
         /// <summary>
+        /// Username
+        /// </summary>
+        [Required]
+        public string Username { get; set; }
+
+        /// <summary>
         /// First name
         /// </summary>
         public string FirstName { get; set; }

@@ -353,3 +353,4 @@ MigrationBackup/
 .ionide/
 
 package-lock.json
+/game-sales-tracker/.idea

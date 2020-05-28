@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Parsers.Core;
 using Parsers.Infrastructure;
-using System;
 using System.IO;
 
 namespace PSStoreParser
@@ -19,10 +18,10 @@ namespace PSStoreParser
 
             IParser parser = new PSParser(parserSettings);
             ILogger logger = new ConsoleLogger();
-            ParserService parserService = new ParserService(parser, logger);
-            var process = parserService.StartService();
-            process.Wait();
-            Console.ReadKey();
+
+            parser.GetParserResult(logger).Wait();
+
+            logger.Log($"{nameof(parser)} complete.");
         }
     }
 }

@@ -19,6 +19,7 @@ export class RegisterFormComponent implements OnInit {
     private titleService: Title
   ) {}
 
+  @ViewChild("form") public registerFormDirective;
   public registerForm: FormGroup;
   public hidePass = true;
   public hideConfirmPass = true;
@@ -33,6 +34,14 @@ export class RegisterFormComponent implements OnInit {
       {
         firstName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
         lastName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
+        username: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(20),
+          ],
+        ],
         email: ["", [Validators.required, Validators.email]],
         password: ["", [passwordValidate]],
         confirmPass: ["", [Validators.required]],

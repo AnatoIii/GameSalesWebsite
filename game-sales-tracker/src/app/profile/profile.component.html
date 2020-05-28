@@ -1,0 +1,182 @@
+<div class="profile">
+    <div
+        *ngIf="user !== null"
+        class="profile__card"
+    >
+        <div class="profile__image">
+            <img
+                [src]="user?.photoLink ? user?.photoLink :
+                    'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png'"
+                alt="profile photo"
+                (click)="profileImage.click()"
+            />
+            <input
+                #profileImage
+                style="display: none"
+                type="file"
+                (change)="fileSelected($event)"
+            >
+        </div>
+        <div class="profile__info">
+            <form [formGroup]="profileForm">
+                <input
+                    class="profile__username"
+                    formControlName="username"
+                    type="text"
+                    (keyup.enter)="changeProfileSubmit()"
+                >
+                <div *ngIf="profileForm.controls.username.errors">
+                    <label
+                        *ngIf="profileForm.controls.username.errors.required"
+                        class="profile__error"
+                    >
+                        Username is required
+                    </label>
+                    <label
+                        *ngIf="profileForm.controls.username.errors.minlength"
+                        class="profile__error"
+                    >
+                        Username should be at least 3 symbols length
+                    </label>
+                    <label
+                        *ngIf="profileForm.controls.username.errors.maxlength"
+                        class="profile__error"
+                    >
+                        Username should be shorter than 20 symbols
+                    </label>
+                </div>
+
+                <input
+                    class="profile__email"
+                    formControlName="email"
+                    type="email"
+                    (keyup.enter)="changeProfileSubmit()"
+                >
+                <div *ngIf="profileForm.controls.email.errors">
+                    <label
+                        *ngIf="profileForm.controls.email.errors.required"
+                        class="profile__error"
+                    >
+                        Email is required
+                    </label>
+                    <label
+                        *ngIf="profileForm.controls.email.errors.email"
+                        class="profile__error"
+                    >
+                        Invalid email format
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div
+            class="profile__button"
+            (click)="changePasswordVisibility()"
+        >
+            Change password
+        </div>
+    </div>
+    <ng-container *ngIf="changePasswordVisible === true">
+        <form
+            class="password-form"
+            [formGroup]="changePasswordForm"
+            (ngSubmit)="changePasswordSubmit()"
+        >
+            <div class="wrapper">
+                <p class="title">Change password</p>
+
+                <mat-form-field>
+                    <mat-label>Enter current password</mat-label>
+                    <input
+                        [type]="hideCurrentPassword ? 'password' : 'text'"
+                        formControlName="currentPassword"
+                        matInput
+                        placeholder="Current password"
+                        required
+                    >
+                    <i
+                        [class]="hideCurrentPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                        matSuffix
+                        (click)="hideCurrentPassword = !hideCurrentPassword"
+                    ></i>
+                    <mat-error *ngIf="changePasswordForm.controls.currentPassword.hasError('required')">
+                        Current password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Enter new password</mat-label>
+                    <input
+                        [type]="hideNewPassword ? 'password' : 'text'"
+                        formControlName="newPassword"
+                        matInput
+                        placeholder="New password"
+                        required
+                    >
+                    <i
+                        [class]="hideNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                        matSuffix
+                        (click)="hideNewPassword = !hideNewPassword"
+                    ></i>
+                    <mat-error *ngIf="changePasswordForm.controls.newPassword.hasError('required')">
+                        New password is required
+                    </mat-error>
+                    <mat-error *ngIf="changePasswordForm.controls.newPassword.hasError('minLength')">
+                        New password must be at least 8 characters long
+                    </mat-error>
+                    <mat-error *ngIf="changePasswordForm.controls.newPassword.hasError('maxlength')">
+                        New password cannot be more than 15 characters long
+                    </mat-error>
+                    <mat-error
+                        *ngIf="changePasswordForm.controls.newPassword.hasError('capitalCase') ||
+                           changePasswordForm.controls.newPassword.hasError('lowerCase') ||
+                           changePasswordForm.controls.newPassword.hasError('numbers')"
+                    >
+                        New password must contain uppercase, lowercase, digits.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Confirm password</mat-label>
+                    <input
+                        [type]="hideConfirmNewPassword ? 'password' : 'text'"
+                        formControlName="confirmNewPassword"
+                        matInput
+                        placeholder="Confirm password"
+                        required
+                    >
+                    <i
+                        [class]="hideConfirmNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                        matSuffix
+                        (click)="hideConfirmNewPassword = !hideConfirmNewPassword"
+                    ></i>
+                    <mat-error *ngIf="changePasswordForm.controls.confirmNewPassword.hasError('required')">
+                        Confirm password is required
+                    </mat-error>
+                    <mat-error *ngIf="changePasswordForm.controls.confirmNewPassword.hasError('mustMatch')">
+                        Password mismatch
+                    </mat-error>
+                </mat-form-field>
+
+                <div
+                    class="password-form__button"
+                >
+                    <button
+                        [disabled]="changePasswordForm.invalid"
+                        type="submit"
+                    >Change password
+                    </button>
+                </div>
+                <div
+                    class="password-form__button _close"
+                >
+                    <button
+                        type="button"
+                        (click)="changePasswordVisibility()"
+                    >Close
+                    </button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+
+</div>

@@ -47,43 +47,39 @@
     <Position X="3.25" Y="10.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="DependencyResolver.Resolver">
-    <Position X="21" Y="0.5" Width="2.5" />
-    <TypeIdentifier />
-  </Class>
   <Class Name="GameSalesApi.Features.AccountManagement.AccountController">
-    <Position X="12.5" Y="15.75" Width="3.25" />
+    <Position X="7.25" Y="15.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAAAAAAAAEBAAQAAAAAAEgAAAAAAAAA=</HashCode>
       <FileName>Features\AccountManagement\AccountController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Model.NewUser">
-    <Position X="21.25" Y="6.75" Width="1.5" />
+    <Position X="21.25" Y="8.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.Token">
-    <Position X="23" Y="6.75" Width="1.5" />
+    <Position X="23" Y="8.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.User">
-    <Position X="24.75" Y="6.75" Width="1.5" />
+    <Position X="24.75" Y="8.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.UserTelegramData">
-    <Position X="19.25" Y="8.75" Width="1.5" />
+    <Position X="19.25" Y="10.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.VerificationCode">
-    <Position X="23" Y="9" Width="1.5" />
+    <Position X="23" Y="10.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="DataAccess.GameSalesContext">
-    <Position X="21" Y="2.25" Width="1.75" />
+    <Position X="5.75" Y="8.75" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.Enums.UserRole">
-    <Position X="19.25" Y="6.75" Width="1.75" />
+    <Position X="19.25" Y="8.5" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Interface Name="Infrastructure.CommandBase.ICommand&lt;TOut&gt;" Collapsed="true">

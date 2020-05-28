@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using DataAccess;
+﻿using DataAccess;
 using GameSalesApi.Features.AccountManagement.CommandHandlers;
 using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Features.AccountManagement.QueryHandlers;
+using GameSalesApi.Helpers;
 using Infrastructure.DecoratorsFactory;
 using Infrastructure.Result;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Model;
+using System.Collections.Generic;
 
 namespace GameSalesApi.Features.AccountManagement
 {
@@ -18,15 +22,17 @@ namespace GameSalesApi.Features.AccountManagement
     {
         private readonly GameSalesContext _rDBContext;
         private readonly ILogger<AccountController> _rLogger;
+        private readonly ImgurConfig _imgurConfig;
 
         public AccountController(GameSalesContext dbContext,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger, IOptions<ImgurConfig> options)
         {
             _rDBContext = dbContext;
             _rLogger = logger;
+            _imgurConfig = options.Value;
         }
 
-        [HttpGet(), Route("{id}")]
+        [HttpGet()]
         public IActionResult GetUser([FromQuery] GetUserQuery getUserQuery)
         {
             var handler = new QueryDecoratorBuilder<GetUserQuery, Result<User>>()
@@ -78,6 +84,25 @@ namespace GameSalesApi.Features.AccountManagement
 
             return Ok();
         }
+
+        [HttpPost(), Route("upload"), DisableRequestSizeLimit]
+        public IActionResult UploadProfilePhoto([FromForm] UploadProfilePhotoCommand uploadProfilePhotoCommand)
+        {
+            var handler = new CommandDecoratorBuilder<UploadProfilePhotoCommand, Result>()
+                .Add<UploadProfilePhotoCommandHandler>()
+                    .AddParameter<GameSalesContext>(_rDBContext)
+                    .AddParameter<ImgurConfig>(_imgurConfig)
+               .AddBaseDecorators(_rLogger, _rDBContext)
+               .Build();
+
+            var result = handler.Handle(uploadProfilePhotoCommand);
+
+            if (result.Failure)
+                return BadRequest($"{nameof(uploadProfilePhotoCommand)} failed. Message: {result.Error}");
+
+            return Ok(result);
+        }
+
 
         [HttpPost(), Route("remove")]
         public IActionResult RemoveUser(RemoveUserCommand removeUserCommand)

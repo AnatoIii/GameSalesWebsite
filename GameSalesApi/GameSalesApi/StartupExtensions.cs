@@ -18,6 +18,7 @@ namespace GameSalesApi
             services.AddOptions();
             services.Configure<RoutesConfig>(configuration.GetSection("redirects"));
             services.Configure<TokenConfig>(configuration.GetSection("TokenConfig"));
+            services.Configure<ImgurConfig>(configuration.GetSection("ImgurApi"));
             return services;
         }
 
@@ -81,7 +82,7 @@ namespace GameSalesApi
             services.AddEntityFrameworkNpgsql();
             services.AddDbContext<GameSalesContext>(options =>
             {
-                options.UseNpgsql(configuration["ConnectionStrings:GameSalesContextSecret"]);
+                options.UseNpgsql(configuration["ConnectionStrings:GameSalesContext"]);
             });
             return services;
         }
