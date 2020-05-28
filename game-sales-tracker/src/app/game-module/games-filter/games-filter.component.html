@@ -36,6 +36,6 @@
         <p class="price">{{ getConvertedPrice(game) }}</p>
     </div>
 
-    <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="games.length"
+    <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="gamesCount"
         [countPerPage]="this.pageOptions.CountPerPage" (pageChange)="pageChanged($event)"></app-paginator>
 </div>
