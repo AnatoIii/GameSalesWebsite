@@ -18,15 +18,13 @@ export class GamesFilterComponent implements OnInit {
   platforms: [boolean, IPlatform][];
   filterOptions: IFilterOptions;
   pageOptions: IFilterRequest;
-  gamesCount: number;
   page: number = 1;
   filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
 
   constructor(private gameService: GameService) {
     this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
-        this.gamesCount = data.count;
-        //this.games = data.games;
+        this.games = data;
       });
     });
   }
@@ -69,8 +67,8 @@ export class GamesFilterComponent implements OnInit {
   }
 
   getConvertedPrice(game: IGame): string {
-    return `${(game.BestPrice.DiscountedPrice / 100).toFixed(2)} ${
-      CurrencySymbol[game.BestPrice.CurrencyId]
+    return `${(game.BestPrice / 100).toFixed(2)} ${
+      CurrencySymbol[game.CurrencyId]
     }`;
   }
 }

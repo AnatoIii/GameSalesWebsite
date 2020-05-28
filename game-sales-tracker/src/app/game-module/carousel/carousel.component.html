@@ -1,7 +1,7 @@
 <div class="arrow prev" (click)="prevSlide()"></div>
 
 <div class="game" *ngFor="let game of gamesToDisplay; let i = index"
-    [ngStyle]="{ 'background-image': 'url(' + game.Images[0] + ')'}" (mouseenter)="blockOnHover[i]=true"
+    [ngStyle]="{ 'background-image': 'url(' + game.Image + ')'}" (mouseenter)="blockOnHover[i]=true"
     (mouseleave)="blockOnHover[i]=false" [routerLink]="['/game', game.Id]">
     <div class="price" [@onHover]="blockOnHover[i] ? 'hover' : 'initial'">{{ getConvertedPrice(game) }}
         <div class="details" [@gameDetails]="blockOnHover[i] ? 'hover' : 'initial'">

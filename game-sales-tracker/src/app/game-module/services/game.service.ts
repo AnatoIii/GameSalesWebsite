@@ -34,9 +34,7 @@ export class GameService {
     return this.http.get<IFullGame>("/games/" + id, this.httpOptions);
   }
 
-  sendPageParams(
-    filterParams: IFilterRequest
-  ): Observable<{ count: number; games: IGame[] }> {
+  sendPageParams(filterParams: IFilterRequest): Observable<IGame[]> {
     let params = new HttpParams();
     Object.keys(filterParams).forEach((key) => {
       const paramsValue = filterParams[key];
@@ -49,7 +47,7 @@ export class GameService {
       }
     });
 
-    return this.http.get<{ count: number; games: IGame[] }>("/games", {
+    return this.http.get<IGame[]>("/gamesprices", {
       headers: this.httpOptions.headers,
       params: params,
     });
