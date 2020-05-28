@@ -1,10 +1,7 @@
 ﻿using GamesSaver.Services.DTOs;
-using Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace GamesSaver.Services
+namespace GamesSaver.Services.Interfaces
 {
     public interface IGamesPricesService
     {

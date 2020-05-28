@@ -1,10 +1,7 @@
 ﻿using GamesProvider.Services.DTOs;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace GamesProvider.Services
+namespace GamesProvider.Services.Interfaces
 {
     public interface IGamesPricesService
     {

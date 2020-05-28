@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GamesProvider.Services;
-using Microsoft.AspNetCore.Http;
+﻿using GamesProvider.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 
 namespace GamesProvider.Controllers
 {

@@ -1,14 +1,13 @@
-﻿using AutoMapper;
-using DBAccess;
+﻿using DBAccess;
 using GamesProvider.Services.DTOs;
+using GamesProvider.Services.Interfaces;
+using GamesProvider.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 
 namespace GamesProvider.Services
 {
@@ -23,7 +22,7 @@ namespace GamesProvider.Services
 
         public IEnumerable<GameDTO> GetBestGames(int count)
         {
-            var filter = new FilterRequestDTO()
+            var filter = new FilterRequestDTO
             {
                 CountPerPage = count,
                 From = 0,
@@ -65,6 +64,7 @@ namespace GamesProvider.Services
             var gameprices = _dbContext.GamePrices
                 .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName.ToLower()) &&
                        (filter.Platforms.Count() == 0 || filter.Platforms.Contains(gp.PlatformId)));
+
             if (filter.SortType != SortType.basePrice)
             {
                 gameprices = gameprices.Where(gp => gp.BasePrice > gp.DiscountedPrice);
