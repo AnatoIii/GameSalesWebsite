@@ -2,8 +2,12 @@
   "redirects": {
     "Routes": [
       {
-        "TriggerRoute": "steam",
-        "URL": "http://localhost:5556"
+        "TriggerRoute": "gamesprices",
+        "URL": "http://games-provider:6080/gamesprices"
+      },
+      {
+        "TriggerRoute": "games",
+        "URL": "http://games-provider:6080/games"
       }
     ],
     "GatewayHostKey": "supermegasecretkey"

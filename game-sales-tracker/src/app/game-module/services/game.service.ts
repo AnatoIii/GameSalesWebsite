@@ -10,8 +10,6 @@ import { IPlatform } from "../interfaces/IPlatform";
   providedIn: "root",
 })
 export class GameService {
-  //baseURL = "http://localhost:8082/";
-
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -21,8 +19,11 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  getGames(): Observable<IGame[]> {
-    return this.http.get<IGame[]>("/games", this.httpOptions);
+  getBestGames(count: number): Observable<IGame[]> {
+    return this.http.get<IGame[]>(
+      "/gamesprices/best?count=" + count,
+      this.httpOptions
+    );
   }
 
   getPlatforms(): Observable<IPlatform[]> {
@@ -33,9 +34,7 @@ export class GameService {
     return this.http.get<IFullGame>("/games/" + id, this.httpOptions);
   }
 
-  sendPageParams(
-    filterParams: IFilterRequest
-  ): Observable<{ count: number; games: IGame[] }> {
+  sendPageParams(filterParams: IFilterRequest): Observable<IGame[]> {
     let params = new HttpParams();
     Object.keys(filterParams).forEach((key) => {
       const paramsValue = filterParams[key];
@@ -48,7 +47,7 @@ export class GameService {
       }
     });
 
-    return this.http.get<{ count: number; games: IGame[] }>("/games", {
+    return this.http.get<IGame[]>("/games", {
       headers: this.httpOptions.headers,
       params: params,
     });

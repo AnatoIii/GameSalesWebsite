@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Parsers.Core;
 using Parsers.Core.Models;
@@ -15,13 +14,16 @@ namespace Parsers.Infrastructure
         IModel _channel;
         ILogger _logger;
         QueueSettings _queueSettings;
+
         public QueueClient(ILogger logger, QueueSettings queueSettings)
         {
             _logger = logger;
             _queueSettings = queueSettings;
+
             InitializeConnection();
             InitializeQueue();
         }
+
         private void InitializeConnection()
         {
             ConnectionFactory factory = new ConnectionFactory();
@@ -42,7 +44,7 @@ namespace Parsers.Infrastructure
         {
             _channel.ExchangeDeclare(_queueSettings.ExchangeName,ExchangeType.Direct);
             _channel.QueueDeclare(_queueSettings.QueueName, false, false, false, null);
-            _channel.QueueBind(_queueSettings.QueueName,_queueSettings.ExchangeName, null, null);
+            _channel.QueueBind(_queueSettings.QueueName, _queueSettings.ExchangeName, _queueSettings.ExchangeName);
         }
 
         public void SendEntries(IEnumerable<GameEntry> entries)
@@ -50,7 +52,7 @@ namespace Parsers.Infrastructure
             _logger.Log($"Started Sending Entries - {DateTime.Now}");
             string data = JsonConvert.SerializeObject(entries);
             byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-            _channel.BasicPublish(_queueSettings.ExchangeName, null, null, dataBytes);
+            _channel.BasicPublish(_queueSettings.ExchangeName, _queueSettings.ExchangeName, null, dataBytes);
             _logger.Log($"Ended Sending Entries - {DateTime.Now}");
         }
     }

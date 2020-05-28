@@ -18,28 +18,22 @@ namespace GamesProvider.Controllers
             _gamesPricesService = gamesPricesService;
         }
 
-        [HttpGet("platform")]
-        public IActionResult GetByPlatform(int platformId, int count, int offset)
+        [HttpGet("best")]
+        public IActionResult GetByFilter(int count)
         {
-            return Ok(_gamesPricesService.GetGamePricesByPlatform(platformId, count, offset));
+            return Ok(_gamesPricesService.GetBestGames(count));
         }
 
-        [HttpGet("platformcount")]
-        public IActionResult GetByPlatformCount(int platformId)
+        [HttpPost("filtered")]
+        public IActionResult GetByFilter([FromBody] FilterRequestDTO filterRequest)
         {
-            return Ok(_gamesPricesService.GetGamePricesByPlatformCount(platformId));
+            return Ok(_gamesPricesService.GetByFilter(filterRequest));
         }
 
-        [HttpGet("name")]
-        public IActionResult GetByName(string name, int count, int offset)
+        [HttpPost("filteredCount")]
+        public IActionResult GetByFilterCount([FromBody] FilterRequestDTO filterRequest)
         {
-            return Ok(_gamesPricesService.GetGamePricesByName(name, count, offset));
-        }
-
-        [HttpGet("namecount")]
-        public IActionResult GetByNameCount(string name)
-        {
-            return Ok(_gamesPricesService.GetGamePricesByNameCount(name));
+            return Ok(_gamesPricesService.GetByFilterCount(filterRequest));
         }
     }
 }

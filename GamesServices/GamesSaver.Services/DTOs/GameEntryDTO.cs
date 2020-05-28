@@ -12,6 +12,10 @@ namespace GamesSaver.Services.DTOs
         public string Name { get; set; }
         public string Description { get; set; }
         /// <summary>
+        /// Game review
+        /// </summary>
+        public string Review { get; set; }
+        /// <summary>
         /// A native game id on the specified platform
         /// </summary>
         public string PlatformSpecificId { get; set; }

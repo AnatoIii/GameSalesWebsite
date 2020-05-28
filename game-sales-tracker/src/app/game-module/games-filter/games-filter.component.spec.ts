@@ -15,11 +15,10 @@ describe("GamesFilterComponent", () => {
       Id: 0,
       Name: "Test",
       Description: "test",
-      Images: ["image1"],
-      BestPrice: {
-        DiscountedPrice: 0,
-        CurrencyId: 1,
-      },
+      Image: "image1",
+      BestPrice: 0,
+      CurrencyId: 1,
+      Platforms: [],
     },
   ];
   const expectedPlatforms: IPlatform[] = [

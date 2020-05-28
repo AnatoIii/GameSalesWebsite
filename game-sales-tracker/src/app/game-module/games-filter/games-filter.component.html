@@ -28,11 +28,14 @@
         <mat-icon matSuffix><i class="fas fa-search"></i></mat-icon>
     </mat-form-field>
     <div class="game" *ngFor="let game of games" [routerLink]="['/game', game.Id]">
-        <img [src]="game.Images[0]" [alt]="game.Name">
-        <p class="name">{{ game.Name }}</p>
+        <img [src]="game.Image" [alt]="game.Name">
+        <div>
+            <p class="name">{{ game.Name }}</p>
+            <span class="platform" *ngFor="let platform of game.Platforms">{{ platform.Name }}</span>
+        </div>
         <p class="price">{{ getConvertedPrice(game) }}</p>
     </div>
 
-    <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="gamesCount || 45"
-        [countPerPage]="this.pageOptions.CountPerPage || 10" (pageChange)="pageChanged($event)"></app-paginator>
+    <app-paginator *ngIf="games" [currentPage]="page" [gamesCount]="games.length"
+        [countPerPage]="this.pageOptions.CountPerPage" (pageChange)="pageChanged($event)"></app-paginator>
 </div>

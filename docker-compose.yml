@@ -1,0 +1,121 @@
+version: "3.3"
+services:
+    frontend:
+        image: frontend
+        container_name: frontend
+        network_mode: "host"
+        ports: 
+            - 80:80
+        build:
+            context: ./game-sales-tracker
+    
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        ports:
+            - 5672:5672
+            - 15672:15672
+
+    db:
+        image: postgres:11
+        container_name: postgres
+        ports:
+            - 5433:5432
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            PGDATA : /var/lib/postgresql/data
+        volumes:
+            - data:/var/lib/postgresql/data
+
+    ps-parser:
+        image: ps-parser
+        container_name: ps-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./PSStoreParser/Dockerfile
+        volumes: 
+            - configs:/configs
+        env_file: 
+            - ./env/PSStoreParser.env
+
+    steam-parser:
+        image: steam-parser
+        container_name: steam-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./SteamParser/Dockerfile
+        volumes: 
+            - configs:/configs
+        env_file: 
+            - ./env/SteamParser.env
+
+    uplay-parser:
+        image: uplay-parser
+        container_name: uplay-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./UplayParser/Dockerfile
+        volumes: 
+            - configs:/configs
+        env_file: 
+            - ./env/UplayParser.env
+
+    gateway-api:
+        image: gateway-api
+        container_name: gateway-api
+        ports: 
+            - 5443:443
+            - 5080:80
+        depends_on: 
+            - db
+        build: 
+            context: ./GameSalesApi/
+            dockerfile: ./GameSalesApi/Dockerfile
+        volumes: 
+            - configs:/configs
+        env_file: 
+            - ./env/GatewayApi.env
+
+    games-saver:
+        image: games-saver
+        container_name: games-saver
+        depends_on: 
+            - db
+            - rabbitmq
+        build: 
+            context: ./GamesServices/
+            dockerfile: ./GamesSaver/Dockerfile
+        env_file: 
+            - ./env/GamesSaver.env
+        volumes: 
+            - configs:/configs
+        restart: on-failure
+
+    games-provider:
+        image: games-provider
+        container_name: games-provider
+        ports: 
+            - 6443:443
+            - 6080:80
+        depends_on: 
+            - db
+        build: 
+            context: ./GamesServices/
+            dockerfile: ./GamesProvider/Dockerfile
+        volumes: 
+            - configs:/configs
+        env_file: 
+            - ./env/GamesProvider.env
+    
+volumes: 
+    configs:
+        external: true
+    data: 
+        driver: local

@@ -32,6 +32,12 @@ header {
   padding: 0 20px;
 }
 
+.header__link:hover {
+    color: #7E7E7E;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
 .last-link {
   margin-left: auto;
 }
