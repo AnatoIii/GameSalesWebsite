@@ -23,6 +23,7 @@ namespace GameSalesApi.Middleware.RedirectorMiddleware
             var route = httpRequest.Path.ToString().Split('/')[1];
             string newPath = routesConfig.Routes.Where(r => r.TriggerRoute == route).Select(r => r.URL).FirstOrDefault();
             newPath += httpRequest.Path.ToString().Substring(route.Length + 1);
+            newPath += httpRequest.QueryString;
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(new HttpMethod(httpRequest.Method), newPath);
             foreach(var header in httpRequest.Headers)

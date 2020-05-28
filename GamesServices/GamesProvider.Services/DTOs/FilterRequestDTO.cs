@@ -8,6 +8,9 @@ namespace GamesProvider.Services.DTOs
     {
         public int From { get; set; }
         public int CountPerPage { get; set; }
-        public FilterOptionsDTO FilterOptions { get; set; }
+        public string GameName { get; set; } = "";
+        public IEnumerable<int> Platforms { get; set; }
+        public SortType SortType { get; set; } = SortType.basePrice;
+        public bool AscendingOrder { get; set; } = true;
     }
 }

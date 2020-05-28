@@ -26,7 +26,7 @@ namespace GamesProvider.Services
                         .ThenInclude(g => g.Images)
                     .Include(gp => gp.Platform)
                     .ToList()
-                    .GroupBy(gp => gp.Game)
+                    .GroupBy(gp => gp.GameId)
                     .Select(group => GamesPricesGroupMapper.GamePricesToFullGameDTO(group))
                     .FirstOrDefault();
         }

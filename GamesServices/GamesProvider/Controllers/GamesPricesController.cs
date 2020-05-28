@@ -3,6 +3,7 @@ using GamesProvider.Services.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GamesProvider.Controllers
@@ -24,14 +25,15 @@ namespace GamesProvider.Controllers
             return Ok(_gamesPricesService.GetBestGames(count));
         }
 
-        [HttpPost("filtered")]
-        public IActionResult GetByFilter([FromBody] FilterRequestDTO filterRequest)
+        [HttpGet("filtered")]
+        public IActionResult GetByFilter([FromQuery]FilterRequestDTO filterRequest)
         {
-            return Ok(_gamesPricesService.GetByFilter(filterRequest));
+            var result = _gamesPricesService.GetByFilter(filterRequest).ToList();
+            return Ok(result);
         }
 
-        [HttpPost("filteredCount")]
-        public IActionResult GetByFilterCount([FromBody] FilterRequestDTO filterRequest)
+        [HttpGet("filteredCount")]
+        public IActionResult GetByFilterCount([FromQuery]FilterRequestDTO filterRequest)
         {
             return Ok(_gamesPricesService.GetByFilterCount(filterRequest));
         }
