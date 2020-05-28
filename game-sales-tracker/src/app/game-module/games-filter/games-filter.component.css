@@ -99,8 +99,23 @@ img {
   object-fit: cover;
 }
 
-.name {
+.game div {
   padding: 0 15px;
+}
+
+.name {
+  margin: 10px 0;
+}
+
+.platform {
+  font-size: 17px;
+  color: #818181;
+  width: 100px;
+}
+
+.platform:not(:last-of-type):after {
+  content: " | ";
+  color: white;
 }
 
 .price {

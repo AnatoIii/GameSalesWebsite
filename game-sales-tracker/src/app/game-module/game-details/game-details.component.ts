@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { GameService } from "../services/game.service";
 import { IFullGame } from "../interfaces/IFullGame";
 import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-game-details",
@@ -15,16 +16,17 @@ export class GameDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private gameService: GameService
+    private gameService: GameService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get("id");
-
     this.gameService.getGameDetails(id).subscribe(
       (data: IFullGame) => {
         data.Platforms.sort((a, b) => a.DiscountedPrice - b.DiscountedPrice);
         this.game = data;
+        this.titleService.setTitle(this.game.Name);
       },
       (error) => console.log(error)
     );

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-login-form",
@@ -12,7 +13,8 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   public loginForm: FormGroup;
@@ -20,6 +22,7 @@ export class LoginFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createForm();
+    this.titleService.setTitle("GaST — Login");
   }
 
   public createForm(): void {

@@ -29,8 +29,8 @@
 }
 
 .gallery img {
-    max-height: 80vh;
-    max-width: 80vh;
+    max-height: 100vh;
+    max-width: 100vh;
 }
 
 .arrow {
