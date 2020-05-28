@@ -19,12 +19,14 @@ export class GamesFilterComponent implements OnInit {
   filterOptions: IFilterOptions;
   pageOptions: IFilterRequest;
   page: number = 1;
+  gamesCount: number;
   filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
 
   constructor(private gameService: GameService) {
     this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
-        this.games = data;
+        this.games = data.games;
+        this.gamesCount = data.count;
       });
     });
   }
