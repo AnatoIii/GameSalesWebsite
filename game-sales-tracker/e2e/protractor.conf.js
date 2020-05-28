@@ -11,13 +11,11 @@ exports.config = {
   ],
   capabilities: {
     browserName: 'chrome',
-    // chromeOptions: {
-    //   args: ['--headless', '--no-sandbox']
-    // }
+    chromeOptions: {
+      args: ['--no-sandbox']
+    }
   },
-  //SELENIUM_PROMISE_MANAGER: false,
-  directConnect: false,
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
   jasmineNodeOpts: {
@@ -25,11 +23,6 @@ exports.config = {
     defaultTimeoutInterval: 30000,
     print: function () { }
   },
-  // beforeLaunch: function () {
-  //   require('ts-node').register({
-  //     project: require('path').join(__dirname, './tsconfig.e2e.json')
-  //   });
-  // },
   onPrepare() {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'

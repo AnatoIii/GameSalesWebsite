@@ -4,7 +4,6 @@ import { HeaderComponent } from "./header.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { RouterLinkWithHref } from "@angular/router";
-import { Component } from "@angular/core";
 import { By } from "@angular/platform-browser";
 
 describe("HeaderComponent", () => {
@@ -32,6 +31,8 @@ describe("HeaderComponent", () => {
     const debugElement = fixture.debugElement.query(
       By.directive(RouterLinkWithHref)
     );
-    expect(debugElement.nativeElement.href.slice(-1)).toBe("/");
+    expect(
+      debugElement.nativeElement.getAttribute("routerlink").slice(-1)
+    ).toBe("/");
   });
 });
