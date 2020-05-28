@@ -1,5 +1,6 @@
 using DBAccess;
 using GamesSaver.Services;
+using GamesSaver.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,19 +14,24 @@ namespace GamesSaver
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
             services.Configure<QueueSettings>(Configuration.GetSection("queueSettings"));
+
+            services.AddTransient(typeof(IGameService),typeof(GameService));
+            services.AddTransient(typeof(IGamesPricesService),typeof(GamesPricesService));
+
             services.AddDbContext<GameServiceDBContext>(options => {
                 options.UseNpgsql(Configuration.GetConnectionString("Games"));
             });
-            services.AddTransient(typeof(IGameService),typeof(GameService));
-            services.AddTransient(typeof(IGamesPricesService),typeof(GamesPricesService));
+
             services.AddHostedService<QueueReaderBackgroundService>();
         }
 

@@ -1,13 +1,8 @@
-﻿using Castle.DynamicProxy.Generators;
-using DBAccess;
+﻿using DBAccess;
 using GamesSaver.Services.DTOs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
-using Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace GamesServicesTests
@@ -44,7 +39,7 @@ namespace GamesServicesTests
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-                GamesSaver.Services.IGameService gameService = new GamesSaver.Services.GameService(context);
+                GamesSaver.Services.Interfaces.IGameService gameService = new GamesSaver.Services.GameService(context);
                 var newGame = gameService.AddGame(testInput);
 
                 Assert.Equal(testInput.Name, newGame.Name);
@@ -57,7 +52,7 @@ namespace GamesServicesTests
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("GetByIdReturnsActualEntryWithImagesOnValidInput")))
             {
                 TestHelpers.FillTestData(context);
-                GamesProvider.Services.IGameService gameService = new GamesProvider.Services.GameService(context);
+                GamesProvider.Services.Interfaces.IGameService gameService = new GamesProvider.Services.GameService(context);
                 var newGame = gameService.GetById(1);
 
                 Assert.NotNull(newGame);

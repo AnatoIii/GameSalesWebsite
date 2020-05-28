@@ -1,11 +1,9 @@
 ﻿using DBAccess;
 using GamesSaver.Services.DTOs;
-using Microsoft.EntityFrameworkCore;
+using GamesSaver.Services.Interfaces;
 using Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GamesSaver.Services
 {
@@ -39,6 +37,7 @@ namespace GamesSaver.Services
             {
                 GamePrices gamePrices = _dbContext.GamePrices
                     .Where(gp => gp.PlatformId == entry.PlatformId & gp.PlatformSpecificId == entry.PlatformSpecificId).FirstOrDefault(); //Check if entry exists
+
                 if(gamePrices == null)
                 {
                     newGameEntries.Add(entry); //Create new entry
@@ -49,6 +48,7 @@ namespace GamesSaver.Services
                     gamePrices.DiscountedPrice = entry.DiscountedPrice;
                 }
             };
+
             AddNewGamePrices(newGameEntries);
             _dbContext.SaveChanges();
         }
@@ -57,11 +57,8 @@ namespace GamesSaver.Services
         {
             foreach (var entry in newGameEntries)
             {
-                Game game = _dbContext.Games.Where(g => g.Name == entry.Name).FirstOrDefault();
-                if (game == null)
-                {
-                    game = _gameService.AddGame(entry);
-                }
+                Game game = _dbContext.Games.Where(g => g.Name == entry.Name).FirstOrDefault() ?? _gameService.AddGame(entry);
+
                 _dbContext.GamePrices.Add(new GamePrices()
                 {
                     BasePrice = entry.BasePrice,

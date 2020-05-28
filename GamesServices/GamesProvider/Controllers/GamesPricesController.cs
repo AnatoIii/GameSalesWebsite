@@ -1,10 +1,8 @@
 ﻿using GamesProvider.Services;
 using GamesProvider.Services.DTOs;
+using GamesProvider.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GamesProvider.Controllers
 {
@@ -19,8 +17,8 @@ namespace GamesProvider.Controllers
             _gamesPricesService = gamesPricesService;
         }
 
-        [HttpGet("best")]
-        public IActionResult GetByFilter(int count)
+        [HttpGet("best/{count}")]
+        public IActionResult GetBestGamesByCount(int count)
         {
             return Ok(_gamesPricesService.GetBestGames(count));
         }
