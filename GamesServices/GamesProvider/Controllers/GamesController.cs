@@ -12,9 +12,9 @@ namespace GamesProvider.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-        private GameService _gameService;
+        private IGameService _gameService;
 
-        public GamesController(GameService gameService)
+        public GamesController(IGameService gameService)
         {
             _gameService = gameService;
         }

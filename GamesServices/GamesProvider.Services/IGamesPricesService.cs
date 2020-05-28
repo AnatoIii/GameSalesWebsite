@@ -8,8 +8,8 @@ namespace GamesProvider.Services
 {
     public interface IGamesPricesService
     {
-        IEnumerable<FullGameDTO> GetByFilter(FilterRequestDTO filterRequest);
+        IEnumerable<GameDTO> GetByFilter(FilterRequestDTO filterRequest);
         int GetByFilterCount(FilterRequestDTO filterRequest);
-        IEnumerable<FullGameDTO> GetBestGames(int count);
+        IEnumerable<GameDTO> GetBestGames(int count);
     }
 }

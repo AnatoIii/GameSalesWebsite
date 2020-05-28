@@ -30,6 +30,7 @@ namespace GamesProvider
             });
             services.AddTransient(typeof(IGamesPricesService), typeof(GamesPricesService));
             services.AddTransient(typeof(IGameService), typeof(GameService));
+            services.AddTransient(typeof(IPlatformService), typeof(PlatfromService));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

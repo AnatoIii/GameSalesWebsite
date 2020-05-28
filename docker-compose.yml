@@ -22,8 +22,8 @@ services:
         ports:
             - 5433:5432
         environment:
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: salespassword
+            POSTGRES_USER: salesservice
             PGDATA : /var/lib/postgresql/data
         volumes:
             - data:/var/lib/postgresql/data
@@ -36,8 +36,6 @@ services:
         build: 
             context: ./Parsers/
             dockerfile: ./PSStoreParser/Dockerfile
-        volumes: 
-            - configs:/configs
         env_file: 
             - ./env/PSStoreParser.env
 
@@ -49,8 +47,6 @@ services:
         build: 
             context: ./Parsers/
             dockerfile: ./SteamParser/Dockerfile
-        volumes: 
-            - configs:/configs
         env_file: 
             - ./env/SteamParser.env
 
@@ -62,24 +58,19 @@ services:
         build: 
             context: ./Parsers/
             dockerfile: ./UplayParser/Dockerfile
-        volumes: 
-            - configs:/configs
         env_file: 
             - ./env/UplayParser.env
 
     gateway-api:
         image: gateway-api
         container_name: gateway-api
-        ports: 
-            - 5443:443
+        ports:
             - 5080:80
         depends_on: 
             - db
         build: 
             context: ./GameSalesApi/
             dockerfile: ./GameSalesApi/Dockerfile
-        volumes: 
-            - configs:/configs
         env_file: 
             - ./env/GatewayApi.env
 
@@ -94,28 +85,21 @@ services:
             dockerfile: ./GamesSaver/Dockerfile
         env_file: 
             - ./env/GamesSaver.env
-        volumes: 
-            - configs:/configs
         restart: on-failure
 
     games-provider:
         image: games-provider
         container_name: games-provider
         ports: 
-            - 6443:443
             - 6080:80
         depends_on: 
             - db
         build: 
             context: ./GamesServices/
             dockerfile: ./GamesProvider/Dockerfile
-        volumes: 
-            - configs:/configs
         env_file: 
             - ./env/GamesProvider.env
     
 volumes: 
-    configs:
-        external: true
     data: 
         driver: local
