@@ -20,15 +20,15 @@ namespace GameSalesApi.Middleware.RedirectorMiddleware
         /// <returns>New internal request</returns>
         public static HttpRequestMessage PrepareRequestMessage(HttpRequest httpRequest, RoutesConfig routesConfig)
         {
-            var route = httpRequest.Path.ToString().Split('/')[1];
+            var route = httpRequest.Path.ToString().Split('/')[2];
             string newPath = routesConfig.Routes.Where(r => r.TriggerRoute == route).Select(r => r.URL).FirstOrDefault();
-            newPath += httpRequest.Path.ToString().Substring(route.Length + 1);
+            newPath += httpRequest.Path.ToString().Substring(httpRequest.Path.ToString().IndexOf(route) + route.Length);
             newPath += httpRequest.QueryString;
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(new HttpMethod(httpRequest.Method), newPath);
             foreach(var header in httpRequest.Headers)
             {
-                requestMessage.Headers.Add(header.Key, header.Value.ToArray());
+                requestMessage.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
             }
             requestMessage.Headers.Add("GatewayHostKey", routesConfig.GatewayHostKey);
 
