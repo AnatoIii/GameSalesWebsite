@@ -21,7 +21,7 @@ namespace GameSalesApi.Middleware.RedirectorMiddleware
                 var result = await redirector.RedirectRequest(context.Request);
                 context.Response.StatusCode = (int)result.StatusCode;
                 context.Response.ContentLength = result.Content.Headers.ContentLength;
-                context.Response.Headers.Add("Content-Type",result.Content.Headers.ContentType.MediaType);
+                context.Response.Headers.Add("Content-Type","application/json");
                 await context.Response.WriteAsync(await result.Content.ReadAsStringAsync());
                 return;
             }

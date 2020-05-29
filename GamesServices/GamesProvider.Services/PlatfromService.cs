@@ -1,4 +1,5 @@
 ﻿using DBAccess;
+using GamesProvider.Services.DTOs;
 using GamesProvider.Services.Interfaces;
 using Models;
 using System.Collections.Generic;
@@ -15,9 +16,13 @@ namespace GamesProvider.Services
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Platform> GetPlatforms()
+        public IEnumerable<PlatformDTO> GetPlatforms()
         {
-            return _dbContext.Platforms.ToList();
+            return _dbContext.Platforms.Select(p => new PlatformDTO()
+            {
+                Id = p.PlatformId,
+                Name = p.PlatformName
+            });
         }
     }
 }

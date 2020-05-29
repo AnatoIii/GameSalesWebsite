@@ -21,7 +21,7 @@ export class GameService {
 
   getBestGames(count: number): Observable<IGame[]> {
     return this.http.get<IGame[]>(
-      "/gamesprices/best?count=" + count,
+      "/gamesprices/best/" + count,
       this.httpOptions
     );
   }

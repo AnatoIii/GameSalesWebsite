@@ -32,7 +32,7 @@ namespace GameSalesApi.Middleware.RedirectorMiddleware
         /// <param name="path">Request path</param>
         public bool RouteExists(PathString path)
         {
-            var route = path.ToString().Split('/')[1];
+            var route = path.ToString().Split('/')[2];
             return configuration.Routes.Where(r => r.TriggerRoute == route).Any();
         }
 

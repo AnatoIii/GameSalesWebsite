@@ -37,7 +37,7 @@ namespace GameSalesApi
             }
             else
             {
-                app.UseHsts();
+                //app.UseHsts();
             }
 
             app.UseCors("EnableCORS");

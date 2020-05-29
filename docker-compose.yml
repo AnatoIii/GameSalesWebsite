@@ -3,9 +3,8 @@ services:
     frontend:
         image: frontend
         container_name: frontend
-        network_mode: "host"
         ports: 
-            - 80:80
+            - 2080:80
         build:
             context: ./game-sales-tracker
     

@@ -21,6 +21,8 @@ namespace GamesProvider
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+                .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddTransient(typeof(IGamesPricesService), typeof(GamesPricesService));
             services.AddTransient(typeof(IGameService), typeof(GameService));
             services.AddTransient(typeof(IPlatformService), typeof(PlatfromService));
