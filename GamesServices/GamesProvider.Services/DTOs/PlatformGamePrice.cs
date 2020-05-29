@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GamesProvider.Services.DTOs
+﻿namespace GamesProvider.Services.DTOs
 {
     public class PlatformGamePrice
     {
