@@ -23,17 +23,12 @@ namespace GamesProvider.Controllers
             return Ok(_gamesPricesService.GetBestGames(count));
         }
 
-        [HttpGet("filtered")]
+        [HttpGet("")]
         public IActionResult GetByFilter([FromQuery]FilterRequestDTO filterRequest)
         {
-            var result = _gamesPricesService.GetByFilter(filterRequest).ToList();
-            return Ok(result);
-        }
-
-        [HttpGet("filteredCount")]
-        public IActionResult GetByFilterCount([FromQuery]FilterRequestDTO filterRequest)
-        {
-            return Ok(_gamesPricesService.GetByFilterCount(filterRequest));
+            var games = _gamesPricesService.GetByFilter(filterRequest).ToList();
+            var count = _gamesPricesService.GetByFilterCount(filterRequest);
+            return Ok(new { count, games });
         }
     }
 }

@@ -51,9 +51,9 @@ namespace GamesProvider.Services
                       .Include(gp => gp.Game)
                          .ThenInclude(gp => gp.Images)
                       .Include(gp => gp.Platform)
+                      .OrderBy(GetKeySelector(filter.SortType), CreateComparer(filter.AscendingOrder))
                       .Skip(filter.From)
                       .Take(filter.CountPerPage)
-                      .OrderBy(GetKeySelector(filter.SortType), CreateComparer(filter.AscendingOrder))
                       .ToList()
                       .GroupBy(gp => gp.GameId)
                       .Select(group => GamesPricesGroupMapper.GamePricesToGameDTO(group));
@@ -61,9 +61,10 @@ namespace GamesProvider.Services
 
         public int GetByFilterCount(FilterRequestDTO filter)
         {
+            bool platformsAny = filter.Platforms == null || filter.Platforms.Count() > 0;
             var gameprices = _dbContext.GamePrices
-                .Where(gp => gp.Game.Name.ToLower().Contains(filter.GameName.ToLower()) &&
-                       (filter.Platforms.Count() == 0 || filter.Platforms.Contains(gp.PlatformId)));
+                .Where(gp => ((filter.GameName == null) || gp.Game.Name.ToLower().Contains(filter.GameName.ToLower())) &&
+                       (platformsAny || filter.Platforms.Contains(gp.PlatformId)));
 
             if (filter.SortType != SortType.basePrice)
             {
