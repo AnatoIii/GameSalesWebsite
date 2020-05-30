@@ -1,5 +1,4 @@
-﻿using AngleSharp.Html.Dom;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using Parsers.Core.Models;
 using Parsers.Infrastructure;
@@ -64,14 +63,19 @@ namespace SteamParser
             int discountedPrice = 0;
             IEnumerable<string> pictureURLs = null;
 
-            platformSpecificId = htmlNode.Attributes["data-ds-appid"]?.Value ?? htmlNode.Attributes["data-ds-packageid"]?.Value ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
+            platformSpecificId = htmlNode.Attributes["data-ds-appid"]?.Value 
+                ?? htmlNode.Attributes["data-ds-packageid"]?.Value 
+                ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
 
             HtmlNode imageNode = htmlNode.ChildNodes[1].ChildNodes[0];
             pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ");
 
             HtmlNode gameNode = htmlNode.ChildNodes[3];
             name = gameNode.ChildNodes[1].ChildNodes[1].InnerHtml;
-            //review = gameNode.ChildNodes[5].ChildNodes[1].Attributes["data-tooltip-html"]?.Value.StripHTML();
+
+            if (_TryGetChild(gameNode.ChildNodes[7], 1, out HtmlNode reviews) && reviews != null)
+                review = reviews.Attributes["data-tooltip-html"]?.Value.StripHTML();
+
             discountedPrice = int.Parse(gameNode.ChildNodes[7].Attributes["data-price-final"].Value);
 
             if (_TryGetChild(gameNode.ChildNodes[7].ChildNodes[3], 1, out HtmlNode fullPriceNode) && fullPriceNode != null)
