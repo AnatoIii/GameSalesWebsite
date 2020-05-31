@@ -1,5 +1,5 @@
 ﻿using Infrastructure.CommandBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 
 namespace GameSalesApi.Features.Authorization.Commands
 {

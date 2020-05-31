@@ -5,7 +5,7 @@ using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Features.AccountManagement.QueryHandlers;
 using GameSalesApi.Helpers;
 using Infrastructure.DecoratorsFactory;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Options;

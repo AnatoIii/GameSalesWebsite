@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using GameSalesApi.Features.AccountManagement.Queries;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Model;
 using DataAccess;
 

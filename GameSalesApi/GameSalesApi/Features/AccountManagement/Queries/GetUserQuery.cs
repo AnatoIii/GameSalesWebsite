@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Infrastructure.CommandBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Model;
 
 namespace GameSalesApi.Features.AccountManagement.Queries

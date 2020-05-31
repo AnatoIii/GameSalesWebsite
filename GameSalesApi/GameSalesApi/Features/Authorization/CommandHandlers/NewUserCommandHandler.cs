@@ -2,7 +2,7 @@
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Helpers;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Model;
 using System;
 using System.Linq;

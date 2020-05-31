@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Infrastructure.Result
+namespace Infrastructure.Results
 {
     /// <summary>
     /// Default implementation of <see cref="IResult"/>

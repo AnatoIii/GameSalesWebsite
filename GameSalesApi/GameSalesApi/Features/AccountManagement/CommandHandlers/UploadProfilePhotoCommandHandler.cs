@@ -3,7 +3,7 @@ using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Helpers;
 using Infrastructure.DecoratorsFactory;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Microsoft.Extensions.Options;
 using Model;
 using System;
