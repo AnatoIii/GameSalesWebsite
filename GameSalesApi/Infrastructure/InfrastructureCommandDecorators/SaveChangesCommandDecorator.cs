@@ -13,7 +13,6 @@ namespace Infrastructure.InfrastructureCommandDecorators
         : CommandHandlerDecoratorBase<TIn, TOut>
         where TIn : ICommand<TOut>
     {
-        private readonly ICommandDispatcher _rDispatcher;
         private readonly DbContext _rDBContext;
 
         /// <summary>
@@ -21,11 +20,9 @@ namespace Infrastructure.InfrastructureCommandDecorators
         /// </summary>
         /// <param name="decorated"><see cref="ICommandHandler{TIn, TOut}"/> inner decorator</param>
         public SaveChangesCommandDecorator(ICommandHandler<TIn, TOut> decorated,
-            ICommandDispatcher commandDispatcher,
             DbContext dbContext)
             : base(decorated)
         {
-            _rDispatcher = commandDispatcher;
             _rDBContext = dbContext;
         }
 

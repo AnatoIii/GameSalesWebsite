@@ -77,7 +77,7 @@ namespace SteamParser
             HtmlNode gameNode = htmlNode.ChildNodes[3];
             name = gameNode.ChildNodes[1].ChildNodes[1].InnerHtml;
 
-            if (_TryGetChild(gameNode.ChildNodes[7], 1, out HtmlNode reviews) && reviews != null)
+            if (_TryGetChild(gameNode.ChildNodes[5], 1, out HtmlNode reviews) && reviews != null)
                 review = reviews.Attributes["data-tooltip-html"]?.Value.StripHTML();
 
             discountedPrice = int.Parse(gameNode.ChildNodes[7].Attributes["data-price-final"].Value);

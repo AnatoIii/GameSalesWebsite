@@ -24,18 +24,4 @@ namespace Infrastructure.CommandBase
         /// <param name="command">TIn command</param>
         void Execute(TIn command);
     }
-
-    /// <summary>
-    /// Base interface for command dispatcher
-    /// </summary>
-    public interface ICommandDispatcher
-    {
-        /// <summary>
-        /// Dispatcher handler
-        /// </summary>
-        /// <typeparam name="TIn">TIn</typeparam>
-        /// <typeparam name="Tout">TOut</typeparam>
-        /// <param name="command">TIn command</param>
-        void Handle<TIn, Tout>(TIn command) where TIn : ICommand<Tout>;
-    }
 }
