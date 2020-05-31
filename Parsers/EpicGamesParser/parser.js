@@ -76,6 +76,7 @@ function httpGetDescription(game) {
                 const images = JSON.parse(body).pages[0].data.gallery.galleryImages;
                 if (images) game.PictureURLs.push(...images.map(x => x.src));
                 game.PictureURLs = game.PictureURLs.map(x => x = x.replace(/\s/g, '%20'));
+                game.ThumbnailURL = game.PictureURLs[0];
                 game.Description = JSON.parse(body).pages[0].data.about.description;
                 parsedData.push(game);
                 if (gameCount === parsedData.length)
@@ -100,7 +101,7 @@ function sendMessage(message) {
             channel.assertQueue(queue, {
                 durable: false
             });
-            channel.sendToQueue(queue, Buffer.from(msg));
+            channel.sendToQueue(queue, Buffer.from(message));
         });
         setTimeout(function () {
             connection.close();

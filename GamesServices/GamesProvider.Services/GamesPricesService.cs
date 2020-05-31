@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace GamesProvider.Services
 {
@@ -36,7 +37,7 @@ namespace GamesProvider.Services
 
         public IEnumerable<GameDTO> GetByFilter(FilterRequestDTO filter)
         {
-            bool platformsAny = filter.Platforms == null || filter.Platforms.Count() > 0;
+            bool platformsAny = filter.Platforms == null || filter.Platforms.Count() == 0;
 
             var gameprices = _dbContext.GamePrices
                 .Where(gp => ((filter.GameName == null) || gp.Game.Name.ToLower().Contains(filter.GameName.ToLower())) &&
@@ -47,12 +48,13 @@ namespace GamesProvider.Services
                 gameprices = gameprices.Where(gp => gp.BasePrice > gp.DiscountedPrice);
             };
 
-            return gameprices
+            gameprices = gameprices
                       .Include(gp => gp.Game)
                          .ThenInclude(gp => gp.Images)
-                      .Include(gp => gp.Platform)
-                      .OrderBy(GetKeySelector(filter.SortType), CreateComparer(filter.AscendingOrder))
-                      .Skip(filter.From)
+                      .Include(gp => gp.Platform);
+            gameprices = filter.AscendingOrder ? gameprices.OrderBy(GetKeySelector(filter.SortType))
+                                               : gameprices.OrderByDescending(GetKeySelector(filter.SortType));
+            return gameprices.Skip(filter.From)
                       .Take(filter.CountPerPage)
                       .ToList()
                       .GroupBy(gp => gp.GameId)
@@ -61,7 +63,7 @@ namespace GamesProvider.Services
 
         public int GetByFilterCount(FilterRequestDTO filter)
         {
-            bool platformsAny = filter.Platforms == null || filter.Platforms.Count() > 0;
+            bool platformsAny = filter.Platforms == null || filter.Platforms.Count() == 0;
             var gameprices = _dbContext.GamePrices
                 .Where(gp => ((filter.GameName == null) || gp.Game.Name.ToLower().Contains(filter.GameName.ToLower())) &&
                        (platformsAny || filter.Platforms.Contains(gp.PlatformId)));
@@ -74,15 +76,7 @@ namespace GamesProvider.Services
             return gameprices.Count();
         }
 
-        private IComparer<int> CreateComparer(bool ascendingOrder)
-        {
-            return ascendingOrder ?
-                Comparer<int>.Create((x, y) => x.CompareTo(y) > 0 ? x : y):
-                Comparer<int>.Create((x, y) => x.CompareTo(y) > 0 ? y : x);
-        }
-        
-
-        private Func<GamePrices,int> GetKeySelector(SortType sortType)
+        private Expression<Func<GamePrices,int>> GetKeySelector(SortType sortType)
         {
             return sortType switch
             {

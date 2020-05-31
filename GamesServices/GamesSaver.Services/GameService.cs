@@ -20,6 +20,7 @@ namespace GamesSaver.Services
             var game = new Game() {
                 Name = gameEntry.Name,
                 Description = gameEntry.Description,
+                ThumbnailURL = gameEntry.ThumbnailURL,
                 Images = gameEntry.PictureURLs
                                  .Select(p => new Image() { URL = p })
                                  .ToList()

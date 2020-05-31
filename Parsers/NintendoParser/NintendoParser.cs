@@ -43,11 +43,12 @@ namespace NintendoParser
                 currentEntries = _rDeserializer.Deserialize(data)
                     .Select(e =>
                     {
-                        e.PictureURLs = _rDeserializer.GetGameScreenshots(ParserSettings.GameBaseURL, e.PlatformSpecificId);
+                        e.PictureURLs = _rDeserializer.GetGameScreenshots(ParserSettings.GameBaseURL, e.PlatformSpecificId)
+                                        .Select( p => $"https://www.nintendo.com/{p}");
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
                         return e;
-                    });
+                    }).ToList();
                 gameEntries.AddRange(currentEntries);
                 offset += 1;
                 await Task.Delay(ParserSettings.PeriodBetweenRequests);

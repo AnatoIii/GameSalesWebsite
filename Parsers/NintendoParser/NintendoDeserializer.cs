@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Parsers.Core.Models;
 using Parsers.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,8 +34,11 @@ namespace NintendoParser
             string name = jToken["title"].ToObject<string>();
             string platformSpecificId = jToken["slug"].ToObject<string>();
             string description = jToken["description"].ToObject<string>();
-            int basePrice = jToken["msrp"].ToObject<int>();
-            int discountedPrice = jToken["salePrice"].ToObject<int>();
+            int basePrice = (int)jToken["msrp"].ToObject<decimal>() * 100;
+            int discountedPrice = (int)jToken["salePrice"].ToObject<decimal>() * 100;
+            string thumbnail = jToken["boxArt"].ToObject<string>();
+            string thumbnailURL = $"https://www.nintendo.com/{thumbnail}";
+
             string review = "";
             List<string> pictureURLs = new List<string>();
 
@@ -46,7 +50,8 @@ namespace NintendoParser
                 PlatformSpecificId = platformSpecificId,
                 Description = description,
                 PictureURLs = pictureURLs,
-                Review = review
+                Review = review,
+                ThumbnailURL = thumbnailURL
             };
         }
 
@@ -63,7 +68,7 @@ namespace NintendoParser
             HtmlWeb web = new HtmlWeb();
             HtmlDocument html = web.Load(gameBaseURL + slug);
             HtmlNodeCollection htmlNodes = html.DocumentNode.SelectNodes("//product-gallery-item[@type='image']");
-            if (htmlNodes == null) return null;
+            if (htmlNodes == null) return new List<string>();
             foreach (var node in htmlNodes)
             {
                 var imgSrc = node.GetAttributeValue("src", string.Empty);

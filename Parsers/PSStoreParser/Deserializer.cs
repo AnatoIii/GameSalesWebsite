@@ -23,6 +23,7 @@ namespace PSStoreParser
             string name = jToken["attributes"]["name"].ToObject<string>();
             string platformSpecificId = jToken["id"].ToObject<string>();
             string description = jToken["attributes"]["long-description"].ToObject<string>();
+            string thumbnailURL = jToken["attributes"]["thumbnail-url-base"].ToObject<string>();
             string review = "";
             JToken rating = jToken["attributes"]["star-rating"];
             if (rating["score"].Type != JTokenType.Null)
@@ -38,14 +39,23 @@ namespace PSStoreParser
             }
 
             JToken skus = jToken["attributes"]["skus"];
-            if(skus == null)
+            if (skus == null)
             {
                 return new GameEntry();
             }
 
-            int discountedPrice = skus[0]["prices"]["non-plus-user"]["actual-price"]["value"].ToObject<int>();
-            JToken basePriceJToken = jToken["attributes"]["skus"][0]["prices"]["non-plus-user"]["strikethrough-price"];
-            int basePrice = basePriceJToken.Type == JTokenType.Null ? discountedPrice : basePriceJToken["value"].ToObject<int>();
+            int discountedPrice = 0;
+            int basePrice = 0;
+            for (int i = 0; i < skus.Count(); i++)
+            {
+                discountedPrice = skus[i]["prices"]["non-plus-user"]["actual-price"]["value"].ToObject<int>();
+                JToken basePriceJToken = jToken["attributes"]["skus"][0]["prices"]["non-plus-user"]["strikethrough-price"];
+                basePrice = basePriceJToken.Type == JTokenType.Null ? discountedPrice : basePriceJToken["value"].ToObject<int>();
+                if(basePrice != 0)
+                {
+                    break;
+                }
+            }
 
             return new GameEntry()
             {
@@ -55,7 +65,8 @@ namespace PSStoreParser
                 PlatformSpecificId = platformSpecificId,
                 Description = description,
                 PictureURLs = pictureURLs,
-                Review = review
+                Review = review,
+                ThumbnailURL = thumbnailURL
             };
         }
     }

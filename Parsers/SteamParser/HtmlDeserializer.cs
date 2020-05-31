@@ -67,11 +67,12 @@ namespace SteamParser
             platformSpecificId = htmlNode.Attributes["data-ds-appid"]?.Value ?? htmlNode.Attributes["data-ds-packageid"]?.Value ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
 
             HtmlNode imageNode = htmlNode.ChildNodes[1].ChildNodes[0];
-            pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ");
+            pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ").Select(p => p.Substring(0,p.IndexOf("jpg") + 3));
+            string thumbnailURL = pictureURLs.ElementAt(1);
 
             HtmlNode gameNode = htmlNode.ChildNodes[3];
             name = gameNode.ChildNodes[1].ChildNodes[1].InnerHtml;
-            //review = gameNode.ChildNodes[5].ChildNodes[1].Attributes["data-tooltip-html"]?.Value.StripHTML();
+            review = gameNode.ChildNodes[5].ChildNodes[1].Attributes["data-tooltip-html"]?.Value.StripHTML();
             discountedPrice = int.Parse(gameNode.ChildNodes[7].Attributes["data-price-final"].Value);
 
             if (_TryGetChild(gameNode.ChildNodes[7].ChildNodes[3], 1, out HtmlNode fullPriceNode) && fullPriceNode != null)
@@ -92,7 +93,8 @@ namespace SteamParser
                 Review = review,
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
-                PictureURLs = pictureURLs
+                PictureURLs = pictureURLs,
+                ThumbnailURL = thumbnailURL
             };
         }
 
