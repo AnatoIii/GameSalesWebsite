@@ -17,11 +17,6 @@ namespace Model
         public UserRole Role { get; set; }
         public string PhotoLink { get; set; }
 
-        public void GetDomainEvents()
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateUser(NewUser newUser)
         {
             Id = newUser.Id;

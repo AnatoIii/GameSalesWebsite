@@ -13,7 +13,7 @@ namespace Infrastructure.DecoratorsFactory
     public static class DecoratorBuilderExtensions
     {
         /// <summary>
-        /// Gets default command decorators for any purpose. The order of decorators (from the first to the last):
+        /// Gets default command decorators for any purpose. The order of decorators - from the first to the last:
         /// <see cref="SaveChangesCommandDecorator{TIn, TOut}"/>, 
         /// <see cref="ProfilerCommandDecorator{TIn, TOut}"/>,
         /// <see cref="LoggerCommandDecorator{TIn, TOut}"/> and
@@ -34,12 +34,11 @@ namespace Infrastructure.DecoratorsFactory
                     .AddParameter<ILogger<ClientType>>(logger)
                 .Add<ProfilerCommandDecorator<TIn, TOut>>()
                 .Add<SaveChangesCommandDecorator<TIn, TOut>>()
-                    .AddParameter<ICommandDispatcher>(null)
                     .AddParameter<DbContext>(dbContext);
         }
 
         /// <summary>
-        /// Gets default query decorators for any purpose. The order of decorators (from the first to the last):
+        /// Gets default query decorators for any purpose. The order of decorators - from the first to the last:
         /// <see cref="ProfilerQueryDecorator{TIn, TOut}"/>,
         /// <see cref="LoggerQueryDecorator{TIn, TOut}"/> and
         /// <see cref="ValidationQueryDecorator{TIn, TOut}"/>

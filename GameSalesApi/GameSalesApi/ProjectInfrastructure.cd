@@ -1,85 +1,279 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Infrastructure.HandlerBase.CommandHandlerDecoratorBase&lt;TIn, TOut&gt;">
-    <Position X="9" Y="3.25" Width="3.25" />
+    <Position X="4" Y="8.5" Width="3.25" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Infrastructure.HandlerBase.QueryHandlerDecoratorBase&lt;TIn, TOut&gt;">
-    <Position X="4" Y="3.25" Width="3" />
+    <Position X="4.5" Y="3.75" Width="3" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Infrastructure.InfrastructureCommandDecorators.LoggerCommandDecorator&lt;TIn, TOut&gt;">
-    <Position X="9" Y="5.75" Width="3" />
+    <Position X="4" Y="11" Width="3" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.InfrastructureCommandDecorators.ProfilerCommandDecorator&lt;TIn, TOut&gt;">
-    <Position X="16.25" Y="3.25" Width="3" />
+    <Position X="11.25" Y="11" Width="3" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.InfrastructureCommandDecorators.SaveChangesCommandDecorator&lt;TIn, TOut&gt;">
-    <Position X="12.75" Y="3.25" Width="3.25" />
+    <Position X="7.75" Y="8.5" Width="3.25" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.InfrastructureCommandDecorators.ValidationCommandDecorator&lt;TIn, TOut&gt;">
-    <Position X="12.75" Y="5.75" Width="3" />
+    <Position X="7.75" Y="11" Width="3" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.InfrastructureQueryDecorators.LoggerQueryDecorator&lt;TIn, TOut&gt;">
-    <Position X="0.5" Y="3.25" Width="2.75" />
+    <Position X="8" Y="3.75" Width="2.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.InfrastructureQueryDecorators.ProfilerQueryDecorator&lt;TIn, TOut&gt;">
-    <Position X="4" Y="5.75" Width="2.75" />
+    <Position X="8" Y="6.25" Width="2.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.InfrastructureQueryDecorators.ValidationQueryDecorator&lt;TIn, TOut&gt;">
-    <Position X="0.5" Y="5.75" Width="2.75" />
+    <Position X="4.5" Y="6.25" Width="2.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Infrastructure.Result.Result">
-    <Position X="0.5" Y="10.75" Width="2.25" />
+    <Position X="5.75" Y="13.75" Width="2.25" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Infrastructure.Result.Result&lt;T&gt;">
-    <Position X="3.25" Y="10.75" Width="1.5" />
+    <Position X="8.25" Y="13.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="GameSalesApi.Features.AccountManagement.AccountController">
-    <Position X="7.25" Y="15.5" Width="3.25" />
+    <Position X="18" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAEBAAQAAAAAAEgAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAAAAAAAABEBAAQAAAAAAEgAIAAAAAAA=</HashCode>
       <FileName>Features\AccountManagement\AccountController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Model.NewUser">
-    <Position X="21.25" Y="8.5" Width="1.5" />
+    <Position X="5.75" Y="23" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.Token">
-    <Position X="23" Y="8.5" Width="1.5" />
+    <Position X="7.5" Y="23" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.User">
-    <Position X="24.75" Y="8.5" Width="1.5" />
+    <Position X="9.25" Y="23" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.UserTelegramData">
-    <Position X="19.25" Y="10.5" Width="1.5" />
+    <Position X="3.75" Y="25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.VerificationCode">
-    <Position X="23" Y="10.75" Width="1.5" />
+    <Position X="7.5" Y="25.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="DataAccess.GameSalesContext">
-    <Position X="5.75" Y="8.75" Width="1.75" />
+    <Position X="10.75" Y="13.75" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Model.Enums.UserRole">
-    <Position X="19.25" Y="8.5" Width="1.75" />
+    <Position X="3.75" Y="23" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.AuthController">
+    <Position X="18.25" Y="13.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAACQAAAAAAIAAAAAAAAIAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\AuthController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.CommandHandlers.RemoveUserCommandHandler">
+    <Position X="22.5" Y="6.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAABAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\CommandHandlers\RemoveUserCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.CommandHandlers.UpdateUserCommandHandler">
+    <Position X="22.5" Y="4.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAABAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\CommandHandlers\UpdateUserCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.CommandHandlers.UploadImageCommandHandler">
+    <Position X="17.75" Y="6.75" Width="4.25" />
+    <InheritanceLine Type="Infrastructure.HandlerBase.CommandHandlerDecoratorBase&lt;TIn, TOut&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="6.437" Y="8.5" />
+        <Point X="6.437" Y="8.377" />
+        <Point X="11.167" Y="8.377" Type="JumpStart" />
+        <Point X="11.333" Y="8.377" Type="JumpEnd" />
+        <Point X="17.627" Y="8.377" />
+        <Point X="17.627" Y="6.627" />
+        <Point X="19.698" Y="6.627" />
+        <Point X="19.698" Y="6.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEQAAAAAAAAAAAAAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\CommandHandlers\UploadImageCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.CommandHandlers.UploadProfilePhotoCommandHandler">
+    <Position X="18" Y="4.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAABAAAAAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\CommandHandlers\UploadProfilePhotoCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.Commands.RemoveUserCommand">
+    <Position X="29.5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\Commands\RemoveUserCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.Commands.UpdateUserCommand">
+    <Position X="26.75" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAACAAAAAAAQAAAAgAAAAAAABCAAABAAAAAAg=</HashCode>
+      <FileName>Features\AccountManagement\Commands\UpdateUserCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.Commands.UploadImageCommand">
+    <Position X="26.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\Commands\UploadImageCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.Commands.UploadProfilePhotoCommand">
+    <Position X="29.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\Commands\UploadProfilePhotoCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.Queries.GetAllUsersQuery">
+    <Position X="26.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\Queries\GetAllUsersQuery.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.Queries.GetUserQuery">
+    <Position X="29.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\Queries\GetUserQuery.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.QueryHandlers.GetAllUsersQueryHandler">
+    <Position X="17.75" Y="10.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\QueryHandlers\GetAllUsersQueryHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.AccountManagement.QueryHandlers.GetUserQueryHandler">
+    <Position X="22.75" Y="10.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABABAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\AccountManagement\QueryHandlers\GetUserQueryHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.CommandHandlers.LoginCommandHandler">
+    <Position X="17.5" Y="17" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAQIAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\CommandHandlers\LoginCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.CommandHandlers.NewUserCommandHandler">
+    <Position X="17.5" Y="19.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAABAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\CommandHandlers\NewUserCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.CommandHandlers.RefreshTokenCommandHandler">
+    <Position X="22" Y="17" Width="4" />
+    <InheritanceLine Type="Infrastructure.HandlerBase.CommandHandlerDecoratorBase&lt;TIn, TOut&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="5.625" Y="10.44" />
+        <Point X="5.625" Y="10.7" />
+        <Point X="17.55" Y="10.7" />
+        <Point X="17.55" Y="12.519" />
+        <Point X="22.667" Y="12.519" />
+        <Point X="22.667" Y="17" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAQIAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\CommandHandlers\RefreshTokenCommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.Commands.LoginCommand">
+    <Position X="26.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\Commands\LoginCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.Commands.NewUserCommand">
+    <Position X="22" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>Features\Authorization\Commands\NewUserCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.Commands.TokenCommand">
+    <Position X="24.25" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\Commands\TokenCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.TokenCreator">
+    <Position X="29" Y="17" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAwAAAAAAAAAEAEACAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Features\Authorization\TokenCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSalesApi.Features.Authorization.TokenDTO">
+    <Position X="26.75" Y="17" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Features\Authorization\TokenDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Infrastructure.DecoratorsFactory.DecoratorBuilderExtensions">
+    <Position X="2.75" Y="21" Width="10.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Infrastructure.DecoratorsFactory.CommandDecoratorBuilder&lt;TIn, TOut&gt;">
+    <Position X="1.5" Y="19" Width="5.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Infrastructure.DecoratorsFactory.DecoratorBuilder&lt;TIn, TOut&gt;">
+    <Position X="6.5" Y="17" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Infrastructure.DecoratorsFactory.QueryDecoratorBuilder&lt;TIn, TOut&gt;">
+    <Position X="9" Y="19" Width="5" />
     <TypeIdentifier />
   </Class>
   <Interface Name="Infrastructure.CommandBase.ICommand&lt;TOut&gt;" Collapsed="true">
@@ -90,24 +284,12 @@
     <Position X="9" Y="1.5" Width="2.5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="Infrastructure.CommandBase.ICommandDispatcher">
-    <Position X="16.5" Y="0.5" Width="1.75" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Infrastructure.CommandBase.IHasDomainEvents&lt;TOut&gt;">
-    <Position X="14.25" Y="0.5" Width="2" />
-    <TypeIdentifier />
-  </Interface>
   <Interface Name="Infrastructure.CommandBase.IQuery&lt;TOut&gt;" Collapsed="true">
-    <Position X="4.75" Y="0.75" Width="1.5" />
+    <Position X="5.25" Y="0.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Infrastructure.CommandBase.IQueryHandler&lt;TIn, TOut&gt;" Collapsed="true">
-    <Position X="4" Y="1.5" Width="2.25" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Infrastructure.CommandBase.IQueryDispatcher">
-    <Position X="18.5" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="1.5" Width="2.25" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Infrastructure.HandlerBase.IHandler&lt;TIn, TOut&gt;">
@@ -115,7 +297,7 @@
     <TypeIdentifier />
   </Interface>
   <Interface Name="Infrastructure.Result.IResult">
-    <Position X="0.5" Y="8.75" Width="1.5" />
+    <Position X="4" Y="13.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />
