@@ -2,7 +2,7 @@
 using Imgur.API.Authentication.Impl;
 using Imgur.API.Endpoints.Impl;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;

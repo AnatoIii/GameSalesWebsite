@@ -2,7 +2,7 @@
 using DataAccess;
 using GameSalesApi.Features.AccountManagement.Commands;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Model;
 
 namespace GameSalesApi.Features.AccountManagement.CommandHandlers

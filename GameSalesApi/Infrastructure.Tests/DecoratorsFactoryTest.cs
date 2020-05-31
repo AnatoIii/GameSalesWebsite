@@ -2,7 +2,7 @@
 using Infrastructure.DecoratorsFactory;
 using FluentAssertions;
 using Infrastructure.CommandBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Infrastructure.HandlerBase;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -47,7 +47,7 @@ namespace Infrastructure.Tests
             {
                 DecoratorWorkHandler.IsProceseed = true;
 
-                return Result.Result.Ok(_rTestOKCommand + input.Name);
+                return Result.Ok(_rTestOKCommand + input.Name);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Infrastructure.Tests
             {
                 DecoratorWorkHandler.IsProceseed = true;
 
-                return Result.Result.Fail<string>(_rTestFailCommand + input.Name);
+                return Result.Fail<string>(_rTestFailCommand + input.Name);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Infrastructure.Tests
             {
                 DecoratorWorkHandler.IsProceseed = true;
 
-                return Result.Result.Ok(_rTestOKQuery + input.Name);
+                return Result.Ok(_rTestOKQuery + input.Name);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Infrastructure.Tests
             {
                 DecoratorWorkHandler.IsProceseed = true;
 
-                return Result.Result.Fail<string>(_rTestFailQuery + input.Name);
+                return Result.Fail<string>(_rTestFailQuery + input.Name);
             }
         }
 

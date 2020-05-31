@@ -1,5 +1,5 @@
 ﻿using Infrastructure.CommandBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

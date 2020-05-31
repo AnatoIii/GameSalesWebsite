@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Result
+﻿namespace Infrastructure.Results
 {
     /// <summary>
     /// Interface for Result of command/query

@@ -1,8 +1,8 @@
 using Xunit;
-using Infrastructure.Result;
 using FluentAssertions;
+using Infrastructure.Results;
 
-namespace ApplicationBlocksTest.IoC
+namespace Infrastructure.Tests
 {
     public class ResultTest
     {
