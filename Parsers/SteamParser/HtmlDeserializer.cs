@@ -24,7 +24,10 @@ namespace SteamParser
             string htmlString = jToken.ToString();
             document.LoadHtml(htmlString);
             HtmlNodeCollection nodesCollection = document.DocumentNode.SelectNodes("//a");
-
+            if(nodesCollection == null)
+            {
+                return new List<GameEntry>();
+            }
             List<GameEntry> games = new List<GameEntry>();
             foreach (var node in nodesCollection)
                 games.Add(_MapEntry(node));

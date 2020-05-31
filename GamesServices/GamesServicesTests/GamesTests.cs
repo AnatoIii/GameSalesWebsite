@@ -9,11 +9,10 @@ namespace GamesServicesTests
 {
     public class GamesTests
     {
-        private DbContextOptions DBContextOptionsCreator(string name)
+        private DbContextOptionsBuilder<GameServiceDBContext> DBContextOptionsCreator(string name)
         {
             return new DbContextOptionsBuilder<GameServiceDBContext>()
-                            .UseInMemoryDatabase(name)
-                            .Options;
+                            .UseInMemoryDatabase(name);
         }
         [Fact]
         public void AddGameAddsGameAndIncludedImages()

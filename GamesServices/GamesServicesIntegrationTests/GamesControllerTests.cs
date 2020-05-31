@@ -22,7 +22,7 @@ namespace GamesServicesIntegrationTests
         [Fact]
         public async Task GetGameById_When_GameExists_Then_SomeData()
         {
-            var gameId = Guid.NewGuid(); //Set existing game id here
+            var gameId = 1134;
             var httpResponse = await _client.GetAsync($"api/games/{gameId}");
 
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
@@ -38,10 +38,8 @@ namespace GamesServicesIntegrationTests
             var httpResponse = await _client.GetAsync($"api/games/-1");
 
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
-            var gamesResponse = JsonConvert.DeserializeObject<FullGameDTO>(stringResponse);
 
-            Assert.Equal(HttpStatusCode.OK, httpResponse.StatusCode);
-            Assert.Null(gamesResponse);
+            Assert.Equal(HttpStatusCode.NoContent, httpResponse.StatusCode);
         }
     }
 }
