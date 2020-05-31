@@ -19,10 +19,10 @@ namespace DataAccess
         /// Default ctor
         /// </summary>
         /// <param name="options"><see cref="DbContextOptions{TContext}"/></param>
-        public GameSalesContext(DbContextOptions<GameSalesContext> options) 
+        public GameSalesContext(DbContextOptions<GameSalesContext> options, bool inMemory = false) 
             : base(options) 
         {
-            if (Database.GetPendingMigrations().Count() > 0)
+            if (!inMemory && Database.GetPendingMigrations().Count() > 0)
             {
                 Database.Migrate();
             }
