@@ -53,7 +53,7 @@ namespace SteamParser
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
                         return e;
-                    });
+                    }).ToList();
 
                 gameEntries.AddRange(currentEntries);
                 offset += ParserSettings.ElementsPerRequest;

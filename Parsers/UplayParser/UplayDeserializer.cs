@@ -24,7 +24,10 @@ namespace UplayParser
             document.LoadHtml(htmlString);
 
             HtmlNodeCollection nodesCollection = document.DocumentNode.SelectNodes("//li[@class='grid-tile cell shrink']");
-
+            if(nodesCollection == null)
+            {
+                return new GameEntry[] { };
+            }
             List<GameEntry> games = new List<GameEntry>();
             foreach (var node in nodesCollection)
                 games.Add(_MapEntry(node));
@@ -73,6 +76,7 @@ namespace UplayParser
             _AddImgToListByTargetAttribute(pictureURLs, gameNode, "data-desktop-src");
             _AddImgToListByTargetAttribute(pictureURLs, gameNode, "data-tablet-src");
             _AddImgToListByTargetAttribute(pictureURLs, gameNode, "data-mobile-src");
+            string thumbnailURL = pictureURLs.ElementAt(1);
 
             // Platform id and postfix
             string platformSpecificId = htmlNode.ChildNodes[0].Attributes["data-itemid"].Value ?? string.Empty;
@@ -83,7 +87,8 @@ namespace UplayParser
                 DiscountedPrice = discountedPrice,
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
-                PictureURLs = pictureURLs
+                PictureURLs = pictureURLs,
+                ThumbnailURL = thumbnailURL
             };
         }
 

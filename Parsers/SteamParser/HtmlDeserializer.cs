@@ -24,7 +24,10 @@ namespace SteamParser
             string htmlString = jToken.ToString();
             document.LoadHtml(htmlString);
             HtmlNodeCollection nodesCollection = document.DocumentNode.SelectNodes("//a");
-
+            if(nodesCollection == null)
+            {
+                return new List<GameEntry>();
+            }
             List<GameEntry> games = new List<GameEntry>();
             foreach (var node in nodesCollection)
                 games.Add(_MapEntry(node));
@@ -68,7 +71,8 @@ namespace SteamParser
                 ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
 
             HtmlNode imageNode = htmlNode.ChildNodes[1].ChildNodes[0];
-            pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ");
+            pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ").Select(p => p.Substring(0,p.IndexOf("jpg") + 3));
+            string thumbnailURL = pictureURLs.ElementAt(1);
 
             HtmlNode gameNode = htmlNode.ChildNodes[3];
             name = gameNode.ChildNodes[1].ChildNodes[1].InnerHtml;
@@ -96,7 +100,8 @@ namespace SteamParser
                 Review = review,
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
-                PictureURLs = pictureURLs
+                PictureURLs = pictureURLs,
+                ThumbnailURL = thumbnailURL
             };
         }
 

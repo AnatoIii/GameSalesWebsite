@@ -20,6 +20,7 @@ namespace Parsers.Core.Models
         /// A native game id on the specified platform
         /// </summary>
         public string PlatformSpecificId { get; set; }
+        public string ThumbnailURL { get; set; }
 
         public int PlatformId { get; set; }
 

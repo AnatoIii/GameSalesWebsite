@@ -11,11 +11,10 @@ namespace GamesServicesTests
 {
     public class GamesPricesTests
     {
-        private DbContextOptions DBContextOptionsCreator(string name)
+        private DbContextOptionsBuilder<GameServiceDBContext> DBContextOptionsCreator(string name)
         {
             return new DbContextOptionsBuilder<GameServiceDBContext>()
-                            .UseInMemoryDatabase(name)
-                            .Options;
+                            .UseInMemoryDatabase(name);
         }
 
         private FilterRequestDTO CreateRequestPrototype(string name, IEnumerable<int> platformIds)

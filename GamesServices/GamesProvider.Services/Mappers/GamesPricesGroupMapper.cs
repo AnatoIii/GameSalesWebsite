@@ -38,7 +38,7 @@ namespace GamesProvider.Services.Mappers
                 Id = grouping.Key,
                 Description = game.Description,
                 Name = game.Name,
-                Image = game.Images.Select(i => i.URL).FirstOrDefault(),
+                Image = game.ThumbnailURL,
                 Platforms = grouping.Select(gp => new PlatformDTO()
                 {
                     Id = gp.Platform.PlatformId,
