@@ -1,11 +1,13 @@
 using DataAccess;
 using FluentAssertions;
+using GameSalesApi;
 using GameSalesApi.Features.AccountManagement;
 using GameSalesApi.Features.AccountManagement.Commands;
 using GameSalesApi.Features.AccountManagement.Queries;
 using GameSalesApi.Helpers;
 using GameSalesApiTests.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace GameSalesApiTests.Features
         private readonly TestLogger<AccountController> _rTestLogger;
         private readonly GameSalesContext _rDbContext;
         private readonly List<User> _testData;
+        private readonly IOptions<ImgurConfig> _rImgurConfig;
 
         #endregion
 
@@ -32,6 +35,8 @@ namespace GameSalesApiTests.Features
             _testData = _GetTestableUserData();
 
             _rDbContext = DbHelper.GetTestContextWithTargetParams("User Test", _testData);
+
+            _rImgurConfig = Options.Create(new ImgurConfig() { ClientId = "" });
         }
 
         #region GetAllTests
@@ -39,7 +44,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_GetAll_With_Some_Data_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             _rTestLogger.LoggedMessages.Should().BeEmpty();
 
@@ -64,7 +69,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_GetUser_That_Exists_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             GetUserQuery getUserQuery = new GetUserQuery()
             {
@@ -97,7 +102,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_GetUser_Empty_Guid_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             GetUserQuery getUserQuery = new GetUserQuery()
             {
@@ -126,7 +131,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_GetUser_User_Not_Found_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             Guid testId = Guid.NewGuid();
             GetUserQuery getUserQuery = new GetUserQuery()
@@ -156,7 +161,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_GetUser_User_Id_Cant_Be_Empty_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             GetUserQuery getUserQuery = new GetUserQuery()
             {
@@ -189,7 +194,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_UpdateUser_User_Not_Found_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             Guid testId = Guid.NewGuid();
             UpdateUserCommand updateUserCommand = new UpdateUserCommand()
@@ -219,11 +224,12 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_UpdateUser_Incorrect_Password_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             UpdateUserCommand updateUserCommand = new UpdateUserCommand()
             {
                 UserId = _testData[0].Id,
+                CurrentPassword = "Testpass1",
                 Password = "ii"
             };
 
@@ -249,7 +255,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_UpdateUser_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             string testFirstName = "New First Name";
             UpdateUserCommand updateUserCommand = new UpdateUserCommand()
@@ -285,7 +291,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_RemoveUser_User_Not_Found_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             Guid testId = Guid.NewGuid();
             RemoveUserCommand removeUserCommand = new RemoveUserCommand()
@@ -315,7 +321,7 @@ namespace GameSalesApiTests.Features
         [Fact]
         public void AccountController_RemoveUser_Works_Fine()
         {
-            AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
+            AccountController accountController = new AccountController(_rDbContext, _rTestLogger, _rImgurConfig);
 
             Guid testGuid = _testData[0].Id;
             RemoveUserCommand removeUserCommand = new RemoveUserCommand()
