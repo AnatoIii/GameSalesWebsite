@@ -36,7 +36,7 @@ namespace NintendoParser
             string description = jToken["description"].ToObject<string>();
             int basePrice = (int)jToken["msrp"].ToObject<decimal>() * 100;
             int discountedPrice = (int)jToken["salePrice"].ToObject<decimal>() * 100;
-            string thumbnail = jToken["boxArt"].ToObject<string>();
+            string thumbnail = jToken["boxArt"] == null ? "" : jToken["boxArt"].ToObject<string>();
             string thumbnailURL = $"https://www.nintendo.com/{thumbnail}";
 
             string review = "";

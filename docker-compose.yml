@@ -60,6 +60,24 @@ services:
         env_file: 
             - ./env/UplayParser.env
 
+    nintendo-parser:
+        image: nintendo-parser
+        container_name: nintendo-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/
+            dockerfile: ./NintendoParser/Dockerfile
+        env_file: 
+            - ./env/NintendoParser.env
+    epic-parser:
+        image: epic-parser
+        container_name: epic-parser
+        depends_on: 
+            - rabbitmq
+        build: 
+            context: ./Parsers/EpicGamesParser
+
     gateway-api:
         image: gateway-api
         container_name: gateway-api
