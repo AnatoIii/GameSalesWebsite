@@ -51,6 +51,11 @@
   padding: 10px;
 }
 
+.review-name {
+  margin: 10px 0;
+  color: #8995ff;
+}
+
 .price-block {
   display: flex;
   justify-content: space-between;
@@ -68,6 +73,10 @@
   font-size: 26px;
   color: #8995ff;
   margin: 0;
+}
+
+.description {
+  word-break: break-word;
 }
 
 .reviews-block {

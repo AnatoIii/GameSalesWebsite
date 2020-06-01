@@ -6,6 +6,7 @@ export interface IPlatformGamePrice {
   DiscountedPrice: number;
   CurrencyId: number;
   GameURL: string;
+  Review: string;
 }
 
 export enum CurrencySymbol {

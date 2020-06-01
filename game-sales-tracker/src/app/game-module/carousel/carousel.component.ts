@@ -25,7 +25,7 @@ import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
       state(
         "hover",
         style({
-          height: "50%",
+          height: "60%",
         })
       ),
       transition("* => *", animate("0.5s ease-in-out")),

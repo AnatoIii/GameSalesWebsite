@@ -19,6 +19,7 @@ export class GamesFilterComponent implements OnInit {
   filterOptions: IFilterOptions;
   pageOptions: IFilterRequest;
   page: number = 1;
+  gamesCountSubject: Subject<number> = new Subject<number>();
   gamesCount: number;
   filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
 
@@ -27,6 +28,7 @@ export class GamesFilterComponent implements OnInit {
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
         this.games = data.games;
         this.gamesCount = data.count;
+        this.gamesCountSubject.next(data.count);
       });
     });
   }
@@ -59,13 +61,13 @@ export class GamesFilterComponent implements OnInit {
     this.filterOptions.Platforms = this.platforms
       .filter((x) => x[0])
       .map((y) => y[1].Id);
-    this.filterChangedSubject.next(this.filterOptions);
+    this.filterChangedSubject.next();
   }
 
   pageChanged(pageCount: number) {
     this.page = pageCount;
     this.pageOptions.From = (pageCount - 1) * this.pageOptions.CountPerPage;
-    this.filterChangedSubject.next(this.filterOptions);
+    this.filterChangedSubject.next();
   }
 
   getConvertedPrice(game: IGame): string {

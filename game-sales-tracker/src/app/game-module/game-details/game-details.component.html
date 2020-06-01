@@ -14,9 +14,17 @@
             <p class="name">{{ game.Name }}</p>
             <p class="price">{{ getConvertedPrice(game.Platforms[0].DiscountedPrice) }}</p>
         </div>
-        <div class="reviews-block">
-            some reviews
+        <div class="reviews-block" *ngIf="reviews.length !== 0; else noReviews">
+            <div *ngFor="let rev of reviews">
+                <p class="review-name">{{ rev[0] }}</p>
+                <span>{{ rev[1] }}</span>
+            </div>
         </div>
+        <ng-template #noReviews>
+            <div class="reviews-block">
+                No reviews for now
+            </div>
+        </ng-template>
         <div class="seller-block" (click)="goToExternalLink(game.Platforms[0].GameURL)">
             <div>
                 <p>Most valuable seller</p>
@@ -33,13 +41,9 @@
 <div class="details" *ngIf="game">
     <div class="about-game">
         <p class="name">{{ game.Name }}</p>
-        <p class="description">{{ game.Description }}</p>
-        <p class="little-title">Genres</p>
-        <span class="genre">Genre 1</span>
-        <span class="genre">Genre 2</span>
-        <span class="genre">Genre 3</span>
+        <p class="description" [innerHTML]="game.Description"></p>
 
-        <p class="little-title">Other sellers</p>
+        <p class="little-title" *ngIf="game.Platforms.slice(1).length !== 0; else noSellers">Other sellers</p>
         <div class="seller" *ngFor="let seller of game.Platforms | slice:1" (click)="goToExternalLink(seller.GameURL)">
             <div>
                 <p class="game-name"> {{ game.Name }} </p>
@@ -47,6 +51,11 @@
             </div>
             <p class="price">{{ getConvertedPrice(seller.DiscountedPrice) }}</p>
         </div>
+        <ng-template #noSellers>
+            <p class="little-title">
+                No other sellers
+            </p>
+        </ng-template>
     </div>
     <div class="similar-games">
         <p class="little-title">Similar games</p>
