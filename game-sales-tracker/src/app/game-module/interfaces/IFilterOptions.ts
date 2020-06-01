@@ -1,5 +1,3 @@
-import { IPlatform } from "./IPlatform";
-
 export interface IFilterOptions {
   GameName: string;
   Platforms: number[];

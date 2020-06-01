@@ -16,18 +16,7 @@ import {
 describe("GameService", () => {
   let service: GameService;
   let httpTestingController: HttpTestingController;
-  const expectedPlatforms: IPlatform[] = [
-    {
-      Id: 0,
-      Name: "Test",
-    },
-  ];
-  const httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: "JWT " + localStorage.getItem("token"),
-    }),
-  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, HttpClientModule],
@@ -41,7 +30,7 @@ describe("GameService", () => {
     expect(service).toBeTruthy();
   });
 
-  it("should test http.get getBestGames()", () => {
+  it("should test getBestGames() with HttpTestingController", () => {
     const data: IGame[] = [];
     service.getBestGames(10).subscribe((res) => expect(res).toBe(data));
     const req = httpTestingController.expectOne("/gamesprices/best?count=10");
@@ -50,7 +39,7 @@ describe("GameService", () => {
     httpTestingController.verify();
   });
 
-  it("should test http.get getPlatforms()", () => {
+  it("should test getPlatforms() with HttpTestingController", () => {
     const data: IPlatform[] = [];
     service.getPlatforms().subscribe((res) => expect(res).toBe(data));
     const req = httpTestingController.expectOne("/platforms");
@@ -59,7 +48,7 @@ describe("GameService", () => {
     httpTestingController.verify();
   });
 
-  it("should test http.get getGameDetails(id)", () => {
+  it("should test getGameDetails(id) with HttpTestingController", () => {
     const data: IFullGame = {
       Id: 0,
       Name: "Test",
@@ -75,10 +64,21 @@ describe("GameService", () => {
   });
 
   it("should get platforms", async () => {
+    const expectedPlatforms: IPlatform[] = [
+      {
+        Id: 0,
+        Name: "Test",
+      },
+    ];
     service.getPlatforms().subscribe((platforms) => {
       expect(platforms).toEqual(expectedPlatforms);
       expect(platforms.length).toBe(1);
     });
   });
-  //afterEach(() => httpTestingController.verify());
+
+  it("should get 10 best games", async () => {
+    service.getBestGames(10).subscribe((games) => {
+      expect(games.length).toBe(10);
+    });
+  });
 });

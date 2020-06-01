@@ -42,11 +42,12 @@ export class GameService {
         params = params.append(key, paramsValue);
       if (typeof paramsValue === "object") {
         Object.keys(paramsValue).forEach((keyInKey) => {
-          params = params.append(keyInKey, paramsValue[keyInKey]);
+          if (paramsValue[keyInKey].length != 0)
+            params = params.append(keyInKey, paramsValue[keyInKey]);
         });
       }
     });
-
+    console.log(params);
     return this.http.get<IGame[]>("/games", {
       headers: this.httpOptions.headers,
       params: params,

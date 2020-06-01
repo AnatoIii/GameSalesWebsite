@@ -16,4 +16,8 @@ export class AppPage {
   getElement(selector) {
     return element(by.css(selector));
   }
+
+  countElements(selector) {
+    return element.all(by.css(selector)).count();
+  }
 }

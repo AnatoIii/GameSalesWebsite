@@ -1,17 +1,33 @@
 import { AppPage } from "./app.po";
 import { browser, logging, by, element } from "protractor";
 
-describe("game filter page", () => {
+describe("game details page", () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
-    page.navigateTo("/games/0");
+    browser.get("/game/0");
     browser.waitForAngularEnabled(false);
   });
 
-  it("should display options", () => {
-    expect(page.getElement(".options").isPresent()).toBeTruthy();
+  it("should display game info", () => {
+    expect(page.getElement(".main").isPresent()).toBeTruthy();
+  });
+
+  it("should navigate to details", async () => {
+    browser.getCurrentUrl().then((url) => {
+      expect(url).toContain("game/0");
+    });
+  });
+
+  it("should display game name", () => {
+    expect(page.getTextByElement(".price-block .name")).toBeTruthy();
+  });
+
+  it("should display game details", () => {
+    expect(page.getElement(".details").isPresent()).toBeTruthy();
+    expect(page.getTextByElement(".description")).toBeTruthy();
+    expect(page.getTextByElement(".details .name")).toBeTruthy();
   });
 
   afterEach(async () => {
