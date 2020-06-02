@@ -14,17 +14,20 @@ describe("game details page", () => {
     expect(page.getElement(".main").isPresent()).toBeTruthy();
   });
 
-  it("should navigate to details", async () => {
+  it("should navigate to details", () => {
     browser.getCurrentUrl().then((url) => {
       expect(url).toContain("game/0");
     });
   });
 
   it("should display game name", () => {
+    browser.driver.sleep(1000);
+    expect(page.getElement(".price-block").isPresent()).toBeTruthy();
     expect(page.getTextByElement(".price-block .name")).toBeTruthy();
   });
 
   it("should display game details", () => {
+    browser.driver.sleep(1000);
     expect(page.getElement(".details").isPresent()).toBeTruthy();
     expect(page.getTextByElement(".description")).toBeTruthy();
     expect(page.getTextByElement(".details .name")).toBeTruthy();
