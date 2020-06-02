@@ -12,6 +12,7 @@ import { Title } from "@angular/platform-browser";
 })
 export class GameDetailsComponent implements OnInit {
   game: IFullGame;
+  reviews: [string, string][] = [];
   indexClickedImage: number;
 
   constructor(
@@ -26,6 +27,9 @@ export class GameDetailsComponent implements OnInit {
       (data: IFullGame) => {
         data.Platforms.sort((a, b) => a.DiscountedPrice - b.DiscountedPrice);
         this.game = data;
+        data.Platforms.forEach((x) => {
+          if (x.Review) this.reviews.push([x.Platform.Name, x.Review]);
+        });
         this.titleService.setTitle(this.game.Name);
       },
       (error) => console.log(error)

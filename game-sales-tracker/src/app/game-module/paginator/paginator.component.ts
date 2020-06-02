@@ -1,4 +1,12 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChange,
+} from "@angular/core";
+import { Observable, Subscription } from "rxjs";
 
 @Component({
   selector: "app-paginator",
@@ -12,15 +20,20 @@ export class PaginatorComponent implements OnInit {
   @Output() pageChange = new EventEmitter<number>();
 
   pages: number[];
+  gamesCountSubscription: Subscription;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.setPagesArray();
+    this.setPagesArray(this.gamesCount);
   }
 
-  setPagesArray(): void {
-    const pagesAmount = Math.ceil(this.gamesCount / this.countPerPage) || 0;
+  ngOnChanges() {
+    this.setPagesArray(this.gamesCount);
+  }
+
+  setPagesArray(gamesCount: number): void {
+    const pagesAmount = Math.ceil(gamesCount / this.countPerPage) || 0;
     this.pages = [...Array(pagesAmount).keys()].map((x) => x + 1);
   }
 }

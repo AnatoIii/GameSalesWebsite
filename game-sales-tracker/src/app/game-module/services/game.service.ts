@@ -5,6 +5,7 @@ import { IFullGame } from "../interfaces/IFullGame";
 import { Observable } from "rxjs";
 import { IFilterRequest } from "../interfaces/IFilterRequest";
 import { IPlatform } from "../interfaces/IPlatform";
+import { filter } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -38,13 +39,19 @@ export class GameService {
     filterParams: IFilterRequest
   ): Observable<{ count: number; games: IGame[] }> {
     let params = new HttpParams();
+    let options;
     Object.keys(filterParams).forEach((key) => {
-      const paramsValue = filterParams[key];
-      if (typeof paramsValue !== "object")
-        params = params.append(key, paramsValue);
-      if (typeof paramsValue === "object") {
-        Object.keys(paramsValue).forEach((keyInKey) => {
-          params = params.append(keyInKey, paramsValue[keyInKey]);
+      if (typeof filterParams[key] !== "object")
+        params = params.append(key, filterParams[key]);
+      else options = filterParams[key];
+    });
+
+    Object.keys(options).forEach((key) => {
+      if (typeof options[key] !== "object")
+        params = params.append(key, options[key]);
+      else {
+        options[key].forEach((x, i) => {
+          params = params.append(`${key}[${i}]`, `${options[key][i]}`);
         });
       }
     });

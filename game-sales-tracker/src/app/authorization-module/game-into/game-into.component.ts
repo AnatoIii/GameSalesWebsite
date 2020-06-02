@@ -18,8 +18,7 @@ import { CurrencySymbol } from "src/app/game-module/interfaces/IPlatformGamePric
       state(
         "initial",
         style({
-          padding: "10px",
-          height: "30%",
+          height: "35%",
         })
       ),
       state(
