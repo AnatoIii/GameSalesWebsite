@@ -14,6 +14,7 @@ The main purpose of it is to collect and show all game sales from the most popul
 ### Main technologies, that was used are
 - .NET Core 3.1 for 4 parsers, Gateway and game storage services
 - Angular 9 framework for frontend part
+- Spring framework for Nintendo Store parser
 - Node.JS for EpicGames store parser
 - Python for telegram bot
 - As database was used Postres DB
