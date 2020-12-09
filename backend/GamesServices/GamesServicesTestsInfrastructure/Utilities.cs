@@ -17,6 +17,9 @@ namespace GamesServicesTestsInfrastructure
         public static void ReinitializeDbForTests(GameServiceDBContext db)
         {
             db.Platforms.RemoveRange(db.Platforms);
+            db.GamePrices.RemoveRange(db.GamePrices);
+            db.Games.RemoveRange(db.Games);
+
             InitializeDbForTests(db);
         }
 
