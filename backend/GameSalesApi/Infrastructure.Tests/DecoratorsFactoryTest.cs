@@ -104,6 +104,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "CommandDecoratorBuilder")]
         public void Command_Handler_For_Result_Ok_Works_As_Expected()
         {
             var handler = new CommandDecoratorBuilder<TestCommand, Result<string>>()
@@ -127,6 +129,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "CommandDecoratorBuilder")]
         public void Command_Handler_For_Result_Fail_Works_As_Expected()
         {
             var handler = new CommandDecoratorBuilder<TestCommand, Result<string>>()
@@ -150,6 +154,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "CommandDecoratorBuilder")]
         public void Command_Handler_With_Base_Decorators_Works_As_Expected()
         {
             var testLogger = new TestLogger<DecoratorsFactoryTest>();
@@ -180,6 +186,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "QueryDecoratorBuilder")]
         public void Query_Handler_For_Result_Ok_Works_As_Expected()
         {
             var handler = new QueryDecoratorBuilder<TestQuery, Result<string>>()
@@ -203,6 +211,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "QueryDecoratorBuilder")]
         public void Query_Handler_For_Result_Fail_Works_As_Expected()
         {
             var handler = new QueryDecoratorBuilder<TestQuery, Result<string>>()
@@ -226,6 +236,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "QueryDecoratorBuilder")]
         public void Query_Handler_With_Base_Decorators_Works_As_Expected()
         {
             var testLogger = new TestLogger<DecoratorsFactoryTest>();

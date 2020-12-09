@@ -62,6 +62,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Simple_Reflection_Construction_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo));
@@ -73,6 +75,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Recursive_Reflection_Construction_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo));
@@ -90,6 +94,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Simple_Factory_Construction_Works_Fine()
         {
             _container.Register<IFoo>(() => new Foo());
@@ -101,6 +107,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Mixed_Construction_On_Recursive_Construction_Works_Fine()
         {
             _container.Register<IFoo>(() => new Foo());
@@ -118,6 +126,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Instance_Resolution_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo));
@@ -133,6 +143,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Singleton_Resolution_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo)).AsSingleton();
@@ -145,6 +157,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void PerScope_Resolution_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo)).PerScope();
@@ -169,6 +183,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Mixed_Scope_Resolution_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo)).PerScope();
@@ -197,6 +213,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Singleton_Scoped_Resolution_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo)).AsSingleton();
@@ -214,6 +232,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Mixed_NoScope_Resolution_Works_Fine()
         {
             _container.Register<IFoo>(typeof(Foo)).PerScope();
@@ -237,6 +257,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Mixed_Order_Of_Registration_Works_Fine()
         {
             _container.Register<IBaz>(typeof(Baz));
@@ -254,6 +276,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Scope_Disposes_Of_Cached_Instances_Works_Fine()
         {
             _container.Register<SpyDisposable>(typeof(SpyDisposable)).PerScope();
@@ -268,6 +292,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Container_Disposes_Of_Singletons_Works_Fine()
         {
             _container.Register<SpyDisposable>().AsSingleton();
@@ -281,6 +307,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Container_Disposes_Of_PerScope_Works_Fine()
         {
             _container.Register<SpyDisposable>().PerScope();
@@ -294,6 +322,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void Container_Disposes_Of_Singletons_In_Scope_Works_Fine()
         {
             SpyDisposable spy;
@@ -307,6 +337,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void SingletonsAreDifferentAcrossContainers_Works_Fine()
         {
             var container1 = new Container();
@@ -319,6 +351,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void GetService_Unregistered_Type_Returns_Null_Works_Fine()
         {
             using (var container = new Container())
@@ -330,6 +364,8 @@ namespace ApplicationBlocksTest.IoC
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Container")]
         public void GetService_Missing_Dependency_Throws_KeyNotFoundException()
         {
             using (var container = new Container())

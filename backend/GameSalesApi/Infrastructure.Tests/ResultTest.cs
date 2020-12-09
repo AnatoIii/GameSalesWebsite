@@ -14,6 +14,8 @@ namespace Infrastructure.Tests
         { }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Simple_Result_Ok_Works_As_Expected()
         {
             Result result = Result.Ok();
@@ -24,6 +26,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Simple_Result_Fail_Works_As_Expected()
         {
             Result result = Result.Fail(_rErrorMessage);
@@ -34,6 +38,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Generic_Result_Ok_Works_As_Expected()
         {
             Result<int> result = Result.Ok(_rTestIntValue);
@@ -46,6 +52,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Generic_Result_Fail_Works_As_Expected()
         {
             Result<int> result = Result.Fail<int>(_rErrorMessage);
@@ -58,6 +66,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Simple_Result_Combine_Works_As_Expected()
         {
             Result result1 = Result.Ok();
@@ -88,6 +98,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Simple_Result_Combine_Works_As_Expected_For_Fail()
         {
             Result result1 = Result.Ok();
@@ -118,6 +130,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Generic_Result_Combine_Works_As_Expected()
         {
             Result<int> result1 = Result.Ok(_rTestIntValue);
@@ -151,6 +165,8 @@ namespace Infrastructure.Tests
         }
 
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "Result")]
         public void Generic_Result_Combine_Works_As_Expected_For_Fail()
         {
             Result<int> result1 = Result.Ok(_rTestIntValue);
