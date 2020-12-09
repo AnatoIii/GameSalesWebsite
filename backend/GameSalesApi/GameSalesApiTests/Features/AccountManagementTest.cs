@@ -65,7 +65,7 @@ namespace GameSalesApiTests.Features
             List<User> result = okObjectResult.Value as List<User>;
 
             result.Should().NotBeNull()
-                .And.HaveCount(2)
+                .And.HaveCount(_testData.Count)
                 .And.BeEquivalentTo(_testData);
         }
 
