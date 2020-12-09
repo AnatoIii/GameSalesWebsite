@@ -24,16 +24,16 @@ namespace DBAccess
         public DbSet<UserComment> UserComments { get; set; }
 
         public DbSet<UserFavorite> UserFavorites { get; set; }
+
         public GameServiceDBContext(DbContextOptionsBuilder<GameServiceDBContext> builder) : base(builder.Options)
-        {
-        }
+        { }
 
         public GameServiceDBContext(DbContextOptions options) : base(options)
         {
-            if (Database.GetPendingMigrations().Count() > 0)
-            {
-                Database.Migrate();
-            }
+            //if (Database.GetPendingMigrations().Count() > 0)
+            //{
+            //    Database.Migrate();
+            //}
         }
     }
 }

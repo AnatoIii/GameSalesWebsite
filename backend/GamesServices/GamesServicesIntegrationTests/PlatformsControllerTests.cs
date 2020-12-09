@@ -1,35 +1,38 @@
-﻿using GamesProvider;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using FluentAssertions;
+using GamesProvider;
+using GamesServicesTestsInfrastructure;
 using Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GamesServicesIntegrationTests
+namespace GamesServicesIntegrationTests.Controllers
 {
-    public class PlatformsControllerTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class PlatformsControllerTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
-        public PlatformsControllerTests(WebApplicationFactory<Startup> factory)
+        public PlatformsControllerTests(CustomWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
 
         [Fact]
-        public async Task GetAllPlatforms_When_Then_GetAtLeastThreeOfThem()
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "PlatformsController")]
+        [Trait("Category", "GetAllPlatforms")]
+        public async Task GetAllPlatforms_Then_GetAtLeastThreeOfThem()
         {
-            var httpResponse = await _client.GetAsync($"api/platforms");
+            var httpResponse = await _client.GetAsync($"api/platforms").ConfigureAwait(false);
 
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
             var platformsResponse = JsonConvert.DeserializeObject<IEnumerable<Platform>>(stringResponse);
 
-            Assert.Equal(HttpStatusCode.OK, httpResponse.StatusCode);
-            Assert.True(3 < platformsResponse.Count());
+            httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            platformsResponse.Should().HaveCount(4);
         }
     }
 }

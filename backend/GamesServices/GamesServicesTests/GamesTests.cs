@@ -14,7 +14,10 @@ namespace GamesServicesTests
             return new DbContextOptionsBuilder<GameServiceDBContext>()
                             .UseInMemoryDatabase(name);
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesTests")]
         public void AddGameAddsGameAndIncludedImages()
         {
             GameEntryDTO testInput = new GameEntryDTO()
@@ -45,7 +48,10 @@ namespace GamesServicesTests
                 Assert.Equal(testInput.PictureURLs, newGame.Images.Select(i => i.URL));
             }
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesTests")]
         public void GetByIdReturnsActualEntryWithImagesOnValidInput()
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("GetByIdReturnsActualEntryWithImagesOnValidInput")))

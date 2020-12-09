@@ -82,7 +82,7 @@ namespace GamesProvider.Services
             {
                 SortType.basePrice => (GamePrices gp) => gp.BasePrice,
                 SortType.discountedPrice => (GamePrices gp) => gp.DiscountedPrice,
-                SortType.discount => (GamePrices gp) => (int)Math.Truncate((double)((gp.BasePrice - gp.DiscountedPrice) / gp.BasePrice) * 100),
+                SortType.discount => (GamePrices gp) => (int)Math.Truncate((double)(gp.BasePrice - gp.DiscountedPrice) / gp.BasePrice * 100),
                 _ => throw new InvalidEnumArgumentException()
             };
         }

@@ -33,6 +33,8 @@ namespace GamesServicesTests
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesPrices")]
         public void ReturnsGamePricesForValidPlatform(int platformId)
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("ReturnsGamePricesForValidPlatformAndGameIds")))
@@ -44,7 +46,10 @@ namespace GamesServicesTests
                 Assert.NotNull(gamePrice);
             }
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesPrices")]
         public void Returns3ForGamePricesCountWithGamesNamedGame()
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("Returns3ForGamePricesCountWithGamesNamedGame")))
@@ -56,7 +61,10 @@ namespace GamesServicesTests
                 Assert.Equal(3,count);
             }
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesPrices")]
         public void Returns2ForGamePricesCountWithPlatform1()
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("Returns2ForGamePricesCountWithPlatform1")))
@@ -68,7 +76,10 @@ namespace GamesServicesTests
                 Assert.Equal(2, count);
             }
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesPrices")]
         public void ReturnsActualEntriesForvalidLimitedNameRequset()
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("ReturnsActualEntriesForvalidLimitedRequset")))
@@ -81,7 +92,10 @@ namespace GamesServicesTests
                 Assert.Equal(expected.Count(), gamePrices.Count());
             }
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesPrices")]
         public void ReturnsActualEntriesForvalidLimitedPlatformRequset()
         {
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("ReturnsActualEntriesForvalidLimitedRequset")))
@@ -94,7 +108,10 @@ namespace GamesServicesTests
                 Assert.Equal(expected.Count(), gamePrices.Count());
             }
         }
+
         [Fact]
+        [Trait("Category", "UnitTests")]
+        [Trait("Category", "GamesPrices")]
         public void UpdatesGamePriceOnExistingEntry()
         {
             var gameEntry = new GameEntryDTO()
