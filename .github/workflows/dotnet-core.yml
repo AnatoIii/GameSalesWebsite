@@ -20,7 +20,7 @@ jobs:
     - name: Changing directory
       run: ls; cd ./backend/GameSalesApi/GameSalesApi/; ls
     - name: Install dependencies
-      run: dotnet restore
+      run: ls; dotnet restore GameSalesApi.csproj
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
