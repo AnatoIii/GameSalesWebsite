@@ -70,8 +70,7 @@ namespace ApplicationBlocksTest.IoC
 
             object instance = _container.Resolve<IFoo>();
 
-            // Instance should be of the registered type 
-            instance.Should().BeNull();
+            // Instance should be of the registered type
             instance.Should().BeOfType(typeof(Foo));
         }
 
