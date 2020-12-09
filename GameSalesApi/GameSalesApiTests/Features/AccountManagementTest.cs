@@ -37,6 +37,9 @@ namespace GameSalesApiTests.Features
         #region GetAllTests
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "GetAll")]
         public void AccountController_GetAll_With_Some_Data_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -62,6 +65,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "GetUser")]
         public void AccountController_GetUser_That_Exists_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -95,6 +101,9 @@ namespace GameSalesApiTests.Features
         #region GetUserTests
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "GetUser")]
         public void AccountController_GetUser_Empty_Guid_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -124,6 +133,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "GetUser")]
         public void AccountController_GetUser_User_Not_Found_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -154,6 +166,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "GetUser")]
         public void AccountController_GetUser_User_Id_Cant_Be_Empty_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -187,6 +202,9 @@ namespace GameSalesApiTests.Features
         #region UpdateUser
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "UpdateUser")]
         public void AccountController_UpdateUser_User_Not_Found_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -217,6 +235,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "UpdateUser")]
         public void AccountController_UpdateUser_Incorrect_Password_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -247,6 +268,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "UpdateUser")]
         public void AccountController_UpdateUser_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -283,6 +307,9 @@ namespace GameSalesApiTests.Features
         #region RemoveUser
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "RemoveUser")]
         public void AccountController_RemoveUser_User_Not_Found_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);
@@ -313,6 +340,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AccountController")]
+        [Trait("Category", "RemoveUser")]
         public void AccountController_RemoveUser_Works_Fine()
         {
             AccountController accountController = new AccountController(_rDbContext, _rTestLogger);

@@ -47,6 +47,9 @@ namespace GameSalesApiTests.Features
         #region LoginTests
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AuthController")]
+        [Trait("Category", "Login")]
         public void AuthController_Login_User_Not_Found_Works_Fine()
         {
             AuthController authController = new AuthController(_rDbContext, _rTestLogger, _rTokenCreator);
@@ -77,6 +80,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AuthController")]
+        [Trait("Category", "Login")]
         public void AuthController_Login_Incorrect_Password_Works_Fine()
         {
             AuthController authController = new AuthController(_rDbContext, _rTestLogger, _rTokenCreator);
@@ -146,6 +152,9 @@ namespace GameSalesApiTests.Features
         #region CreateNewUserTests
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AuthController")]
+        [Trait("Category", "CreateNewUser")]
         public void AuthController_CreateNewUser_User_With_Same_Email_Exist_Works_Fine()
         {
             AuthController authController = new AuthController(_rDbContext, _rTestLogger, _rTokenCreator);
@@ -178,6 +187,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AuthController")]
+        [Trait("Category", "CreateNewUser")]
         public void AuthController_CreateNewUser_Incorrect_Password_Works_Fine()
         {
             AuthController authController = new AuthController(_rDbContext, _rTestLogger, _rTokenCreator);
@@ -210,6 +222,9 @@ namespace GameSalesApiTests.Features
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTests")]
+        [Trait("Category", "AuthController")]
+        [Trait("Category", "CreateNewUser")]
         public void AuthController_CreateNewUser_Works_Fine()
         {
             AuthController authController = new AuthController(_rDbContext, _rTestLogger, _rTokenCreator);
