@@ -28,4 +28,4 @@ jobs:
         dotnet build -c Release --no-restore ./backend/GamesServices/
         dotnet build -c Release --no-restore ./backend/Parsers/
     - name: Test
-      run: dotnet test --no-restore -v normal ./backend/GameSalesApi/
+      run: dotnet test --no-restore -v q ./backend/GameSalesApi/
