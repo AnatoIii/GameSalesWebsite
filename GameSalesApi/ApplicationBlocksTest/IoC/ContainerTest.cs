@@ -4,7 +4,6 @@ using ApplicationBlocks.IoC;
 using ApplicationBlocks.IoC.Extensions;
 using FluentAssertions;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace ApplicationBlocksTest.IoC
 {

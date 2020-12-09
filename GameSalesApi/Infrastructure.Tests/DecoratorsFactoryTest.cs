@@ -175,10 +175,10 @@ namespace Infrastructure.Tests
 
             var result = handler.Handle(testCommand);
 
-            result.Success.Should().BeFalse();
-            result.Failure.Should().BeTrue();
-            result.Error.Should().Be(_rTestFailCommand + testCommand.Name);
-            result.Value.Should().Be(default);
+            result.Success.Should().BeTrue();
+            result.Failure.Should().BeFalse();
+            result.Error.Should().Be(string.Empty);
+            result.Value.Should().Be(_rTestOKCommand + testCommand.Name);
             testLogger.LoggedMessages.Should().NotBeEmpty()
                 .And.HaveCount(1);
 
