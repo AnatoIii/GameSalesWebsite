@@ -29,7 +29,6 @@ namespace GamesServicesTestsInfrastructure
                 services.AddDbContext<GameServiceDBContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    options.EnableSensitiveDataLogging();
                 });
 
                 var sp = services.BuildServiceProvider();
