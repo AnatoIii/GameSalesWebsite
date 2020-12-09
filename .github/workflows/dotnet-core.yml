@@ -17,15 +17,22 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-    - name: Install dependencies
+    
+    - name: Build GameSalesApi
       run: |
         dotnet restore ./backend/GameSalesApi/
-        dotnet restore ./backend/GamesServices/
-        dotnet restore ./backend/Parsers/
-    - name: Build
-      run: |
         dotnet build -c Release --no-restore ./backend/GameSalesApi/
+    - name: Test GameSalesApi
+      run: |
+        dotnet test --no-restore -v m ./backend/GameSalesApi/ApplicationBlocksTest/
+        dotnet test --no-restore -v m ./backend/GameSalesApi/Infrastructure.Tests/
+        dotnet test --no-restore -v m ./backend/GameSalesApi/GameSalesApiTests/
+    
+    - name: Build GamesServices
+      run: |
+        dotnet restore ./backend/GamesServices/
         dotnet build -c Release --no-restore ./backend/GamesServices/
-        dotnet build -c Release --no-restore ./backend/Parsers/
-    - name: Test
-      run: dotnet test --no-restore -v m ./backend/GameSalesApi/
+    - name: Test GamesServices
+      run: |
+        dotnet test --no-restore -v m ./backend/GamesServices/GamesServicesTests/
+        dotnet test --no-restore -v m ./backend/GamesServices/GamesServicesIntegrationTests/
