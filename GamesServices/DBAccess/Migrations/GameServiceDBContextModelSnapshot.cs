@@ -46,6 +46,9 @@ namespace DBAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<string>("ThumbnailURL")
+                        .HasColumnType("text");
+
                     b.HasKey("GameId");
 
                     b.ToTable("Games");
@@ -69,9 +72,6 @@ namespace DBAccess.Migrations
 
                     b.Property<int>("GameId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("GameLinkPostfix")
-                        .HasColumnType("text");
 
                     b.Property<int>("PlatformId")
                         .HasColumnType("integer");

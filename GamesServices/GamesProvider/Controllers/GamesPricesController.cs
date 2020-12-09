@@ -1,9 +1,8 @@
 ﻿using GamesProvider.Services;
 using GamesProvider.Services.DTOs;
+using GamesProvider.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace GamesProvider.Controllers
 {
@@ -18,22 +17,18 @@ namespace GamesProvider.Controllers
             _gamesPricesService = gamesPricesService;
         }
 
-        [HttpGet("best")]
-        public IActionResult GetByFilter(int count)
+        [HttpGet("best/{count}")]
+        public IActionResult GetBestGamesByCount(int count)
         {
             return Ok(_gamesPricesService.GetBestGames(count));
         }
 
-        [HttpPost("filtered")]
-        public IActionResult GetByFilter([FromBody] FilterRequestDTO filterRequest)
+        [HttpGet("")]
+        public IActionResult GetByFilter([FromQuery]FilterRequestDTO filterRequest)
         {
-            return Ok(_gamesPricesService.GetByFilter(filterRequest));
-        }
-
-        [HttpPost("filteredCount")]
-        public IActionResult GetByFilterCount([FromBody] FilterRequestDTO filterRequest)
-        {
-            return Ok(_gamesPricesService.GetByFilterCount(filterRequest));
+            var games = _gamesPricesService.GetByFilter(filterRequest).ToList();
+            var count = _gamesPricesService.GetByFilterCount(filterRequest);
+            return Ok(new { count, games });
         }
     }
 }

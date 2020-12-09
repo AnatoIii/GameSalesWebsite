@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Features.Authorization.CommandHandlers;
 using Infrastructure.DecoratorsFactory;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using DataAccess;
 
 namespace GameSalesApi.Features.Authorization

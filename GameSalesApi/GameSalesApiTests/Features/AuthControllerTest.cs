@@ -196,10 +196,12 @@ namespace GameSalesApiTests.Features
 
             string testEmail = "testEmail";
             string testPass = "test pass";
+            string testUsername = "testUsername";
             NewUserCommand newUserCommand = new NewUserCommand()
             {
                 Email = testEmail,
-                Password = testPass
+                Password = testPass,
+                Username = testUsername
             };
 
             _rTestLogger.LoggedMessages.Should().BeEmpty();
@@ -231,10 +233,12 @@ namespace GameSalesApiTests.Features
 
             string testEmail = "testEmail";
             string testPass = "testCorrectPass123";
+            string testUsername = "testUsername";
             NewUserCommand newUserCommand = new NewUserCommand()
             {
                 Email = testEmail,
-                Password = testPass
+                Password = testPass,
+                Username = testUsername
             };
 
             _rTestLogger.LoggedMessages.Should().BeEmpty();

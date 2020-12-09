@@ -51,11 +51,21 @@
   padding: 10px;
 }
 
+.review-name {
+  margin: 10px 0;
+  color: #8995ff;
+}
+
 .price-block {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   font-size: 22px;
+}
+
+.price-block .price {
+  align-self: flex-end;
+  margin: 0;
 }
 
 .name,
@@ -63,6 +73,10 @@
   font-size: 26px;
   color: #8995ff;
   margin: 0;
+}
+
+.description {
+  word-break: break-word;
 }
 
 .reviews-block {
@@ -91,6 +105,11 @@
 
 .seller-block .price {
   font-size: 22px;
+}
+
+.seller-block:hover,
+.about-game .seller:hover {
+  cursor: pointer;
 }
 
 .details {

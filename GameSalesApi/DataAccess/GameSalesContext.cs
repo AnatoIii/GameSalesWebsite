@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -18,8 +19,13 @@ namespace DataAccess
         /// Default ctor
         /// </summary>
         /// <param name="options"><see cref="DbContextOptions{TContext}"/></param>
-        public GameSalesContext(DbContextOptions<GameSalesContext> options) 
+        public GameSalesContext(DbContextOptions<GameSalesContext> options, bool inMemory = false) 
             : base(options) 
-        { }
+        {
+            if (!inMemory && Database.GetPendingMigrations().Count() > 0)
+            {
+                Database.Migrate();
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using DataAccess;
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Helpers;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 
 namespace GameSalesApi.Features.Authorization.CommandHandlers
 {

@@ -3,11 +3,15 @@
     "Routes": [
       {
         "TriggerRoute": "gamesprices",
-        "URL": "http://localhost:6080/gamesprices"
+        "URL": "http://games-provider:80/api/gamesprices"
       },
       {
         "TriggerRoute": "games",
-        "URL": "http://localhost:6080/games"
+        "URL": "http://games-provider:80/api/games"
+      },
+      {
+        "TriggerRoute": "platforms",
+        "URL": "http://games-provider:80/api/platforms"
       }
     ],
     "GatewayHostKey": "supermegasecretkey"

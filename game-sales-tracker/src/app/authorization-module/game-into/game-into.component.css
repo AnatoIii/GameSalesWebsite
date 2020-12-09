@@ -1,5 +1,5 @@
 .game {
-  /* background-image: url(../../../assets/images/ + game); */
+  background-position: bottom;
   background-color: rgb(82, 82, 88);
   border: 1px solid white;
   background-size: cover;
@@ -11,11 +11,11 @@
   color: white;
   position: absolute;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
-  height: 30%;
-  font-size: 25px;
-  padding: 10px;
+  font-size: 1.4vw;
+  padding: 0 10px;
+  overflow: hidden;
 }
 
 .game__description {
@@ -23,20 +23,21 @@
   padding-top: 10px;
   font-size: 15px;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .game__price {
   position: absolute;
-  height: 30%;
-  width: 50px;
+  height: 20%;
+  width: 70px;
   background-color: #9c5748;
   right: 15px;
   top: -4px;
   text-align: center;
   padding-top: 10px;
+  font-size: 1.1vw;
 }
 
 .triangle {
@@ -44,8 +45,8 @@
   height: 0;
   position: absolute;
   right: 15px;
-  top: calc(30% - 4px);
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  border-top: 20px solid #9c5748;
+  top: calc(20% - 4px);
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-top: 15px solid #9c5748;
 }

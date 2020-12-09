@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace GameSalesApi.Middleware.RedirectorMiddleware
@@ -23,6 +21,7 @@ namespace GameSalesApi.Middleware.RedirectorMiddleware
                 var result = await redirector.RedirectRequest(context.Request);
                 context.Response.StatusCode = (int)result.StatusCode;
                 context.Response.ContentLength = result.Content.Headers.ContentLength;
+                context.Response.Headers.Add("Content-Type","application/json");
                 await context.Response.WriteAsync(await result.Content.ReadAsStringAsync());
                 return;
             }

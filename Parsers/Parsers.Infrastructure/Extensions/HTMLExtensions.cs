@@ -20,6 +20,7 @@ namespace Parsers.Infrastructure
             if (@this != null)
             {
                 string res = Regex.Replace(@this, "<.*?>", string.Empty);
+                res = Regex.Replace(res, "br&gt;", " ");
                 res = Regex.Replace(res, "&.*?;", string.Empty);
                 res = Regex.Replace(res, "\r", string.Empty);
                 res = Regex.Replace(res, "\n", string.Empty);

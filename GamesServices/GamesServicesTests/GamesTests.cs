@@ -1,23 +1,18 @@
 ﻿using DBAccess;
 using GamesSaver.Services.DTOs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
-using Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace GamesServicesTests
 {
     public class GamesTests
     {
-        private DbContextOptions DBContextOptionsCreator(string name)
+        private DbContextOptionsBuilder<GameServiceDBContext> DBContextOptionsCreator(string name)
         {
             return new DbContextOptionsBuilder<GameServiceDBContext>()
-                            .UseInMemoryDatabase(name)
-                            .Options;
+                            .UseInMemoryDatabase(name);
         }
         [Fact]
         public void AddGameAddsGameAndIncludedImages()
@@ -43,7 +38,7 @@ namespace GamesServicesTests
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-                GamesSaver.Services.IGameService gameService = new GamesSaver.Services.GameService(context);
+                GamesSaver.Services.Interfaces.IGameService gameService = new GamesSaver.Services.GameService(context);
                 var newGame = gameService.AddGame(testInput);
 
                 Assert.Equal(testInput.Name, newGame.Name);
@@ -53,24 +48,10 @@ namespace GamesServicesTests
         [Fact]
         public void GetByIdReturnsActualEntryWithImagesOnValidInput()
         {
-            Game game = new Game()
-            {
-                Name = "Test",
-                Description = "Test",
-                GameId = 1,
-                Images = new List<Image>()
-                {
-                    new Image(){URL = "URL1"}
-                }
-            };
-
             using (var context = new GameServiceDBContext(DBContextOptionsCreator("GetByIdReturnsActualEntryWithImagesOnValidInput")))
             {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-                context.Games.Add(game);
-                context.SaveChanges();
-                GamesProvider.Services.IGameService gameService = new GamesProvider.Services.GameService(context);
+                TestHelpers.FillTestData(context);
+                GamesProvider.Services.Interfaces.IGameService gameService = new GamesProvider.Services.GameService(context);
                 var newGame = gameService.GetById(1);
 
                 Assert.NotNull(newGame);

@@ -2,7 +2,7 @@
 using GameSalesApi.Features.Authorization.Commands;
 using GameSalesApi.Helpers;
 using Infrastructure.HandlerBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 using Model;
 using System;
 using System.Linq;
@@ -43,6 +43,10 @@ namespace GameSalesApi.Features.Authorization.CommandHandlers
             if (user != null)
                 return Result.Fail($"User with email `{input.Email}` already exist!");
 
+            user = _rDBContext.Users.Where(u => u.Username == input.Username).FirstOrDefault();
+            if (user != null)
+                return Result.Fail($"User with username `{input.Username}` already exist!");
+
             if (!PasswordHelpers.IsPasswordSatisfied(input.Password, out string errorMessage))
                 return Result.Fail(errorMessage);
 
@@ -53,6 +57,7 @@ namespace GameSalesApi.Features.Authorization.CommandHandlers
             {
                 Id = Guid.NewGuid(),
                 Email = input.Email,
+                Username = input.Username,
                 PasswordSalt = Convert.ToBase64String(passwordSalt),
                 PasswordHash = passwordHash,
                 FirstName = input.FirstName,

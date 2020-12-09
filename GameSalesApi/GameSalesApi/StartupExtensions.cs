@@ -18,6 +18,7 @@ namespace GameSalesApi
             services.AddOptions();
             services.Configure<RoutesConfig>(configuration.GetSection("redirects"));
             services.Configure<TokenConfig>(configuration.GetSection("TokenConfig"));
+            services.Configure<ImgurConfig>(configuration.GetSection("ImgurApi"));
             return services;
         }
 
@@ -34,7 +35,7 @@ namespace GameSalesApi
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
             return services;

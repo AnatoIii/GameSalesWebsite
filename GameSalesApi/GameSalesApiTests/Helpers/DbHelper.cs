@@ -24,13 +24,13 @@ namespace GameSalesApiTests.Helpers
                 .UseInMemoryDatabase(databaseName: dbName, new InMemoryDatabaseRoot())
                 .Options;
 
-            using (var context = new GameSalesContext(dbContextOptions))
+            using (var context = new GameSalesContext(dbContextOptions, true))
             {
                 context.Set<T>().AddRange(targetTestData);
                 context.SaveChanges();
             }
 
-            return new GameSalesContext(dbContextOptions);
+            return new GameSalesContext(dbContextOptions, true);
         }
     }
 }

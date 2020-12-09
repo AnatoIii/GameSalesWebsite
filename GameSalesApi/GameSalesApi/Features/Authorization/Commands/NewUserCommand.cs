@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Infrastructure.CommandBase;
-using Infrastructure.Result;
+using Infrastructure.Results;
 
 namespace GameSalesApi.Features.Authorization.Commands
 {
@@ -20,6 +20,12 @@ namespace GameSalesApi.Features.Authorization.Commands
         /// </summary>
         [Required]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Username
+        /// </summary>
+        [Required]
+        public string Username { get; set; }
 
         /// <summary>
         /// First name

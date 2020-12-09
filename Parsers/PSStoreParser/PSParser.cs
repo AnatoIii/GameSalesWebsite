@@ -34,7 +34,7 @@ namespace PSStoreParser
                         e.PlatformId = ParserSettings.PlatformId;
                         e.CurrencyId = ParserSettings.CurrencyId;
                         return e;
-                    });
+                    }).ToList();
                 gameEntries.AddRange(currentEntries);
                 offset += ParserSettings.ElementsPerRequest;
                 await Task.Delay(ParserSettings.PeriodBetweenRequests);

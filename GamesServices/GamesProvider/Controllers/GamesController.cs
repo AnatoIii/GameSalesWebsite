@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GamesProvider.Services;
-using Microsoft.AspNetCore.Http;
+﻿using GamesProvider.Services;
+using GamesProvider.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamesProvider.Controllers
@@ -12,9 +8,9 @@ namespace GamesProvider.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-        private GameService _gameService;
+        private IGameService _gameService;
 
-        public GamesController(GameService gameService)
+        public GamesController(IGameService gameService)
         {
             _gameService = gameService;
         }

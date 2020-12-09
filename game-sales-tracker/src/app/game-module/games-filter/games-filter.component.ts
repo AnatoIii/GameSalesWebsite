@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { GameService } from "../services/game.service";
-import { IGame } from "../interfaces/game";
-import { IFilterOptions, SortType } from "../interfaces/filterOptions";
+import { IGame } from "../interfaces/IGame";
+import { IFilterRequest } from "../interfaces/IFilterRequest";
+import { IFilterOptions, SortType } from "../interfaces/IFilterOptions";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/internal/operators";
-import { IPageRequest } from "../interfaces/page";
+import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
+import { IPlatform } from "../interfaces/IPlatform";
 
 @Component({
   selector: "app-games-filter",
@@ -13,58 +15,64 @@ import { IPageRequest } from "../interfaces/page";
 })
 export class GamesFilterComponent implements OnInit {
   games: IGame[];
-  gameGenres: [boolean, string][];
+  platforms: [boolean, IPlatform][];
   filterOptions: IFilterOptions;
-  filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
-  pageOptions: IPageRequest;
-  gamesCount: number;
+  pageOptions: IFilterRequest;
   page: number = 1;
+  gamesCountSubject: Subject<number> = new Subject<number>();
+  gamesCount: number;
+  filterChangedSubject: Subject<IFilterOptions> = new Subject<IFilterOptions>();
 
   constructor(private gameService: GameService) {
     this.filterChangedSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.gameService.sendPageParams(this.pageOptions).subscribe((data) => {
+        this.games = data.games;
         this.gamesCount = data.count;
-        //this.games = data.games;
+        this.gamesCountSubject.next(data.count);
       });
     });
   }
 
   ngOnInit(): void {
     this.filterOptions = {
-      gameName: "",
-      genres: [],
-      sortType: SortType.popularity,
+      GameName: "",
+      Platforms: [],
+      SortType: SortType.basePrice,
+      AscendingOrder: true,
     };
 
     this.pageOptions = {
-      from: 0,
-      countPerPage: 10,
-      filterOptions: this.filterOptions,
+      From: 0,
+      CountPerPage: 10,
+      FilterOptions: this.filterOptions,
     };
 
-    this.gameService.getGames().subscribe(
-      (data) => (this.games = data),
-      (error) => console.log(error)
-    );
+    this.filterChangedSubject.next();
 
-    this.gameService.getGameGenres().subscribe(
+    this.gameService.getPlatforms().subscribe(
       (data) => {
-        this.gameGenres = data.map((x) => [false, x]);
+        this.platforms = data.map((x) => [false, x]);
       },
       (error) => console.log(error)
     );
   }
 
   filterChanged() {
-    this.filterOptions.genres = this.gameGenres
+    this.filterOptions.Platforms = this.platforms
       .filter((x) => x[0])
-      .map((y) => y[1]);
-    this.filterChangedSubject.next(this.filterOptions);
+      .map((y) => y[1].Id);
+    this.filterChangedSubject.next();
   }
 
   pageChanged(pageCount: number) {
     this.page = pageCount;
-    this.pageOptions.from = (pageCount - 1) * this.pageOptions.countPerPage;
-    this.filterChangedSubject.next(this.filterOptions);
+    this.pageOptions.From = (pageCount - 1) * this.pageOptions.CountPerPage;
+    this.filterChangedSubject.next();
+  }
+
+  getConvertedPrice(game: IGame): string {
+    return `${(game.BestPrice / 100).toFixed(2)} ${
+      CurrencySymbol[game.CurrencyId]
+    }`;
   }
 }

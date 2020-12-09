@@ -14,6 +14,6 @@ def exceptionHandle(func):
         try:
             func(*args, **kwargs)
         except Exception as e:
-            logger.info("Exception: %s" % e)
+            logger.error("Exception: %s" % e, exc_info=True)
 
     return handle

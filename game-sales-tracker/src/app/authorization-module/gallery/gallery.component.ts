@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { IGame } from "../../game-module/interfaces/game";
+import { IGame } from "../../game-module/interfaces/IGame";
 import { GameService } from "src/app/game-module/services/game.service";
 
 @Component({
@@ -13,8 +13,8 @@ export class GalleryComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.gameService.getGames().subscribe(
-      (data) => (this.games = data.slice(0, 9)),
+    this.gameService.getBestGames(9).subscribe(
+      (data) => (this.games = data),
       (error) => console.log(error)
     );
   }

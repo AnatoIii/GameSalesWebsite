@@ -1,48 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { IGame } from '../interfaces/game';
+import { Component, OnInit } from "@angular/core";
+import { GameService } from "../services/game.service";
+import { IGame } from "../interfaces/IGame";
 import {
   trigger,
   state,
   style,
   animate,
   transition,
-} from '@angular/animations';
+} from "@angular/animations";
+import { CurrencySymbol } from "../interfaces/IPlatformGamePrice";
 
 @Component({
-  selector: 'app-carousel',
-  templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css'],
+  selector: "app-carousel",
+  templateUrl: "./carousel.component.html",
+  styleUrls: ["./carousel.component.css"],
   animations: [
-    trigger('onHover', [
+    trigger("onHover", [
       state(
-        'initial',
+        "initial",
         style({
-          height: '20%',
+          height: "20%",
         })
       ),
       state(
-        'hover',
+        "hover",
         style({
-          height: '50%',
+          height: "60%",
         })
       ),
-      transition('* => *', animate('0.5s ease-in-out')),
+      transition("* => *", animate("0.5s ease-in-out")),
     ]),
-    trigger('gameDetails', [
+    trigger("gameDetails", [
       state(
-        'initial',
+        "initial",
         style({
-          opacity: '0',
+          opacity: "0",
         })
       ),
       state(
-        'hover',
+        "hover",
         style({
-          opacity: '1',
+          opacity: "1",
         })
       ),
-      transition('initial <=> hover', animate('1s')),
+      transition("initial <=> hover", animate("1s")),
     ]),
   ],
 })
@@ -54,9 +55,9 @@ export class CarouselComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.gameService.getGames().subscribe(
+    this.gameService.getBestGames(10).subscribe(
       (data) => {
-        this.allGames = data.slice(0, 10);
+        this.allGames = data;
         this.gamesToDisplay = this.allGames.slice(0, 4);
       },
       (error) => console.log(error)
@@ -84,5 +85,11 @@ export class CarouselComponent implements OnInit {
     if (indexOfLastGame == this.allGames.length - 1)
       this.gamesToDisplay.push(this.allGames[0]);
     else this.gamesToDisplay.push(this.allGames[indexOfLastGame + 1]);
+  }
+
+  getConvertedPrice(game: IGame): string {
+    return `${(game.BestPrice / 100).toFixed(2)} ${
+      CurrencySymbol[game.CurrencyId]
+    }`;
   }
 }

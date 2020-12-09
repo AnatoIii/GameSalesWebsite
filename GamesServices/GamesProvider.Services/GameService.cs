@@ -1,11 +1,9 @@
 ﻿using DBAccess;
 using GamesProvider.Services.DTOs;
+using GamesProvider.Services.Interfaces;
+using GamesProvider.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
-using Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GamesProvider.Services
 {
@@ -20,12 +18,13 @@ namespace GamesProvider.Services
 
         public FullGameDTO GetById(int id)
         {
-            return _dbContext.GamePrices.Where(gp => gp.GameId == id)
+            return _dbContext.GamePrices
+                    .Where(gp => gp.GameId == id)
                     .Include(gp => gp.Game)
                         .ThenInclude(g => g.Images)
                     .Include(gp => gp.Platform)
-                    .GroupBy(gp => gp.Game)
                     .ToList()
+                    .GroupBy(gp => gp.GameId)
                     .Select(group => GamesPricesGroupMapper.GamePricesToFullGameDTO(group))
                     .FirstOrDefault();
         }

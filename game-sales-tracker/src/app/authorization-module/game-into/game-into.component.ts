@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IGame } from '../../game-module/interfaces/game';
+import { Component, Input } from "@angular/core";
+import { IGame } from "../../game-module/interfaces/IGame";
 import {
   animate,
   state,
@@ -7,6 +7,7 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
+import { CurrencySymbol } from "src/app/game-module/interfaces/IPlatformGamePrice";
 
 @Component({
   selector: "app-game-into",
@@ -17,16 +18,15 @@ import {
       state(
         "initial",
         style({
-          padding: "10px",
-          height: "30%",
+          height: "35%",
         })
       ),
       state(
         "hover",
         style({
-          padding: '40px 10px',
-          height: '100%',
-          cursor: 'pointer',
+          padding: "40px 10px",
+          height: "100%",
+          cursor: "pointer",
         })
       ),
       transition("* => *", animate("0.5s ease-in-out")),
@@ -41,19 +41,23 @@ import {
       state(
         "hover",
         style({
-          opacity: '1',
-          cursor: 'pointer',
+          opacity: "1",
+          cursor: "pointer",
         })
       ),
       transition("initial <=> hover", animate("1s")),
     ]),
   ],
 })
-export class GameIntoComponent implements OnInit {
+export class GameIntoComponent {
   @Input() game: IGame;
   blockOnHover = false;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  getConvertedPrice(game: IGame): string {
+    return `${(game.BestPrice / 100).toFixed(2)} ${
+      CurrencySymbol[game.CurrencyId]
+    }`;
+  }
 }

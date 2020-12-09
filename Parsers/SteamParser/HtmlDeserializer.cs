@@ -1,5 +1,4 @@
-﻿using AngleSharp.Html.Dom;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using Parsers.Core.Models;
 using Parsers.Infrastructure;
@@ -25,7 +24,10 @@ namespace SteamParser
             string htmlString = jToken.ToString();
             document.LoadHtml(htmlString);
             HtmlNodeCollection nodesCollection = document.DocumentNode.SelectNodes("//a");
-
+            if(nodesCollection == null)
+            {
+                return new List<GameEntry>();
+            }
             List<GameEntry> games = new List<GameEntry>();
             foreach (var node in nodesCollection)
                 games.Add(_MapEntry(node));
@@ -64,15 +66,20 @@ namespace SteamParser
             int discountedPrice = 0;
             IEnumerable<string> pictureURLs = null;
 
-            platformSpecificId = htmlNode.Attributes["data-ds-appid"]?.Value ?? htmlNode.Attributes["data-ds-packageid"]?.Value ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
-            gameLinkPostfix = $"app/{platformSpecificId}/";
+            platformSpecificId = htmlNode.Attributes["data-ds-appid"]?.Value 
+                ?? htmlNode.Attributes["data-ds-packageid"]?.Value 
+                ?? htmlNode.Attributes["data-ds-bundleid"]?.Value;
 
             HtmlNode imageNode = htmlNode.ChildNodes[1].ChildNodes[0];
-            pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ");
+            pictureURLs = imageNode.Attributes["srcset"].Value.Split(", ").Select(p => p.Substring(0,p.IndexOf("jpg") + 3));
+            string thumbnailURL = pictureURLs.ElementAt(1);
 
             HtmlNode gameNode = htmlNode.ChildNodes[3];
             name = gameNode.ChildNodes[1].ChildNodes[1].InnerHtml;
-            review = gameNode.ChildNodes[5].ChildNodes[1].Attributes["data-tooltip-html"].Value.StripHTML();
+
+            if (_TryGetChild(gameNode.ChildNodes[5], 1, out HtmlNode reviews) && reviews != null)
+                review = reviews.Attributes["data-tooltip-html"]?.Value.StripHTML();
+
             discountedPrice = int.Parse(gameNode.ChildNodes[7].Attributes["data-price-final"].Value);
 
             if (_TryGetChild(gameNode.ChildNodes[7].ChildNodes[3], 1, out HtmlNode fullPriceNode) && fullPriceNode != null)
@@ -90,11 +97,11 @@ namespace SteamParser
             {
                 Name = name,
                 DiscountedPrice = discountedPrice,
-                GameLinkPostfix = gameLinkPostfix,
                 Review = review,
                 BasePrice = basePrice,
                 PlatformSpecificId = platformSpecificId,
-                PictureURLs = pictureURLs
+                PictureURLs = pictureURLs,
+                ThumbnailURL = thumbnailURL
             };
         }
 

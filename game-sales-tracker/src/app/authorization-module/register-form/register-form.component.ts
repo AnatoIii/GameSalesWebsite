@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "../../services/auth.service";
-import { passwordsMatch } from "../../validators/password-match.validator";
-import { PasswordValidate } from "../../validators/password.validator";
+import { AuthService } from "../services/auth.service";
+import { passwordsMatch } from "../services/validators/password-match.validator";
+import { passwordValidate } from "../services/validators/password.validator";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-register-form",
@@ -14,7 +15,8 @@ export class RegisterFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   @ViewChild("form") public registerFormDirective;
@@ -24,6 +26,7 @@ export class RegisterFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createForm();
+    this.titleService.setTitle("GaST — Register");
   }
 
   public createForm(): void {
@@ -31,8 +34,16 @@ export class RegisterFormComponent implements OnInit {
       {
         firstName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
         lastName: ["", [Validators.minLength(3), Validators.maxLength(30)]],
+        username: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(20),
+          ],
+        ],
         email: ["", [Validators.required, Validators.email]],
-        password: ["", [PasswordValidate]],
+        password: ["", [passwordValidate]],
         confirmPass: ["", [Validators.required]],
       },
       { validator: passwordsMatch("password", "confirmPass") }
