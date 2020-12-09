@@ -18,8 +18,14 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore ./backend/GameSalesApi/
+      run: |
+        dotnet restore ./backend/GameSalesApi/
+        dotnet restore ./backend/GamesServices/
+        dotnet restore ./backend/Parsers/
     - name: Build
-      run: dotnet build -c Release --no-restore ./backend/GameSalesApi/
+      run: |
+        dotnet build -c Release --no-restore ./backend/GameSalesApi/
+        dotnet build -c Release --no-restore ./backend/GamesServices/
+        dotnet build -c Release --no-restore ./backend/Parsers/
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore -v normal ./backend/GameSalesApi/
