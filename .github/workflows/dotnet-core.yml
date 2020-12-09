@@ -7,7 +7,7 @@ on:
     branches: [ dev ]
 
 jobs:
-  build:
+  gated_build:
 
     runs-on: ubuntu-latest
 
