@@ -44,7 +44,7 @@ namespace GamesServicesTestsInfrastructure
 
                     try
                     {
-                        Utilities.ReinitializeDbForTests(db);
+                        Utilities.InitializeDbForTests(db);
                     }
                     catch (Exception ex)
                     {
