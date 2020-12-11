@@ -41,6 +41,8 @@ namespace GameServicesSearchBDDTests
             var gamesResponse = JObject.Parse(stringResponse)["games"].Select(j => j.ToObject<GameDTO>()).ToList();
 
             // responce has 1 game with target name
+
+            httpResponse.StatusCode.Should().BeNull();
             httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             gamesResponse.Should().NotBeEmpty()
                 .And.HaveCount(1);
