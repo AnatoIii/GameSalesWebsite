@@ -23,9 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1D3134A3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesServicesIntegrationTests", "GamesServicesIntegrationTests\GamesServicesIntegrationTests.csproj", "{E5A5EA67-75B6-4DF1-8D10-A57CB4A8210B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServicesSearchBDDTests", "GameServicesSearchBDDTests\GameServicesSearchBDDTests.csproj", "{CB4CD2FB-9ADF-4AF3-962C-6FCE5EE9AFA8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesServicesTestsInfrastructure", "GamesServicesTestsInfrastructure\GamesServicesTestsInfrastructure.csproj", "{50A59530-D786-4C62-8135-9656955F59BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesServicesTestsInfrastructure", "GamesServicesTestsInfrastructure\GamesServicesTestsInfrastructure.csproj", "{50A59530-D786-4C62-8135-9656955F59BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +67,6 @@ Global
 		{E5A5EA67-75B6-4DF1-8D10-A57CB4A8210B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5A5EA67-75B6-4DF1-8D10-A57CB4A8210B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5A5EA67-75B6-4DF1-8D10-A57CB4A8210B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB4CD2FB-9ADF-4AF3-962C-6FCE5EE9AFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB4CD2FB-9ADF-4AF3-962C-6FCE5EE9AFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB4CD2FB-9ADF-4AF3-962C-6FCE5EE9AFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB4CD2FB-9ADF-4AF3-962C-6FCE5EE9AFA8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50A59530-D786-4C62-8135-9656955F59BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50A59530-D786-4C62-8135-9656955F59BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A59530-D786-4C62-8135-9656955F59BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -84,7 +78,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B924A597-E202-4D54-B999-DDCCA77469C5} = {1D3134A3-5A24-4416-92C6-DCC5C640688C}
 		{E5A5EA67-75B6-4DF1-8D10-A57CB4A8210B} = {1D3134A3-5A24-4416-92C6-DCC5C640688C}
-		{CB4CD2FB-9ADF-4AF3-962C-6FCE5EE9AFA8} = {1D3134A3-5A24-4416-92C6-DCC5C640688C}
 		{50A59530-D786-4C62-8135-9656955F59BE} = {1D3134A3-5A24-4416-92C6-DCC5C640688C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

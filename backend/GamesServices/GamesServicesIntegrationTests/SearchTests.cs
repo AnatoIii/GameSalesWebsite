@@ -10,11 +10,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GameServicesSearchBDDTests
+namespace GamesServicesIntegrationTests
 {
-    /// <summary>
-    /// Imagine that the user is logged in and is on the search page
-    /// </summary>
     public class SearchTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private HttpClient _client;
@@ -25,7 +22,7 @@ namespace GameServicesSearchBDDTests
         }
 
         [Fact]
-        [Trait("Category", "BDDTests")]
+        [Trait("Category", "IntegrationTests")]
         [Trait("Category", "SearchTests")]
         [Trait("Category", "NameFilter")]
         public async Task GetGameByName_When_GameExists_Then_SomeData()
@@ -45,12 +42,10 @@ namespace GameServicesSearchBDDTests
             gamesResponse.Should().NotBeEmpty()
                 .And.HaveCount(1);
             gamesResponse.All(game => game.Name.ToLower().Contains(gamePredicate.ToLower())).Should().BeTrue();
-
-            // on this step on front we will refresh grid and show found game
         }
 
         [Fact]
-        [Trait("Category", "BDDTests")]
+        [Trait("Category", "IntegrationTests")]
         [Trait("Category", "SearchTests")]
         [Trait("Category", "NameFilter")]
         public async Task GetGameByName_When_GameNoExists_Then_NoData()
@@ -68,12 +63,10 @@ namespace GameServicesSearchBDDTests
             // responce is empty
             httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             gamesResponse.Should().BeEmpty();
-
-            // on this step on front we will give a message
         }
 
         [Fact]
-        [Trait("Category", "BDDTests")]
+        [Trait("Category", "IntegrationTests")]
         [Trait("Category", "SearchTests")]
         [Trait("Category", "PlatformFilter")]
         public async Task GetGamesByPlatform_When_PlatformExists_And_GamesExist_Then_SomeData()
@@ -93,8 +86,6 @@ namespace GameServicesSearchBDDTests
             gamesResponse.Should().NotBeEmpty()
                 .And.HaveCount(2); 
             gamesResponse.All(game => game.Platforms.Select(p => p.Id).Contains(platformPredicate)).Should().BeTrue();
-
-            // on this step on front we will refresh grid and show found games
         }
 
         [Fact]
@@ -118,8 +109,6 @@ namespace GameServicesSearchBDDTests
             gamesResponse.Should().NotBeEmpty()
                 .And.HaveCount(4);
             gamesResponse.All(game => game.Platforms.Any(platform => platformsArray.Contains(platform.Id))).Should().BeTrue();
-
-            // on this step on front we will refresh grid and show found games
         }
 
         [Fact]
@@ -141,8 +130,6 @@ namespace GameServicesSearchBDDTests
             // responce has 2 game with target name
             httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             gamesResponse.Should().BeEmpty();
-
-            // on this step on front we will give a message
         }
 
         [Theory]
@@ -166,67 +153,69 @@ namespace GameServicesSearchBDDTests
 
             // check ascending order by test data
             gamesResponse.Select(gR => gR.Name).Should().ContainInOrder(expectedGamesOrdering);
-
-            // on this step on front we will refresh grid and show found games
         }
 
-        public static IEnumerable<object[]> PriceFilterData =>
-            new List<object[]>
-            {
-                // GetGamesByBasePrice_When_GamesExist_Then_SortedDataByBasePriceInAscendingOrder
-                new object[] { "basePrice", "true", new List<string>()
+        public static IEnumerable<object[]> PriceFilterData()
+        {
+            // GetGamesByBasePrice_When_GamesExist_Then_SortedDataByBasePriceInAscendingOrder
+            yield return new object[] { "basePrice", "true", new List<string>()
                 {
                     "TestGame1",
                     "TestGame2",
                     "TestGame4",
                     "TestGame5",
                     "TestGame3"
-                }},
-                // GetGamesByBasePriceWithDescendingOrder_When_GamesExist_Then_SortedDataByBasePriceInDescendingOrder
-                new object[] { "basePrice", "false", new List<string>()
+                }};
+
+            // GetGamesByBasePriceWithDescendingOrder_When_GamesExist_Then_SortedDataByBasePriceInDescendingOrder
+            yield return new object[] { "basePrice", "false", new List<string>()
                 {
                     "TestGame3",
                     "TestGame5",
                     "TestGame1",
                     "TestGame4",
                     "TestGame2"
-                }},
-                // GetGamesByDiscountedPrice_When_GamesExist_Then_SortedDataByDiscountedPriceInAscendingOrder
-                new object[] { "discountedPrice", "true", new List<string>()
+                }};
+
+            // GetGamesByDiscountedPrice_When_GamesExist_Then_SortedDataByDiscountedPriceInAscendingOrder
+            yield return new object[] { "discountedPrice", "true", new List<string>()
                 {
                     "TestGame1",
                     "TestGame3",
                     "TestGame4",
                     "TestGame5",
                     "TestGame2"
-                }},
-                // GetGamesByDiscountedPriceWithDescendingOrder_When_GamesExist_Then_SortedDataByDiscountedPriceInDescendingOrder
-                new object[] { "discountedPrice", "false", new List<string>()
+                }};
+
+            // GetGamesByDiscountedPriceWithDescendingOrder_When_GamesExist_Then_SortedDataByDiscountedPriceInDescendingOrder
+            yield return new object[] { "discountedPrice", "false", new List<string>()
                 {
                     "TestGame2",
                     "TestGame5",
                     "TestGame4",
                     "TestGame3",
                     "TestGame1"
-                }},
-                // GetGamesByDiscount_When_GamesExist_Then_SortedDataByDiscountInAscendingOrder
-                new object[] { "discount", "true", new List<string>()
+                }};
+
+            // GetGamesByDiscount_When_GamesExist_Then_SortedDataByDiscountInAscendingOrder
+            yield return new object[] { "discount", "true", new List<string>()
                 {
                     "TestGame2",
                     "TestGame4",
                     "TestGame5",
                     "TestGame1",
                     "TestGame3"
-                }},
-                // GetGamesByDiscountWithDescendingOrder_When_GamesExist_Then_SortedDataByDiscountInDescendingOrder
-                new object[] { "discount", "false", new List<string>()
+                }};
+
+            // GetGamesByDiscountWithDescendingOrder_When_GamesExist_Then_SortedDataByDiscountInDescendingOrder
+            yield return new object[] { "discount", "false", new List<string>()
                 {
                     "TestGame3",
                     "TestGame1",
                     "TestGame4",
                     "TestGame5",
                     "TestGame2"
-                }}
-            };
+                }};
+        }
     }
 }

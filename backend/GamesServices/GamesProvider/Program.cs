@@ -21,7 +21,7 @@ namespace GamesProvider
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                    .UseUrls("http://*:80")
+                    .UseUrls("http://*:6080")
                     .UseStartup<Startup>();
                 });
     }

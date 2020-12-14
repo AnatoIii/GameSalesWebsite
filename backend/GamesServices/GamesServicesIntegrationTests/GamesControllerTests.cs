@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GamesServicesIntegrationTests.Controllers
+namespace GamesServicesIntegrationTests
 {
     public class GamesControllerTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
