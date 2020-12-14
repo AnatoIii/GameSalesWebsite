@@ -35,7 +35,6 @@ jobs:
     - name: Test GamesServices
       run: |
         dotnet test --no-restore -v m ./backend/GamesServices/GamesServicesTests/
-        dotnet test --no-restore -v m ./backend/GamesServices/GameServicesSearchBDDTests/
         dotnet test --no-restore -v m ./backend/GamesServices/GamesServicesIntegrationTests/
         
     - name: Build Parsers
