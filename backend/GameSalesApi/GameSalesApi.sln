@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationBlocksTest", "Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{5276D537-053D-4ED9-90EE-BF8BE2B7DC7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameSalesApiTests", "GameSalesApiTests\GameSalesApiTests.csproj", "{68DDDE1E-AADB-42D8-8DDD-D4B08BFCDC77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSalesApiTests", "GameSalesApiTests\GameSalesApiTests.csproj", "{68DDDE1E-AADB-42D8-8DDD-D4B08BFCDC77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsInfrastructure", "TestsInfrastructure\TestsInfrastructure.csproj", "{FC28CA27-CA82-472B-94A2-5992833EDC4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsInfrastructure", "TestsInfrastructure\TestsInfrastructure.csproj", "{FC28CA27-CA82-472B-94A2-5992833EDC4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginBDD", "LoginBDD\LoginBDD.csproj", "{B5C4E379-0DBB-4D50-9093-B4EE7448359D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{FC28CA27-CA82-472B-94A2-5992833EDC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC28CA27-CA82-472B-94A2-5992833EDC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC28CA27-CA82-472B-94A2-5992833EDC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C4E379-0DBB-4D50-9093-B4EE7448359D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C4E379-0DBB-4D50-9093-B4EE7448359D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C4E379-0DBB-4D50-9093-B4EE7448359D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C4E379-0DBB-4D50-9093-B4EE7448359D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{5276D537-053D-4ED9-90EE-BF8BE2B7DC7D} = {71EF14C3-E3E1-4356-AA97-695F1CAFE6B8}
 		{68DDDE1E-AADB-42D8-8DDD-D4B08BFCDC77} = {71EF14C3-E3E1-4356-AA97-695F1CAFE6B8}
 		{FC28CA27-CA82-472B-94A2-5992833EDC4E} = {71EF14C3-E3E1-4356-AA97-695F1CAFE6B8}
+		{B5C4E379-0DBB-4D50-9093-B4EE7448359D} = {71EF14C3-E3E1-4356-AA97-695F1CAFE6B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCF894B9-10AB-4320-848D-8B0049AD5A0D}

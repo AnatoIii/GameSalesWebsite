@@ -18,6 +18,7 @@
                     placeholder="Your email"
                     required
                     type="text"
+                    id="loginEmail"
                 >
                 <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
                     Email is required
@@ -32,6 +33,7 @@
                     matInput
                     placeholder="Your password"
                     required
+                    id="loginPassword"
                 >
                 <i
                     [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'"
@@ -48,6 +50,7 @@
                 <button
                     [disabled]="loginForm.invalid"
                     type="submit"
+                    id="loginSubmit"
                 >Login
                 </button>
             </div>
@@ -56,6 +59,7 @@
                 <button
                     routerLink="/register"
                     type="button"
+                    id="registerButton"
                 >Register
                 </button>
             </div>

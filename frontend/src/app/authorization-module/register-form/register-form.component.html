@@ -18,6 +18,7 @@
                     placeholder="Your email"
                     required
                     type="text"
+                    id="emailInput"
                 >
                 <mat-error *ngIf="registerForm.controls.email.hasError('required')">
                     Email is required
@@ -35,6 +36,7 @@
                     placeholder="Your username"
                     required
                     type="text"
+                    id="userNameInput"
                 >
                 <mat-error *ngIf="registerForm.controls.username.hasError('required')">
                     Username is required
@@ -55,6 +57,7 @@
                     placeholder="First name"
                     required
                     type="text"
+                    id="firstNameInput"
                 >
                 <mat-error *ngIf="registerForm.controls.firstName.hasError('minlength')">
                     First name must be at least 3 characters long
@@ -72,6 +75,7 @@
                     placeholder="Last name"
                     required
                     type="text"
+                    id="lastNameInput"
                 >
                 <mat-error *ngIf="registerForm.controls.lastName.hasError('minlength')">
                     Last name must be at least 3 characters long
@@ -89,6 +93,7 @@
                     matInput
                     placeholder="Your password"
                     required
+                    id="passwordInput"
                 >
                 <i
                     [class]="hidePass ? 'fas fa-eye-slash' : 'fas fa-eye'"
@@ -104,7 +109,7 @@
                 <mat-error *ngIf="registerForm.controls.password.hasError('maxlength')">
                     Password cannot be more than 15 characters long
                 </mat-error>
-                <mat-error
+                <mat-error id="passErrorUpperLowerCasesDigit"
                     *ngIf="registerForm.controls.password.hasError('capitalCase') ||
                            registerForm.controls.password.hasError('lowerCase') ||
                            registerForm.controls.password.hasError('numbers')"
@@ -121,6 +126,7 @@
                     matInput
                     placeholder="Your password"
                     required
+                    id="passwordConfirmInput"
                 >
                 <i
                     [class]="hideConfirmPass ? 'fas fa-eye-slash' : 'fas fa-eye'"
@@ -139,6 +145,7 @@
                 <button
                     [disabled]="registerForm.invalid"
                     type="submit"
+                    id="registerSubmit"
                 >Register
                 </button>
             </div>
@@ -147,6 +154,7 @@
                 <button
                     routerLink="/login"
                     type="button"
+                    id="loginButtonClick"
                 >Login
                 </button>
             </div>
